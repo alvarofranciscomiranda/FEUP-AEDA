@@ -29,6 +29,13 @@ void mainMenu(Company &company);
  */
 void ClearScreen();
 
+
+/**
+ * @brief Sub-menu from main menu that allows user to choose actions relating to the search of a determinate pharmacy.
+ * @param company
+ */
+void searchMenu(Company &company);
+
 /**
  * @brief Tests cin.fail.
  * @tparam template class T

@@ -1,10 +1,7 @@
-//
-// Created by Maria João Senra Viana on 29/10/2018.
-//
-
 #ifndef UNTITLED_PHARMACY_H
 #define UNTITLED_PHARMACY_H
 
+#include "People.h"
 #include <vector>
 #include <string>
 #include <math.h>
@@ -13,8 +10,8 @@ using namespace std;
 class Pharmacy {
 protected:
     string name, address, manager;
-    vector<string> employees;
-    vector<string> clients;
+    vector<Employee> employees;
+    vector<Client> clients;
 public:
     /**
      * @brief Constructor for class Pharmacy.
@@ -27,7 +24,7 @@ public:
     /**
     * @brief Alternative constructor for class Beach.
     */
-    Pharmacy(){};
+    Pharmacy(string pharmacy);
 
     /**
      * @return name
@@ -48,12 +45,12 @@ public:
      *
      * @return vector of Pharmacy employees
      */
-    vector<string> getEmployees() const;
+    vector<Employee> getEmployees() const;
 
     /**
      * @return vector of Pharmacy clients
      */
-    vector<string> getClients() const;
+    vector<Client> getClients() const;
 
     /**
      * @brief Changes name.
@@ -73,10 +70,24 @@ public:
      */
     void setManager(string manager);
 
+    /**
+     * @brief Changes employees.
+     * @param employees
+     */
+    void setEmployees(vector<string> &employees);
+
+    /**
+     * @brief Changes clients.
+     * @param clients
+     */
+    void setClients(vector<string> &clients);
+
+    /**
+     * @brief Displays all information about the pharmacy.
+     */
     void displayPharmacy();
 
 
 };
-
 
 #endif //UNTITLED_PHARMACY_H
