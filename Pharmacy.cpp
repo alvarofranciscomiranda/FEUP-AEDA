@@ -1,14 +1,10 @@
-//
-// Created by Maria João Senra Viana on 29/10/2018.
-//
-
 #include "Pharmacy.h"
 #include <iomanip>
 #include <vector>
 #include <fstream>
 #include <iostream>
 
-Pharmacy::Pharmacy(string &name, string &address, string &manager):name(name), address(address), manager(manager)
+Pharmacy::Pharmacy(string name, string address, string manager):name(name), address(address), manager(manager)
 {
 }
 
@@ -24,11 +20,11 @@ string Pharmacy::getManager()const {
     return manager;
 }
 
-vector<string> Pharmacy::getEmployees()const{
+vector<Employee*> Pharmacy::getEmployees()const{
     return employees;
 }
 
-vector<string> Pharmacy::getClients()const{
+vector<Client*> Pharmacy::getClients()const{
     return clients;
 }
 
@@ -44,11 +40,11 @@ void Pharmacy::setManager(string manager){
     this->manager = manager;
 }
 
-void Pharmacy::setEmployees(vector<string> &employees){
+void Pharmacy::setEmployees(vector<Employee*> &employees){
     this->employees = employees;
 }
 
-void Pharmacy::setClients(vector<string> &clients){
+void Pharmacy::setClients(vector<Client*> &clients){
     this->clients = clients;
 }
 void Pharmacy::displayPharmacy(){
@@ -58,9 +54,9 @@ void Pharmacy::displayPharmacy(){
     cout << "Employees: ";
     for( int i = 0; i < employees.size(); i++){
         if(i == employees.size()-1) {
-            cout << employees[i];
+            cout << employees[i]->getName();
         } else {
-            cout << employees[i] << ", ";
+            cout << employees[i]->getName() << ", ";
         }
     }
     cout << endl;
@@ -68,9 +64,9 @@ void Pharmacy::displayPharmacy(){
     cout << "Clients: ";
     for( int i = 0; i < clients.size(); i++){
         if(i == clients.size()-1) {
-            cout << clients[i];
+            cout << clients[i]->getName();
         } else {
-            cout << clients[i] << ", ";
+            cout << clients[i]->getName() << ", ";
         }
     }
     cout << endl << endl;
@@ -103,7 +99,7 @@ Pharmacy::Pharmacy(string pharmacy){
 
     while(stop!=string::npos && !employees.empty()){
         st = employees.find_first_of(',');
-        this->employees.push_back(employees.substr(0,st));
+        this->employees.push_back(new Employee(employees.substr(0,st),"", "", 0, this->name, ""));
         if(st==string::npos)
             break;
         employees = employees.substr(st+2);

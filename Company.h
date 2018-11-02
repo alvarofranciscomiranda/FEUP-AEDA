@@ -61,6 +61,11 @@ public:
     * @return
     */
     bool orderByName(Pharmacy *s1, Pharmacy *s2);
+    bool orderByNameAddress(Pharmacy *p1, Pharmacy *p2);
+    bool orderByNameEmployee(Employee *p1, Employee *p2);
+    bool orderByNameManager(Pharmacy *p1, Pharmacy *p2);
+    bool orderByNameClient(Client *p1, Client *p2);
+
 
 
 #endif //UNTITLED_COMPANY_H

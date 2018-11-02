@@ -86,7 +86,7 @@ void ClearScreen() {
 void searchMenu(Company &company){
     int option;
 
-    cout << string(100,'\n');
+   // cout << string(100,'\n');
     cout << " SEARCH PHARMACY" << setw(37) << setfill(' ') << " " << endl;
     cout << setfill('-') << setw(47)<<"-"<<endl;
     cout << "1. Search by name" << endl;
@@ -121,7 +121,7 @@ void searchMenu(Company &company){
             company.searchEmployees();
             break;
         case 5:
-            company.searchClients();
+           // company.searchClients();
             break;
     }
 

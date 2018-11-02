@@ -10,8 +10,8 @@ using namespace std;
 class Pharmacy {
 protected:
     string name, address, manager;
-    vector<Employee> employees;
-    vector<Client> clients;
+    vector<Employee*> employees;
+    vector<Client*> clients;
 public:
     /**
      * @brief Constructor for class Pharmacy.
@@ -19,7 +19,7 @@ public:
      * @param address
      * @param manager
      */
-    Pharmacy(string &name, string &address, string &manager);
+    Pharmacy(string name, string address, string manager);
 
     /**
     * @brief Alternative constructor for class Beach.
@@ -45,12 +45,12 @@ public:
      *
      * @return vector of Pharmacy employees
      */
-    vector<Employee> getEmployees() const;
+    vector<Employee*> getEmployees() const;
 
     /**
      * @return vector of Pharmacy clients
      */
-    vector<Client> getClients() const;
+    vector<Client*> getClients() const;
 
     /**
      * @brief Changes name.
@@ -74,13 +74,13 @@ public:
      * @brief Changes employees.
      * @param employees
      */
-    void setEmployees(vector<string> &employees);
+    void setEmployees(vector<Employee*> &employees);
 
     /**
      * @brief Changes clients.
      * @param clients
      */
-    void setClients(vector<string> &clients);
+    void setClients(vector<Client*> &clients);
 
     /**
      * @brief Displays all information about the pharmacy.

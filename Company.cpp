@@ -1,7 +1,3 @@
-//
-// Created by Maria João Senra Viana on 29/10/2018.
-//
-
 #include "Company.h"
 #include "Interfaces.h"
 #include <algorithm>
@@ -85,7 +81,7 @@ void Company::searchAddress() {
 
     ClearScreen();
 
-    sort(pharmacies.begin(),pharmacies.end(), orderByName);
+    sort(pharmacies.begin(),pharmacies.end(), orderByNameAddress);
 
     cout << "Insert the address of the pharmacy you wish to search for" << endl << ":::";
     cin.ignore(1000, '\n');
@@ -117,7 +113,7 @@ void Company::searchManager() {
 
     ClearScreen();
 
-    sort(pharmacies.begin(),pharmacies.end(), orderByName);
+    sort(pharmacies.begin(),pharmacies.end(), orderByNameManager);
 
     cout << "Insert the manager of the pharmacy you wish to search for" << endl << ":::";
     cin.ignore(1000, '\n');
@@ -142,6 +138,7 @@ void Company::searchManager() {
     returnMainMenu();
 }
 
+//n funciona
 void Company::searchEmployees() {
 
     string employee;
@@ -149,7 +146,7 @@ void Company::searchEmployees() {
 
     ClearScreen();
 
-    sort(pharmacies.begin(),pharmacies.end(), orderByName);
+
 
     cout << "Insert the employee of the pharmacy you wish to search for" << endl << ":::";
     cin.ignore(1000, '\n');
@@ -157,15 +154,14 @@ void Company::searchEmployees() {
 
     ClearScreen();
 
-
-
     for(int i = 0; i < pharmacies.size(); i++){
+        sort(pharmacies.at(i)->getEmployees().begin(),pharmacies.at(i)->getEmployees().end(), orderByNameEmployee);
         int left = 0, right = pharmacies.at(i)->getEmployees().size() - 1;
      while (left <= right) {
         int middle = (left + right) / 2;
-        if (pharmacies.at(i)->getEmployees().at(middle) < employee)
+        if (pharmacies.at(i)->getEmployees().at(middle)->getName() < employee)
             left = middle + 1;
-        else if (employee < pharmacies.at(i)->getEmployees().at(middle))
+        else if (employee < pharmacies.at(i)->getEmployees().at(middle)->getName())
             right = middle - 1;
         else {
             pharmacies.at(i)->displayPharmacy();
@@ -177,6 +173,7 @@ void Company::searchEmployees() {
     returnMainMenu();
 }
 
+//n funciona
 void Company::searchClients() {
 
     string client;
@@ -184,7 +181,7 @@ void Company::searchClients() {
 
     ClearScreen();
 
-    sort(pharmacies.begin(),pharmacies.end(), orderByName);
+   // sort(pharmacies.begin(),pharmacies.end(), orderByNameClient);
 
     cout << "Insert the employee of the pharmacy you wish to search for" << endl << ":::";
     cin.ignore(1000, '\n');
@@ -196,9 +193,9 @@ void Company::searchClients() {
         int left = 0, right = pharmacies.at(i)->getClients().size() - 1;
         while (left <= right) {
             int middle = (left + right) / 2;
-            if (pharmacies.at(i)->getClients().at(middle) < client)
+            if (pharmacies.at(i)->getClients().at(middle)->getName() < client)
                 left = middle + 1;
-            else if (client < pharmacies.at(i)->getClients().at(middle))
+            else if (client < pharmacies.at(i)->getClients().at(middle)->getName())
                 right = middle - 1;
             else {
                 pharmacies.at(i)->displayPharmacy();
@@ -210,8 +207,35 @@ void Company::searchClients() {
     returnMainMenu();
 }
 
+
 bool orderByName(Pharmacy *p1, Pharmacy *p2){
 
     if(p1->getName() < p2->getName()) return true;
     else if(p1->getName() > p2->getName()) return false;
 }
+
+ bool orderByNameManager(Pharmacy *p1, Pharmacy *p2){
+
+     if(p1->getManager() < p2->getManager()) return true;
+     else if(p1->getManager() > p2->getManager()) return false;
+ }
+
+bool orderByNameAddress(Pharmacy *p1, Pharmacy *p2){
+
+    if(p1->getAddress() < p2->getAddress()) return true;
+    else if(p1->getAddress() > p2->getAddress()) return false;
+}
+
+bool orderByNameEmployee(Employee *p1, Employee *p2){
+
+    if(p1->getName() < p2->getName()) return true;
+    else if(p1->getName() > p2->getName()) return false;
+}
+
+/*
+bool orderByNameClient(Client *p1, Client *p2){
+
+    if(p1->getName() < p2->getName()) return true;
+    else if(p1->getName() > p2->getName()) return false;
+}
+ */
