@@ -83,6 +83,18 @@ public:
     void setClients(vector<Client*> &clients);
 
     /**
+    * @brief Adds employee to the vector.
+    * @param employee
+    */
+    void addEmployee(Employee *employee);
+
+    /**
+    * @brief Adds Client to the vector.
+    * @param client
+    */
+    void addClient(Client *client);
+
+    /**
      * @brief Displays all information about the pharmacy.
      */
     void displayPharmacy();

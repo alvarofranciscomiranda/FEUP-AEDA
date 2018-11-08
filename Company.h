@@ -52,6 +52,18 @@ public:
      * @brief Search pharmacy by client and displays its information.
      */
     void searchClients();
+
+    /**
+    * @brief Verifies if pharmacy with certain name exist.
+    * @param name
+    * @return pos of beach in Pharmacies' vector if pharmacy with name exists, -1 otherwise
+    */
+    int pharmacyExists(string name);
+
+    /**
+    * @brief Adds pharmacy to Pharmacies' vector with user's input information.
+    */
+    void addPharmacy();
 };
 
     /**

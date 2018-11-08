@@ -37,6 +37,12 @@ void ClearScreen();
 void searchMenu(Company &company);
 
 /**
+ * @brief Sub-menu from main menu that allows user to choose actions relating altering informarion about a pharmacy, adding or removing pharmacies.
+ * @param company
+ */
+void AddAlterRemoveMenu(Company &company);
+
+/**
  * @brief Tests cin.fail.
  * @tparam template class T
  * @param value

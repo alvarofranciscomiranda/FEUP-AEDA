@@ -47,6 +47,15 @@ void Pharmacy::setEmployees(vector<Employee*> &employees){
 void Pharmacy::setClients(vector<Client*> &clients){
     this->clients = clients;
 }
+
+void Pharmacy::addEmployee(Employee *employee){
+    this->employees.push_back(employee);
+}
+
+void Pharmacy::addClient(Client *client){
+    this->clients.push_back(client);
+}
+
 void Pharmacy::displayPharmacy(){
     cout << "Name: " << name << endl;
     cout << "Address: " << address << endl;
@@ -107,5 +116,17 @@ Pharmacy::Pharmacy(string pharmacy){
     }
 
     //clients
+    pharmacy = pharmacy.substr(last+2);
+    last = pharmacy.find(';');
+    clients = pharmacy.substr(0,last);
+
+    while(stop!=string::npos && !employees.empty()){
+        st = clients.find_first_of(',');
+        this->clients.push_back(new Client(clients.substr(0,st),"", ""));
+        if(st==string::npos)
+            break;
+        clients = clients.substr(st+2);
+        stop = st;
+    }
 
 }

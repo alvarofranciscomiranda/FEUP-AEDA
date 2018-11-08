@@ -67,7 +67,7 @@ void mainMenu(Company &company) {
             mainMenu(company);
             break;
         case 4:
-           // AddAlterRemoveMenu(company);
+            AddAlterRemoveMenu(company);
             ClearScreen();
             break;
         case 5:
@@ -121,8 +121,83 @@ void searchMenu(Company &company){
             company.searchEmployees();
             break;
         case 5:
-           // company.searchClients();
+           company.searchClients();
             break;
     }
 
+}
+
+void AddAlterRemoveMenu(Company &company){
+
+    int option;
+
+    cout << string(100,'\n');
+    cout << " ALTER PHARMACY FILE" << setw(37) << setfill(' ') << " " << endl;
+    cout << setfill('-') << setw(47)<<"-"<<endl;
+    cout << "1. Add pharmacy" << endl;
+    cout << "2. Alter pharmacy" << endl;
+    cout << "3. Remove pharmacy" << endl;
+    cout << "4. Return to main menu" << endl;
+
+    cout << endl << "Enter a number option: " << endl << "::: ";
+    cin >> option;
+
+    //verifies if input is valid
+    while(cin.fail()||!ValidMenuInput(1, 4, option)) {
+        cin.clear();
+        cin.ignore(1000, '\n');
+        cout << "Please enter a valid option: "<< endl << "::: ";
+        cin >> option;
+    }
+
+    switch(option){
+        case 1:
+            try{company.addPharmacy();}
+            catch(int x){
+                cout << endl << "ERROR: Pharmacy already exists!" << endl;
+            }
+            returnMainMenu();
+            ClearScreen();
+            mainMenu(company);
+            break;
+        case 2:
+           // AlterBeachMenu(company);
+            returnMainMenu();
+            ClearScreen();
+            mainMenu(company);
+            break;
+        case 3:
+           // company.removeBeach();
+            ClearScreen();
+            mainMenu(company);
+            break;
+       /* case 4:
+            //try{company.addService();}
+            //catch(int x){
+            //    cout << endl << "ERROR: Service already exists!" << endl;
+           // }
+            returnMainMenu();
+            ClearScreen();
+            mainMenu(company);
+            break;
+        case 5:
+           // try{company.alterService();}
+           // catch(int x){
+            //    cout << endl << "ERROR: Service already exists!" << endl;
+            //}
+            returnMainMenu();
+            ClearScreen();
+            mainMenu(company);
+            break;
+        case 6:
+            //company.eraseService();
+            ClearScreen();
+            mainMenu(company);
+            break;
+           */
+        case 4:
+            ClearScreen();
+            mainMenu(company);
+            break;
+    }
 }
