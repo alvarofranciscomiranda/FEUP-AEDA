@@ -62,7 +62,7 @@ void mainMenu(Company &company) {
             mainMenu(company);
             break;
         case 3:
-           // compareMenu(company);
+            compareMenu(company);
             ClearScreen();
             mainMenu(company);
             break;
@@ -71,7 +71,7 @@ void mainMenu(Company &company) {
             ClearScreen();
             break;
         case 5:
-            //company.updateFile();
+            company.updateFile();
             ClearScreen();
             mainMenu(company);
             break;
@@ -167,37 +167,32 @@ void AddAlterRemoveMenu(Company &company){
             mainMenu(company);
             break;
         case 3:
-           // company.removeBeach();
+            company.removePharmacy();
             ClearScreen();
             mainMenu(company);
             break;
-       /* case 4:
-            //try{company.addService();}
-            //catch(int x){
-            //    cout << endl << "ERROR: Service already exists!" << endl;
-           // }
-            returnMainMenu();
-            ClearScreen();
-            mainMenu(company);
-            break;
-        case 5:
-           // try{company.alterService();}
-           // catch(int x){
-            //    cout << endl << "ERROR: Service already exists!" << endl;
-            //}
-            returnMainMenu();
-            ClearScreen();
-            mainMenu(company);
-            break;
-        case 6:
-            //company.eraseService();
-            ClearScreen();
-            mainMenu(company);
-            break;
-           */
         case 4:
             ClearScreen();
             mainMenu(company);
             break;
     }
+}
+
+void compareMenu(Company &company){
+
+    string p1, p2;
+
+    int ind1, ind2;
+
+    cout << "Insert the name of the two pharmacies you wish to compare:" << endl << ":::";
+    cin.ignore(1000, '\n');
+    getline(cin, p1);
+    ind1 = company.pharmacyExists(p1);
+    cout << ":::";
+    getline(cin, p2);
+    ind2 = company.pharmacyExists(p2);
+
+    company.comparePharmacies(company.getPharmacies().at(ind1),company.getPharmacies().at(ind2));
+
+    returnMainMenu();
 }

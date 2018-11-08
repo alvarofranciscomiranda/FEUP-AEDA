@@ -266,15 +266,11 @@ void Company::addPharmacy() {
         cin >> salaryE;
         fail(salaryE);
 
-        cout << endl << "Employee's pharmacy: ";
-        cin.ignore(1000, '\n');
-        getline(cin, pharmacyE);
-
         cout << endl << "Employee's post: ";
         cin.ignore(1000, '\n');
         getline(cin, postE);
 
-        pharmacies.at(pharmacies.size() - 1)->addEmployee(new Employee(nameE, addressE, taxNE, salaryE, pharmacyE, postE));
+        pharmacies.at(pharmacies.size() - 1)->addEmployee(new Employee(nameE, addressE, taxNE, salaryE, nameE, postE));
     }
 
     cout << endl << "How many clients would you like to add?: " << endl << "::: ";
@@ -302,13 +298,108 @@ void Company::addPharmacy() {
     cout << string(2, '\n') << "Pharmacy added successfully!" << string(2, '\n');
 }
 
+void Company::removePharmacy() {
+    string name;
+    bool removed = false;
+
+    cout << "Insert pharmacy name: ";
+    cin.ignore(1000, '\n');
+    getline(cin, name);
+
+    for (int i = 0; i < pharmacies.size(); ++i) {
+
+        if (pharmacies.at(i)->getName() == name) {
+
+            pharmacies.erase(pharmacies.begin() + i);
+            cout << endl << name << " pharmacy erased successfully!" << endl;
+            removed = true;
+        }
+    }
+
+    if (!removed) {
+        cout << endl << "ERROR: There is no pharmacy with the given name!" << string(4, '\n');
+    }
+}
+
+void Company::comparePharmacies(Pharmacy *p1, Pharmacy *p2) {
+    unsigned long sizeE, sizeE1, sizeE2, sizeC, sizeC1, sizeC2;
+
+    cout << string(100, '\n') << left;
+    cout << "COMPARE PHARMACIES:" << endl << endl;
+    cout << "|NAME:        | " << setw(25) << p1->getName() << " | " << setw(25) << p2->getName() << " |" << endl;
+    cout << string(69, '-') << endl;
+    cout << "|ADDRESS:     | " << setw(25) << p1->getAddress() << "| " << setw(25) << p2->getAddress() << " |" << endl;
+    cout << string(69, '-') << endl;
+    cout << "|MANAGER:     | " << setw(25) << p1->getManager() << " | " << setw(25) << p2->getManager() << " |" << endl;
+    cout << string(69, '-') << endl;
+    cout << "|EMPLOYEES: | ";
+
+    sizeE1 = p1->getEmployees().size();
+    sizeE2 = p2->getEmployees().size();
+
+    if (sizeE1 > sizeE2)
+        sizeE = sizeE1;
+    else
+        sizeE = sizeE2;
+
+    for (unsigned int i = 0; i < sizeE; i++) {
+        if (i < sizeE1)
+            cout << "|           | " << setw(25) << p1->getEmployees().at(i)->getName() << " | ";
+        else
+            cout << "|           | " << setw(28) << " | " << left;
+        if (i < sizeE2)
+            cout << setw(25) << p2->getEmployees().at(i)->getName() << " | " << endl;
+        else
+            cout << right << setw(28) << " | " << endl << left;
+    }
+
+    cout << string(69, '-') << endl;
+
+    cout << "|CLIENTS: | ";
+
+    sizeC1 = p1->getClients().size();
+    sizeC2 = p2->getClients().size();
+
+    if (sizeC1 > sizeE2)
+        sizeC = sizeC1;
+    else
+        sizeC = sizeC2;
+
+    for (unsigned int i = 0; i < sizeC; i++) {
+        if (i < sizeC1)
+            cout << "|           | " << setw(25) << p1->getClients().at(i)->getName() << " | ";
+        else
+            cout << "|           | " << setw(28) << " | " << left;
+        if (i < sizeC2)
+            cout << setw(25) << p2->getClients().at(i)->getName() << " | " << endl;
+        else
+            cout << right << setw(28) << " | " << endl << left;
+    }
+
+    cout << string(69, '-') << endl << endl;
+
+}
+
+void Company::updateFile() {
+
+    ofstream file;
+    file.open("/Users/mariajoaosenraviana/Desktop/untitled/PharmacyFile.txt");
+
+    sort(pharmacies.begin(),pharmacies.end(),orderByName);
+
+    for (auto &i: pharmacies) {
+        i->writePharmacy(file);
+    }
+
+}
+
 bool orderByName(Pharmacy *p1, Pharmacy *p2){
 
     if(p1->getName() < p2->getName()) return true;
     else if(p1->getName() > p2->getName()) return false;
 }
 
- bool orderByNameManager(Pharmacy *p1, Pharmacy *p2){
+bool orderByNameManager(Pharmacy *p1, Pharmacy *p2){
 
      if(p1->getManager() < p2->getManager()) return true;
      else if(p1->getManager() > p2->getManager()) return false;
@@ -325,7 +416,6 @@ bool orderByNameEmployee(Employee *p1, Employee *p2){
     if(p1->getName() < p2->getName()) return true;
     else if(p1->getName() > p2->getName()) return false;
 }
-
 
 bool orderByNameClient(Client *p1, Client *p2) {
 

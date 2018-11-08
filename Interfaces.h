@@ -43,6 +43,12 @@ void searchMenu(Company &company);
 void AddAlterRemoveMenu(Company &company);
 
 /**
+ * @brief Sub-menu from Main menu that allows user to compare pharmacies.
+ * @param company
+ */
+void compareMenu(Company &company);
+
+/**
  * @brief Tests cin.fail.
  * @tparam template class T
  * @param value

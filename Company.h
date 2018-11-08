@@ -64,8 +64,24 @@ public:
     * @brief Adds pharmacy to Pharmacies' vector with user's input information.
     */
     void addPharmacy();
-};
 
+    /**
+     * @brief Removes pharmacy to Pharmacies' vector with user's input information.
+     */
+    void removePharmacy();
+
+    /**
+    * @brief Displays information about 2 pharmacies side by side.
+    * @param 1st Pharmacy
+    * @param 2nd Pharmacy
+    */
+    void comparePharmacies(Pharmacy *p1, Pharmacy *p2);
+
+    /**
+    * @brief Updates the file containing the information about the pharmacies according to the changes made in the program.
+    */
+    void updateFile();
+};
     /**
     * @brief Sorts pharmacies vector by name's alphabetic order.
     * @param s1

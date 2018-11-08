@@ -130,3 +130,32 @@ Pharmacy::Pharmacy(string pharmacy){
     }
 
 }
+
+void Pharmacy::writePharmacy(ofstream & file) const{
+
+    file << this->getName() << "; ";
+    file << this->getAddress() << "; ";
+    file << this->getManager() << "; ";
+
+    //write employees
+
+    if (!this->getEmployees().empty()) {
+        for (int i = 0; i < this->getEmployees().size(); i++) {
+            if(i == getEmployees().size() -1)
+                file << this->getEmployees()[i]->getName() << "; ";
+            else
+                file << this->getEmployees()[i]->getName() << ", ";
+        }
+    }
+
+    //write clients
+    if (!this->getClients().empty()) {
+        for (int i=0; i < this->getClients().size(); i++) {
+            if(i == this->getClients().size() -1)
+                file << this->getClients()[i]->getName() << "; ";
+            else
+                file << this->getClients()[i]->getName() << ", ";
+        }
+    }
+
+}

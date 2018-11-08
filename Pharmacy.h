@@ -100,6 +100,12 @@ public:
     void displayPharmacy();
 
 
+    /**
+     * @brief Writes information about the pharmacy in .txt file.
+     * @param file
+     */
+    void writePharmacy(ofstream & file) const;
+
 };
 
 #endif //UNTITLED_PHARMACY_H
