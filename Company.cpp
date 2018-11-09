@@ -136,15 +136,11 @@ void Company::searchManager() {
     returnMainMenu();
 }
 
-//n funciona
 void Company::searchEmployees() {
 
     string employee;
-    int option;
 
     ClearScreen();
-
-
 
     cout << "Insert the employee of the pharmacy you wish to search for" << endl << ":::";
     cin.ignore(1000, '\n');
@@ -153,13 +149,14 @@ void Company::searchEmployees() {
     ClearScreen();
 
     for(int i = 0; i < pharmacies.size(); i++){
-        sort(pharmacies.at(i)->getEmployees().begin(),pharmacies.at(i)->getEmployees().end(), orderByNameEmployee);
-        int left = 0, right = pharmacies.at(i)->getEmployees().size() - 1;
+        vector <Employee *> temp=pharmacies.at(i)->getEmployees();
+        sort(temp.begin(),temp.end(), orderByNameEmployee);
+        int left = 0, right = temp.size() - 1;
      while (left <= right) {
         int middle = (left + right) / 2;
-        if (pharmacies.at(i)->getEmployees().at(middle)->getName() < employee)
+        if (temp.at(middle)->getName() < employee)
             left = middle + 1;
-        else if (employee < pharmacies.at(i)->getEmployees().at(middle)->getName())
+        else if (employee < temp.at(middle)->getName())
             right = middle - 1;
         else {
             pharmacies.at(i)->displayPharmacy();
@@ -171,31 +168,27 @@ void Company::searchEmployees() {
     returnMainMenu();
 }
 
-//n funciona
 void Company::searchClients() {
 
     string client;
-    int option;
 
     ClearScreen();
-
-   // sort(pharmacies.begin(),pharmacies.end(), orderByNameClient);
 
     cout << "Insert the employee of the pharmacy you wish to search for" << endl << ":::";
     cin.ignore(1000, '\n');
     getline(cin, client);
 
     ClearScreen();
-           pharmacies.at(0)->getClients()[0]->getName()  ;
-    sort(pharmacies.at(0)->getClients().begin(),pharmacies.at(0)->getClients().end(), orderByNameClient);
+
     for(int i = 0; i < pharmacies.size(); i++){
-         sort(pharmacies.at(i)->getClients().begin(),pharmacies.at(i)->getClients().end(), orderByNameClient);
-        int left = 0, right = pharmacies.at(i)->getClients().size() - 1;
+        vector <Client *> temp=pharmacies.at(i)->getClients();
+        sort(temp.begin(),temp.end(), orderByNameClient);
+        int left = 0, right = temp.size() - 1;
         while (left <= right) {
             int middle = (left + right) / 2;
-            if (pharmacies.at(i)->getClients().at(middle)->getName() < client)
+            if (temp.at(middle)->getName() < client)
                 left = middle + 1;
-            else if (client < pharmacies.at(i)->getClients().at(middle)->getName())
+            else if (client < temp.at(middle)->getName())
                 right = middle - 1;
             else {
                 pharmacies.at(i)->displayPharmacy();

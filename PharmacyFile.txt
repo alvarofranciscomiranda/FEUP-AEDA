@@ -1,4 +1,4 @@
-Farmácia de Tercena; Oeiras; Ricardo Neiva; Maria Tim, Joaquim Almeida, Andre Marafona; Rita Silva, Andre Morais, Sofia Cardoso;
-Farmácia Cardeira; Almada; Tina Vida; Joana Martins, Alberto Sousa, Joaquim Almeida, Tiago Viana; Lourenco Guedes, Otilia Trancoso, Delfim Barros;
-Farmácia Nita; Charneca da Caparica; Luis Campos; Yolanda Martins, Joaquim Almeida, oi; Joao Martins, Vitor Lourenco, Jose Pimenta;
-Farmácia Vaz; Porto; Vitor Paulo; Laurinda Senra, Chico Pintinho; José Pedro, Maria de Jesus, Tanto Mistério;
+Farmácia Cardeira; AV DUQUE DE ÁVILA 32C/D, 1000-141, AVENIDAS NOVAS LISBOA, LISBOA; Tina Vida; Joana Martins, Alberto Sousa, Joaquim Almeida, Tiago Viana; Lourenco Guedes, Otilia Trancoso, Delfim Barros; 
+Farmácia Nita; Estrada Poço Nv 1-C, Charneca de Caparica 2820-427 CHARNECA DA CAPARICA; Luis Campos; Yolanda Martins, Joaquim Almeida, oi; Joao Martins, Vitor Lourenco, Jose Pimenta; 
+Farmácia de Tercena; AV SANTO ANTÓNIO DE TERCENA 50/52, 2730-163, BARCARENA OEIRAS, LISBOA; Ricardo Neiva; Maria Tim, Joaquim Almeida, Andre Marafona; Rita Silva, Andre Morais, Sofia Cardoso;
+pharmacy name; addres pharmacy; manaher name; employee1, employee2, employee3; cleint1, client2;

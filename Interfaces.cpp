@@ -161,7 +161,7 @@ void AddAlterRemoveMenu(Company &company){
             mainMenu(company);
             break;
         case 2:
-           // AlterBeachMenu(company);
+           // AlterPharmacyMenu(company);
             returnMainMenu();
             ClearScreen();
             mainMenu(company);
@@ -175,6 +175,65 @@ void AddAlterRemoveMenu(Company &company){
             ClearScreen();
             mainMenu(company);
             break;
+    }
+}
+
+void AlterPharmacyMenu(Company &company){
+
+    unsigned int displayOption=1;
+    unsigned int option;
+    int i, x;
+    string name;
+
+    cout << "Insert pharmacy name" << endl << ":::";
+    cin.ignore(1000, '\n');
+    getline(cin,name);
+
+    i = company.pharmacyExists(name);
+
+    if(i!=-1) {
+
+        //Display options
+        cout << string(100, '\n');
+        cout << "WHAT INFORMATION DO YOU WISH TO CHANGE?" << setw(37) << setfill(' ') << " " << endl;
+        cout << setfill('-') << setw(47) << "-" << endl;
+        cout << displayOption << ". Name" << endl;
+        cout << ++displayOption << ". Address" << endl;
+        cout << ++displayOption << ". Manager" << endl;
+
+        //Collect input
+        cout << endl << "Enter a number option: "<< endl << ":::";
+        cin >> option;
+
+        //verifies if input is valid
+        while (cin.fail() || !ValidMenuInput(1, 7, option)) {
+            cin.clear();
+            cin.ignore(1000, '\n');
+            cout << "Please enter a valid option: "<< endl << ":::";
+            cin >> option;
+        }
+
+        /*
+        //Alter according if to it's type
+        if(company.getBeaches().at(company.beachExists(name))->getType()=="River"){
+
+            try{company.alterRBeachInfo(option,i);} catch(int x){
+                x = -1;
+                cout << endl << "ERROR: Beach already exists!" << endl;
+            }
+        }else{
+            try{company.alterBBeachInfo(option,i);}catch(int x){
+                x = -1;
+                cout << endl << "ERROR: Beach already exists!" << endl;
+            }
+        }
+*/
+        //If 'if' verifies and function reaches here succeed
+        if(x != -1) cout << "Information altered successfully!" << string(4,'\n');
+
+    } else {
+        cout << "ERROR: Pharmacy with given name doesn't exist." << endl;
+        AddAlterRemoveMenu(company);
     }
 }
 
