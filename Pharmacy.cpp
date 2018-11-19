@@ -108,7 +108,7 @@ Pharmacy::Pharmacy(string pharmacy){
 
     while(stop!=string::npos && !employees.empty()){
         st = employees.find_first_of(',');
-        this->employees.push_back(new Employee(employees.substr(0,st),"", "", 0, this->name, ""));
+        this->employees.push_back(new Employee(employees.substr(0,st),"", 0, 0, this->name, ""));
         if(st==string::npos)
             break;
         employees = employees.substr(st+2);
@@ -122,7 +122,7 @@ Pharmacy::Pharmacy(string pharmacy){
 
     while(stop!=string::npos && !employees.empty()){
         st = clients.find_first_of(',');
-        this->clients.push_back(new Client(clients.substr(0,st),"", ""));
+        this->clients.push_back(new Client(clients.substr(0,st),"", 0));
         if(st==string::npos)
             break;
         clients = clients.substr(st+2);

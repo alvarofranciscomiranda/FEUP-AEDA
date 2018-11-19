@@ -3,13 +3,21 @@
 
 #include <iomanip>
 #include <math.h>
+#include <String>
 #include "Pharmacy.h"
+#include "Recipe.h"
+#include "Sales.h"
+#include "People.h"
+
 
 using namespace std;
 
 class Company {
 private:
     vector<Pharmacy *> pharmacies;
+    vector<Client *> clients;
+    vector<Recipe *> recipes;
+    vector<Sales *> sales;
 public:
 
     /**

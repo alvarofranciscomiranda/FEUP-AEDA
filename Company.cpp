@@ -254,6 +254,7 @@ void Company::addPharmacy() {
 
         cout << endl << "Employee's tax number: ";
         getline(cin, taxNE);
+        int taxN = stoi(taxNE,nullptr);
 
         cout << endl << "Employee's salary: ";
         cin >> salaryE;
@@ -263,7 +264,7 @@ void Company::addPharmacy() {
         cin.ignore(1000, '\n');
         getline(cin, postE);
 
-        pharmacies.at(pharmacies.size() - 1)->addEmployee(new Employee(nameE, addressE, taxNE, salaryE, nameE, postE));
+        pharmacies.at(pharmacies.size() - 1)->addEmployee(new Employee(nameE, addressE, taxN, salaryE, nameE, postE));
     }
 
     cout << endl << "How many clients would you like to add?: " << endl << "::: ";
@@ -275,18 +276,17 @@ void Company::addPharmacy() {
         cout << endl << "Client " << ++counter << ": ";
 
         cout << endl << "Client's name: ";
-
         getline(cin, nameC);
 
         cout << endl << "Client's address: ";
-
         getline(cin, addressC);
 
         cout << endl << "Client's tax number: ";
-
         getline(cin, taxNC);
+        int taxN2 = stoi(taxNE,nullptr);
 
-        pharmacies.at(pharmacies.size() - 1)->addClient(new Client(nameC, addressC, taxNC));
+
+        pharmacies.at(pharmacies.size() - 1)->addClient(new Client(nameC, addressC, taxN2));
     }
     cout << string(2, '\n') << "Pharmacy added successfully!" << string(2, '\n');
 }

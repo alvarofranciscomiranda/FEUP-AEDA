@@ -2,7 +2,13 @@
 #include <iostream>
 using namespace std;
 
-People::People(string name, string address, string taxNumber):name(name), address(address), taxNumber(taxNumber){
+People::People(){
+	this->name = "";
+	this->address = "";
+	this->taxNumber = 0;
+}
+
+People::People(string name, string address, int taxNumber):name(name), address(address), taxNumber(taxNumber){
 }
 
 string People::getName() const{
@@ -13,7 +19,7 @@ string People::getAddress() const{
     return address;
 }
 
-string People::getTaxNumber() const{
+int People::getTaxNumber() const{
     return taxNumber;
 }
 
@@ -25,11 +31,11 @@ void People::setAddress(string address){
     this->address = address;
 }
 
-void People::setTaxNumber(string taxNumber){
+void People::setTaxNumber(int taxNumber){
     this->taxNumber = taxNumber;
 }
 
-Employee::Employee(string name, string address, string taxNumber, float salary, string pharmacy, string post):People(name, address, taxNumber){
+Employee::Employee(string name, string address, int taxNumber, float salary, string pharmacy, string post):People(name, address, taxNumber){
     this->salary = salary;
     this->pharmacy = pharmacy;
     this->post = post;
@@ -59,5 +65,16 @@ void Employee::setPost(string post){
     this->post = post;
 }
 
-Client::Client(string name, string address, string taxNumber):People(name, address, taxNumber){
+Client::Client(string name, string address, int taxNumber, vector<Sales> purchases):People(name, address, taxNumber), purchases(purchases){
+}
+
+Client::Client(string name, string address, int taxNumber):People(name, address, taxNumber){
+}
+
+vector<Sales> Client::getPurchases() const{
+    return purchases;
+}
+
+void Client::setPurchases(vector<Sales> purchases){
+    this->purchases = purchases;
 }
