@@ -15,9 +15,9 @@ using namespace std;
 class Company {
 private:
     vector<Pharmacy *> pharmacies;
+    vector<Employee *> employees;
     vector<Client *> clients;
-    vector<Recipe *> recipes;
-    vector<Sales *> sales;
+    vector<Product *> products;
 public:
 
     /**
@@ -31,10 +31,46 @@ public:
     vector<Pharmacy *> getPharmacies(){
         return pharmacies;
     }
+
+    /**
+    * @brief Opens Pharmacy File.
+    */
+    void openPharmacyFile();
+
+    /**
+   * @brief Opens Employees File.
+   */
+    void openEmployeesFile();
+
+    /**
+   * @brief Opens Clients File.
+   */
+    void openClientsFile();
+
+    /**
+   * @brief Opens Products File.
+   */
+    void openProductsFile();
+
     /**
     * @brief Displays the information about all pharmacies.
     */
     void displayPharmacies();
+
+    /**
+    * @brief Displays the information about all employees.
+    */
+    void displayEmployees();
+
+    /**
+     * @brief Displays the information about all clients.
+     */
+    void displayClients();
+
+    /**
+    * @brief Displays the information about all products.
+    */
+    void displayProducts();
 
     /**
      * @brief Search pharmacy by name and displays its information.
@@ -88,7 +124,22 @@ public:
     /**
     * @brief Updates the file containing the information about the pharmacies according to the changes made in the program.
     */
-    void updateFile();
+    void updatePharmacyFile();
+
+    /**
+    * @brief Updates the file containing the information about the employees according to the changes made in the program.
+    */
+    void updateEmployeeFile();
+
+    /**
+    * @brief Updates the file containing the information about the clients according to the changes made in the program.
+    */
+    void updateClientFile();
+
+    /**
+    * @brief Updates the file containing the information about the products according to the changes made in the program.
+    */
+    void updateProductFile();
 };
     /**
     * @brief Sorts pharmacies vector by name's alphabetic order.
@@ -96,11 +147,12 @@ public:
     * @param s2
     * @return
     */
-    bool orderByName(Pharmacy *s1, Pharmacy *s2);
+    bool orderByNamePharmacy(Pharmacy *s1, Pharmacy *s2);
     bool orderByNameAddress(Pharmacy *p1, Pharmacy *p2);
     bool orderByNameEmployee(Employee *p1, Employee *p2);
     bool orderByNameManager(Pharmacy *p1, Pharmacy *p2);
     bool orderByNameClient(Client *p1, Client *p2);
+    bool orderByNameProduct(Product *p1, Product *p2);
 
 
 

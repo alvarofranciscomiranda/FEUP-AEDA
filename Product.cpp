@@ -4,23 +4,23 @@ using namespace std;
 
 Product::Product(){
 	name = "";
-	code = 0;
+	code = "";
 	price =  0;
 	description = "";
 }
 
-Product::Product(string name,int code, int price, string description) :name(name), code(code), price(price), description(description){
+Product::Product(string name,string code, float price, string description) :name(name), code(code), price(price), description(description){
 }
 
 string Product::getName() const{
     return name;
 }
 
-int Product::getCode() const{
+string Product::getCode() const{
     return code;
 }
 
-int Product::getPrice() const{
+float Product::getPrice() const{
     return price;
 }
 
@@ -32,11 +32,11 @@ void Product::setName(string name){
     this->name = name;
 }
 
-void Product::setCode(int code){
+void Product::setCode(string code){
 	this->code = code;
 }
 
-void Product::setPrice(int price){
+void Product::setPrice(float price){
     this->price = price;
 }
 
@@ -44,7 +44,48 @@ void Product::setDescription(string description){
     this->description = description;
 }
 
-Medicine::Medicine(string name,int code, int price, string description, bool prescription, bool needed, int discount):Product(name, code, price, description), prescription(prescription), needed(needed), discount(discount){
+void Product::displayProduct(){
+    cout << "Name: " << name << endl;
+    cout << "Code: " << code << endl;
+    cout << "Price: " << price << endl;
+    cout << "Description: " << description << endl;
+    cout << endl << endl;
+}
+
+Product::Product(string product){
+    unsigned long stop; //stop is pos for last ';' found
+
+    //name
+    stop = product.find_first_of(';');
+    this->name = product.substr(0,stop);
+
+    //code
+    product = product.substr(stop+2);
+    stop = product.find_first_of(';');
+    this->code = product.substr(0,stop);
+
+    //price
+    product = product.substr(stop +2);
+    stop = product.find_first_of(';');
+    this->price = stof(product.substr(0, stop));
+
+    //description
+    product = product.substr(stop +2);
+    stop = product.find_first_of(';');
+    this->description = product.substr(0, stop);
+
+}
+
+void Product::writeProduct(ofstream & file) const{
+/*
+    file << name << "; ";
+    file << code << "; ";
+    file << price << "; ";
+    file << description; */
+}
+
+
+Medicine::Medicine(string name,string code, float price, string description, bool prescription, bool needed, int discount):Product(name, code, price, description), prescription(prescription), needed(needed), discount(discount){
 }
 bool Medicine::getPrescription() const{
     return prescription;

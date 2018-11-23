@@ -32,11 +32,11 @@ void mainMenu(Company &company) {
 
     cout << " MAIN MENU" << setw(40)<< setfill(' ') << " " << endl;
     cout << setfill('-') << setw(50)<<"-"<<endl;
-    cout << "1. Display all pharmacies" << endl;
+    cout << "1. Display" << endl;
     cout << "2. Search pharmacy" << endl;
     cout << "3. Compare pharmacies" << endl;
     cout << "4. Add, alter or remove pharmacies" << endl;
-    cout << "5. Update pharmacies' file." << endl;
+    cout << "5. Update files." << endl;
 
     cout << endl << "Enter a number option: " << endl << "::: ";
     cin >> option;
@@ -52,7 +52,7 @@ void mainMenu(Company &company) {
     //redirect to next menu
     switch(option) {
         case 1:
-            company.displayPharmacies();
+            displayMenu(company);
             ClearScreen();
             mainMenu(company);
             break;
@@ -71,7 +71,7 @@ void mainMenu(Company &company) {
             ClearScreen();
             break;
         case 5:
-            company.updateFile();
+            updateFileMenu(company);
             ClearScreen();
             mainMenu(company);
             break;
@@ -81,6 +81,46 @@ void mainMenu(Company &company) {
 void ClearScreen() {
 
     cout << string(50,'\n');
+}
+
+void displayMenu(Company &company){
+    int option;
+
+    cout << string(100,'\n');
+    cout << " DISPLAY" << setw(37) << setfill(' ') << " " << endl;
+    cout << setfill('-') << setw(47)<<"-"<<endl;
+    cout << "1. Display all Pharmacies" << endl;
+    cout << "2. Display all Employees" << endl;
+    cout << "3. Display all Clients" << endl;
+    cout << "4. Display all Products" << endl;
+
+    cout << endl << "Enter a number option: ";
+    cin >> option;
+
+    //verifies if input is valid
+    while(cin.fail()||!ValidMenuInput(1, 6, option)) {
+        cin.clear();
+        cin.ignore(1000, '\n');
+        cout << "Please enter a valid option: ";
+        cin >> option;
+    }
+
+    switch(option) {
+
+        case 1:
+            company.displayPharmacies();
+            break;
+        case 2:
+            company.displayEmployees();
+            break;
+        case 3:
+            company.displayClients();
+            break;
+        case 4:
+            company.displayProducts();
+            break;
+    }
+
 }
 
 void searchMenu(Company &company){
@@ -235,6 +275,46 @@ void AlterPharmacyMenu(Company &company){
         cout << "ERROR: Pharmacy with given name doesn't exist." << endl;
         AddAlterRemoveMenu(company);
     }
+}
+
+void updateFileMenu(Company &company){
+    int option;
+
+    cout << string(100,'\n');
+    cout << " UPDATE" << setw(37) << setfill(' ') << " " << endl;
+    cout << setfill('-') << setw(47)<<"-"<<endl;
+    cout << "1. Update Pharmacies File" << endl;
+    cout << "2. Update Employees File" << endl;
+    cout << "3. Update Clients File" << endl;
+    cout << "4. Update products File" << endl;
+
+    cout << endl << "Enter a number option: ";
+    cin >> option;
+
+    //verifies if input is valid
+    while(cin.fail()||!ValidMenuInput(1, 6, option)) {
+        cin.clear();
+        cin.ignore(1000, '\n');
+        cout << "Please enter a valid option: ";
+        cin >> option;
+    }
+
+    switch(option) {
+
+        case 1:
+            company.updatePharmacyFile();
+            break;
+        case 2:
+            company.updateEmployeeFile();
+            break;
+        case 3:
+            company.updateClientFile();
+            break;
+        case 4:
+            company.updateProductFile();
+            break;
+    }
+
 }
 
 void compareMenu(Company &company){

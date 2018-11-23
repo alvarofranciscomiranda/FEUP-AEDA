@@ -1,0 +1,9 @@
+Joana Martins; Lisboa; 123456789; Farmácia Cardeira; 790; Vendedor
+Alberto Sousa; Aveiro; 234567891; Farmácia Cardeira; 650; Chefe
+Joaquim Almeida; Viana do Castelo; 345678912; Farmácia Cardeira; 1530; Engenheiro
+Tiago Viana; Bragança; 456789123; Farmácia Cardeira; 999; Farmaceutico
+Yolanda Martins; Porto; 567891234; Farmácia Nita; 567; Vendedor
+Joaquim Almeida; Vila Real; 678912345; Farmácia Nita; 870; Vendedor
+Maria Tim; Braga; 789123456; Farmácia de Tercena; 376; Chefe
+Joaquim Almeida; Faro; 89123456; Farmácia de Tercena; 123; Vendedor
+Andre Marafona; Setubal; 912345678; Farmácia de Tercena; 765; Vendedor

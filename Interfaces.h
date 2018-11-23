@@ -29,6 +29,11 @@ void mainMenu(Company &company);
  */
 void ClearScreen();
 
+/**
+ * @brief Sub-menu from main menu that allows user to choose actions relating to the display of a determinate pharmacy.
+ * @param company
+ */
+void displayMenu(Company &company);
 
 /**
  * @brief Sub-menu from main menu that allows user to choose actions relating to the search of a determinate pharmacy.
@@ -47,6 +52,12 @@ void AddAlterRemoveMenu(Company &company);
  * @param company
  */
 void compareMenu(Company &company);
+
+/**
+ * @brief Sub-menu from Main menu that allows user to save all the changed files.
+ * @param company
+ */
+void updateFileMenu(Company &company);
 
 /**
  * @brief Tests cin.fail.

@@ -8,33 +8,132 @@ using namespace std;
 
 Company::Company() {
 
-    ifstream file("/Users/mariajoaosenraviana/Desktop/untitled/PharmacyFile.txt");
+    openPharmacyFile();
+    openEmployeesFile();
+    openClientsFile();
+    openProductsFile();
+
+}
+
+void Company::openPharmacyFile(){
+
+    ifstream pharmacyFile("/Users/mariajoaosenraviana/Desktop/untitled/PharmacyFile.txt");
     string pharmacy;
-    unsigned long stop;
 
     //verify file is successfully opened
 
-    if (file.is_open()) {
-        while (!file.eof()) {
+    if (pharmacyFile.is_open()) {
+        while (!pharmacyFile.eof()) {
 
-            getline(file, pharmacy);
+            getline(pharmacyFile, pharmacy);
             pharmacies.push_back(new Pharmacy(pharmacy));
-            }
         }
+    }
 
-        file.close();
+    pharmacyFile.close();
+
+}
+
+void Company::openEmployeesFile(){
+
+    ifstream employeeFile("/Users/mariajoaosenraviana/Desktop/untitled/Employees.txt");
+    string employee;
+
+    //verify file is successfully opened
+
+    if (employeeFile.is_open()) {
+        while (!employeeFile.eof()) {
+
+            getline(employeeFile, employee);
+            employees.push_back(new Employee(employee));
+        }
+    }
+
+    employeeFile.close();
+
+}
+
+void Company::openClientsFile(){
+
+    ifstream clientFile("/Users/mariajoaosenraviana/Desktop/untitled/Clients.txt");
+    string client;
+
+    //verify file is successfully opened
+
+    if (clientFile.is_open()) {
+        while (!clientFile.eof()) {
+
+            getline(clientFile, client);
+            clients.push_back(new Client(client));
+        }
+    }
+
+    clientFile.close();
+
+}
+
+void Company::openProductsFile(){
+
+    ifstream productFile("/Users/mariajoaosenraviana/Desktop/untitled/Products.txt");
+    string product;
+
+    //verify file is successfully opened
+
+    if (productFile.is_open()) {
+        while (!productFile.eof()) {
+
+            getline(productFile, product);
+            products.push_back(new Product(product));
+        }
+    }
+
+    productFile.close();
+
 }
 
 void Company::displayPharmacies() {
-
-    int option;
 
     ClearScreen();
 
     for (unsigned int i = 0; i < pharmacies.size(); i++) {
 
          pharmacies.at(i)->displayPharmacy();
-            //cout << endl << "This pharmacy doesn't have any services associated." << endl << endl;
+
+    }
+    returnMainMenu();
+}
+
+void Company::displayEmployees() {
+
+    ClearScreen();
+
+    for (unsigned int i = 0; i < employees.size(); i++) {
+
+        employees.at(i)->displayEmployee();
+
+    }
+    returnMainMenu();
+}
+
+void Company::displayClients() {
+
+    ClearScreen();
+
+    for (unsigned int i = 0; i < clients.size(); i++) {
+
+        clients.at(i)->displayClient();
+
+    }
+    returnMainMenu();
+}
+
+void Company::displayProducts() {
+
+    ClearScreen();
+
+    for (unsigned int i = 0; i < products.size(); i++) {
+
+        products.at(i)->displayProduct();
 
     }
     returnMainMenu();
@@ -43,11 +142,10 @@ void Company::displayPharmacies() {
 void Company::searchName() {
 
     string name;
-    int option;
 
     ClearScreen();
 
-    sort(pharmacies.begin(),pharmacies.end(), orderByName);
+    sort(pharmacies.begin(),pharmacies.end(), orderByNamePharmacy);
 
     cout << "Insert the name of the pharmacy you wish to search for" << endl << ":::";
     cin.ignore(1000, '\n');
@@ -75,7 +173,6 @@ void Company::searchName() {
 void Company::searchAddress() {
 
     string address;
-    int option;
 
     ClearScreen();
 
@@ -107,7 +204,6 @@ void Company::searchAddress() {
 void Company::searchManager() {
 
     string manager;
-    int option;
 
     ClearScreen();
 
@@ -202,7 +298,7 @@ void Company::searchClients() {
 
 int Company::pharmacyExists(string name) {
 
-    sort(pharmacies.begin(),pharmacies.end(),orderByName);
+    sort(pharmacies.begin(),pharmacies.end(),orderByNamePharmacy);
 
     int left = 0, right = pharmacies.size() - 1;
     while (left <= right) {
@@ -373,12 +469,12 @@ void Company::comparePharmacies(Pharmacy *p1, Pharmacy *p2) {
 
 }
 
-void Company::updateFile() {
+void Company::updatePharmacyFile() {
 
     ofstream file;
     file.open("/Users/mariajoaosenraviana/Desktop/untitled/PharmacyFile.txt");
 
-    sort(pharmacies.begin(),pharmacies.end(),orderByName);
+    sort(pharmacies.begin(),pharmacies.end(),orderByNamePharmacy);
 
     for (auto &i: pharmacies) {
         i->writePharmacy(file);
@@ -386,7 +482,46 @@ void Company::updateFile() {
 
 }
 
-bool orderByName(Pharmacy *p1, Pharmacy *p2){
+void Company::updateEmployeeFile() {
+
+    ofstream file;
+    file.open("/Users/mariajoaosenraviana/Desktop/untitled/Employees.txt");
+
+    sort(employees.begin(),employees.end(),orderByNameEmployee);
+
+    for (auto &i: employees) {
+        i->writeEmployee(file);
+    }
+
+}
+
+void Company::updateClientFile() {
+
+    ofstream file;
+    file.open("/Users/mariajoaosenraviana/Desktop/untitled/Clients.txt");
+
+    sort(clients.begin(),clients.end(),orderByNameClient);
+
+    for (auto &i: clients) {
+        i->writeClient(file);
+    }
+
+}
+
+void Company::updateProductFile() {
+
+    ofstream file;
+    file.open("/Users/mariajoaosenraviana/Desktop/untitled/Products.txt");
+
+   sort(products.begin(), products.end(), orderByNameProduct);
+
+    for (auto &i: products) {
+        i->writeProduct(file);
+    }
+
+}
+
+bool orderByNamePharmacy(Pharmacy *p1, Pharmacy *p2){
 
     if(p1->getName() < p2->getName()) return true;
     else if(p1->getName() > p2->getName()) return false;
@@ -416,3 +551,10 @@ bool orderByNameClient(Client *p1, Client *p2) {
     else if (p1->getName() > p2->getName()) return false;
     else return false;
 }
+
+bool orderByNameProduct(Product *p1, Product *p2){
+
+    if(p1->getName() < p2->getName()) return true;
+    else if(p1->getName() > p2->getName()) return false;
+}
+

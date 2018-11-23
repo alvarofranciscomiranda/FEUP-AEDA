@@ -1,0 +1,3 @@
+A1; Paracetamol; 6.95; Dores de Cabeça
+B4; Voltaren; 4.99; Esfregar na pele
+C395; Brufen; 7.89; Analgesico

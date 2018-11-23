@@ -6,6 +6,7 @@
 #include "Sales.h"
 using namespace std;
 
+
 class People {
 
 protected:
@@ -31,22 +32,33 @@ protected:
 
 public:
     Employee(string name, string address, int taxNumber, float salary, string pharmacy, string post);
+	Employee(string employee);
     float getSalary() const;
     string getPharmacy() const;
     string getPost() const;
     void setSalary(float salary);
     void setPharmacy(string pharmacy);
     void setPost(string post);
+	void displayEmployee();
+	void writeEmployee(ofstream & file) const;
 };
 
 class Client : public People{
 protected:
 	vector<Sales> purchases;
 public:
-    Client(string name, string address, int taxNumber, vector<Sales> purchases);
-    Client(string name, string address, int taxNumber);
+	static int id;
+	int client_number;
+	int getClient_number() const;
+	void setClient_number(int client_number);
+	Client(int id,string name, string address, int taxNumber);
+	Client(string name, string address, int taxNumber);
     vector<Sales> getPurchases() const;
     void setPurchases(vector<Sales> purchases);
+	Client(string client);
+	void displayClient();
+	void writeClient(ofstream & file) const;
 };
+
 
 #endif //UNTITLED_PEOPLE_H
