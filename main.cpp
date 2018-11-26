@@ -7,7 +7,7 @@ using namespace std;
 
 int main() {
 
-    Company comp("Employees.txt", "Clients.txt", "PharmacyFile.txt", "Products.txt");
+    Company comp;
 
     comp.openPharmacyFile();
     comp.openEmployeesFile();

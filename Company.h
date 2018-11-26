@@ -20,22 +20,12 @@ private:
     vector<Product *> products;
     //vector<Recipe *> recipes;
     //vector<Sales *> sales;
-
-
-    const string ficheiroEmployees;
-    const string ficheiroClients;
-    const string ficheiroPharmacy;
-    const string ficheiroProducts;
-    //const string ficheiroRecipes;
-    //const string ficheiroSales;
-
-
 public:
 
     /**
      * Constructor of class Company.
      */
-    Company(string ficheiroEmployees, string ficheiroClients, string ficheiroPharmacyFile, string ficheiroProducts);
+    Company();
 
     /**
     * @return vector Pharmacies

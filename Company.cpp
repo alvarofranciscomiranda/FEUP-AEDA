@@ -6,14 +6,11 @@
 #include <vector>
 using namespace std;
 
-Company::Company(string ficheiroEmployees, string ficheiroClients, string ficheiroPharmacyFile, string ficheiroProducts)
-:ficheiroPharmacy(ficheiroPharmacyFile),ficheiroEmployees(ficheiroEmployees), ficheiroClients(ficheiroClients), ficheiroProducts(ficheiroProducts)
-{}
+Company::Company(){}
 
 void Company::openPharmacyFile(){
 
-    ifstream pharmacyFile;
-    pharmacyFile.open(ficheiroPharmacy);
+    ifstream pharmacyFile("pharmacyFile.txt");
     string pharmacy;
 
     //verify file is successfully opened
@@ -32,8 +29,7 @@ void Company::openPharmacyFile(){
 
 void Company::openEmployeesFile(){
 
-	ifstream employeeFile;
-	employeeFile.open(ficheiroEmployees);
+	ifstream employeeFile("employees.txt");
     string employee;
 
     //verify file is successfully opened
@@ -52,8 +48,7 @@ void Company::openEmployeesFile(){
 
 void Company::openClientsFile(){
 
-    ifstream clientFile;
-    clientFile.open(ficheiroClients);
+    ifstream clientFile("clients.txt");
     string client;
 
     //verify file is successfully opened
@@ -72,8 +67,7 @@ void Company::openClientsFile(){
 
 void Company::openProductsFile(){
 
-    ifstream productFile;
-    productFile.open(ficheiroProducts);
+    ifstream productFile("products.txt");
     string product;
 
     //verify file is successfully opened
