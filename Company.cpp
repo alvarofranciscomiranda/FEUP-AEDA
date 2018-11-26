@@ -6,18 +6,14 @@
 #include <vector>
 using namespace std;
 
-Company::Company() {
-
-    openPharmacyFile();
-    openEmployeesFile();
-    openClientsFile();
-    openProductsFile();
-
-}
+Company::Company(string ficheiroEmployees, string ficheiroClients, string ficheiroPharmacyFile, string ficheiroProducts)
+:ficheiroPharmacy(ficheiroPharmacyFile),ficheiroEmployees(ficheiroEmployees), ficheiroClients(ficheiroClients), ficheiroProducts(ficheiroProducts)
+{}
 
 void Company::openPharmacyFile(){
 
-    ifstream pharmacyFile("/Users/mariajoaosenraviana/Desktop/untitled/PharmacyFile.txt");
+    ifstream pharmacyFile;
+    pharmacyFile.open(ficheiroPharmacy);
     string pharmacy;
 
     //verify file is successfully opened
@@ -36,7 +32,8 @@ void Company::openPharmacyFile(){
 
 void Company::openEmployeesFile(){
 
-    ifstream employeeFile("/Users/mariajoaosenraviana/Desktop/untitled/Employees.txt");
+	ifstream employeeFile;
+	employeeFile.open(ficheiroEmployees);
     string employee;
 
     //verify file is successfully opened
@@ -55,7 +52,8 @@ void Company::openEmployeesFile(){
 
 void Company::openClientsFile(){
 
-    ifstream clientFile("/Users/mariajoaosenraviana/Desktop/untitled/Clients.txt");
+    ifstream clientFile;
+    clientFile.open(ficheiroClients);
     string client;
 
     //verify file is successfully opened
@@ -74,7 +72,8 @@ void Company::openClientsFile(){
 
 void Company::openProductsFile(){
 
-    ifstream productFile("/Users/mariajoaosenraviana/Desktop/untitled/Products.txt");
+    ifstream productFile;
+    productFile.open(ficheiroProducts);
     string product;
 
     //verify file is successfully opened

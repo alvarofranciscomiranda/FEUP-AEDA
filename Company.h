@@ -18,12 +18,24 @@ private:
     vector<Employee *> employees;
     vector<Client *> clients;
     vector<Product *> products;
+    //vector<Recipe *> recipes;
+    //vector<Sales *> sales;
+
+
+    const string ficheiroEmployees;
+    const string ficheiroClients;
+    const string ficheiroPharmacy;
+    const string ficheiroProducts;
+    //const string ficheiroRecipes;
+    //const string ficheiroSales;
+
+
 public:
 
     /**
      * Constructor of class Company.
      */
-    Company();
+    Company(string ficheiroEmployees, string ficheiroClients, string ficheiroPharmacyFile, string ficheiroProducts);
 
     /**
     * @return vector Pharmacies
