@@ -42,10 +42,34 @@ void displayMenu(Company &company);
 void searchMenu(Company &company);
 
 /**
- * @brief Sub-menu from main menu that allows user to choose actions relating altering informarion about a pharmacy, adding or removing pharmacies.
+ * @brief Sub-menu from main menu that allows user to choose actions relating altering informarion, adding or removing.
  * @param company
  */
 void AddAlterRemoveMenu(Company &company);
+
+/**
+ * @brief Sub-menu from main menu that allows user to choose actions relating altering informarion about a pharmacy, adding or removing pharmacies.
+ * @param company
+ */
+void AddAlterRemoveMenuPharmacy(Company &company);
+
+/**
+ * @brief Sub-menu from main menu that allows user to choose actions relating altering informarion about a employee, adding or removing employees.
+ * @param company
+ */
+void AddAlterRemoveMenuEmployee(Company &company);
+
+/**
+ * @brief Sub-menu from main menu that allows user to choose actions relating altering informarion about a client, adding or removing client.
+ * @param company
+ */
+void AddAlterRemoveMenuClient(Company &company);
+
+/**
+ * @brief Sub-menu from main menu that allows user to choose actions relating altering informarion about a product, adding or removing products.
+ * @param company
+ */
+void AddAlterRemoveMenuProduct(Company &company);
 
 /**
  * @brief Sub-menu from Main menu that allows user to compare pharmacies.

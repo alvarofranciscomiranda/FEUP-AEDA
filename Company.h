@@ -75,7 +75,7 @@ public:
     /**
      * @brief Search pharmacy by name and displays its information.
      */
-    void searchName();
+    void searchPharmacyName();
 
     /**
      * @brief Search pharmacy by address and displays its information.
@@ -100,9 +100,30 @@ public:
     /**
     * @brief Verifies if pharmacy with certain name exist.
     * @param name
-    * @return pos of beach in Pharmacies' vector if pharmacy with name exists, -1 otherwise
+    * @return pos of pharmacie in Pharmacies' vector if pharmacy with name exists, -1 otherwise
     */
     int pharmacyExists(string name);
+
+    /**
+    * @brief Verifies if employee with certain name exist.
+    * @param name
+    * @return pos of employee in employees' vector if employee with name exists, -1 otherwise
+    */
+    int employeeExists(string name);
+
+    /**
+    * @brief Verifies if client with certain name exist.
+    * @param name
+    * @return pos of client in Clients' vector if client with name exists, -1 otherwise
+    */
+    int clientExists(string name);
+
+    /**
+    * @brief Verifies if product with certain code exist.
+    * @param code
+    * @return pos of product in Products' vector if product with code exists, -1 otherwise
+    */
+    int productExists(string code);
 
     /**
     * @brief Adds pharmacy to Pharmacies' vector with user's input information.
@@ -110,9 +131,39 @@ public:
     void addPharmacy();
 
     /**
+   * @brief Adds employee to Employees' vector with user's input information.
+   */
+    void addEmployee();
+
+    /**
+   * @brief Adds client to Clients' vector with user's input information.
+   */
+    void addClient();
+
+    /**
+   * @brief Adds product to Products' vector with user's input information.
+   */
+    void addProducts();
+
+    /**
      * @brief Removes pharmacy to Pharmacies' vector with user's input information.
      */
     void removePharmacy();
+
+    /**
+    * @brief Removes employee to Employees' vector with user's input information.
+    */
+    void removeEmployee();
+
+    /**
+    * @brief Removes client to Clients' vector with user's input information.
+    */
+    void removeClient();
+
+    /**
+    * @brief Removes product to Products' vector with user's input information.
+    */
+    void removeProduct();
 
     /**
     * @brief Displays information about 2 pharmacies side by side.
@@ -152,7 +203,7 @@ public:
     bool orderByNameEmployee(Employee *p1, Employee *p2);
     bool orderByNameManager(Pharmacy *p1, Pharmacy *p2);
     bool orderByNameClient(Client *p1, Client *p2);
-    bool orderByNameProduct(Product *p1, Product *p2);
+    bool orderByCodeProduct(Product *p1, Product *p2);
 
 
 

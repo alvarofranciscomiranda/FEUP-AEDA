@@ -35,7 +35,7 @@ void mainMenu(Company &company) {
     cout << "1. Display" << endl;
     cout << "2. Search pharmacy" << endl;
     cout << "3. Compare pharmacies" << endl;
-    cout << "4. Add, alter or remove pharmacies" << endl;
+    cout << "4. Add, alter or remove" << endl;
     cout << "5. Update files." << endl;
 
     cout << endl << "Enter a number option: " << endl << "::: ";
@@ -149,7 +149,7 @@ void searchMenu(Company &company){
     switch(option) {
 
         case 1:
-            company.searchName();
+            company.searchPharmacyName();
             break;
         case 2:
             company.searchAddress();
@@ -168,6 +168,60 @@ void searchMenu(Company &company){
 }
 
 void AddAlterRemoveMenu(Company &company){
+
+    int option;
+
+    cout << string(100,'\n');
+    cout << " ALTER FILES" << setw(37) << setfill(' ') << " " << endl;
+    cout << setfill('-') << setw(47)<<"-"<<endl;
+    cout << "1. Add, alter, remove pharmacy" << endl;
+    cout << "2. Add, alter, remove employee" << endl;
+    cout << "3. Add, alter, remove client" << endl;
+    cout << "4. Add, alter, remove product" << endl;
+    cout << "5. Return to main menu" << endl;
+
+    cout << endl << "Enter a number option: " << endl << "::: ";
+    cin >> option;
+
+    //verifies if input is valid
+    while(cin.fail()||!ValidMenuInput(1, 5, option)) {
+        cin.clear();
+        cin.ignore(1000, '\n');
+        cout << "Please enter a valid option: "<< endl << "::: ";
+        cin >> option;
+    }
+
+    switch(option){
+        case 1:
+            AddAlterRemoveMenuPharmacy(company);
+            returnMainMenu();
+            ClearScreen();
+            mainMenu(company);
+            break;
+        case 2:
+            AddAlterRemoveMenuEmployee(company);
+            returnMainMenu();
+            ClearScreen();
+            mainMenu(company);
+            break;
+        case 3:
+            AddAlterRemoveMenuClient(company);
+            ClearScreen();
+            mainMenu(company);
+            break;
+        case 4:
+            AddAlterRemoveMenuProduct(company);
+            ClearScreen();
+            mainMenu(company);
+            break;
+        case 5:
+            ClearScreen();
+            mainMenu(company);
+            break;
+    }
+}
+
+void AddAlterRemoveMenuPharmacy(Company &company){
 
     int option;
 
@@ -208,6 +262,159 @@ void AddAlterRemoveMenu(Company &company){
             break;
         case 3:
             company.removePharmacy();
+            ClearScreen();
+            mainMenu(company);
+            break;
+        case 4:
+            ClearScreen();
+            mainMenu(company);
+            break;
+    }
+}
+
+void AddAlterRemoveMenuEmployee(Company &company){
+
+    int option;
+
+    cout << string(100,'\n');
+    cout << " ALTER EMPLOYEE FILE" << setw(37) << setfill(' ') << " " << endl;
+    cout << setfill('-') << setw(47)<<"-"<<endl;
+    cout << "1. Add employee" << endl;
+    cout << "2. Alter employee" << endl;
+    cout << "3. Remove employee" << endl;
+    cout << "4. Return to main menu" << endl;
+
+    cout << endl << "Enter a number option: " << endl << "::: ";
+    cin >> option;
+
+    //verifies if input is valid
+    while(cin.fail()||!ValidMenuInput(1, 4, option)) {
+        cin.clear();
+        cin.ignore(1000, '\n');
+        cout << "Please enter a valid option: "<< endl << "::: ";
+        cin >> option;
+    }
+
+    switch(option){
+        case 1:
+            try{company.addEmployee();}
+            catch(int x){
+                cout << endl << "ERROR: Employee already exists!" << endl;
+            }
+            returnMainMenu();
+            ClearScreen();
+            mainMenu(company);
+            break;
+        case 2:
+            // AlterEmployeeMenu(company);
+            returnMainMenu();
+            ClearScreen();
+            mainMenu(company);
+            break;
+        case 3:
+            company.removeEmployee();
+            ClearScreen();
+            mainMenu(company);
+            break;
+        case 4:
+            ClearScreen();
+            mainMenu(company);
+            break;
+    }
+}
+
+void AddAlterRemoveMenuClient(Company &company){
+
+    int option;
+
+    cout << string(100,'\n');
+    cout << " ALTER CLIENT FILE" << setw(37) << setfill(' ') << " " << endl;
+    cout << setfill('-') << setw(47)<<"-"<<endl;
+    cout << "1. Add client" << endl;
+    cout << "2. Alter client" << endl;
+    cout << "3. Remove client" << endl;
+    cout << "4. Return to main menu" << endl;
+
+    cout << endl << "Enter a number option: " << endl << "::: ";
+    cin >> option;
+
+    //verifies if input is valid
+    while(cin.fail()||!ValidMenuInput(1, 4, option)) {
+        cin.clear();
+        cin.ignore(1000, '\n');
+        cout << "Please enter a valid option: "<< endl << "::: ";
+        cin >> option;
+    }
+
+    switch(option){
+        case 1:
+            try{company.addClient();}
+            catch(int x){
+                cout << endl << "ERROR: Client already exists!" << endl;
+            }
+            returnMainMenu();
+            ClearScreen();
+            mainMenu(company);
+            break;
+        case 2:
+            // AlterEmployeeMenu(company);
+            returnMainMenu();
+            ClearScreen();
+            mainMenu(company);
+            break;
+        case 3:
+            company.removeClient();
+            ClearScreen();
+            mainMenu(company);
+            break;
+        case 4:
+            ClearScreen();
+            mainMenu(company);
+            break;
+    }
+}
+
+void AddAlterRemoveMenuProduct(Company &company){
+
+    int option;
+
+    cout << string(100,'\n');
+    cout << " ALTER PRODUCT FILE" << setw(37) << setfill(' ') << " " << endl;
+    cout << setfill('-') << setw(47)<<"-"<<endl;
+    cout << "1. Add product" << endl;
+    cout << "2. Alter product" << endl;
+    cout << "3. Remove product" << endl;
+    cout << "4. Return to main menu" << endl;
+
+    cout << endl << "Enter a number option: " << endl << "::: ";
+    cin >> option;
+
+    //verifies if input is valid
+    while(cin.fail()||!ValidMenuInput(1, 4, option)) {
+        cin.clear();
+        cin.ignore(1000, '\n');
+        cout << "Please enter a valid option: "<< endl << "::: ";
+        cin >> option;
+    }
+
+    switch(option){
+        case 1:
+            try{company.addProducts();}
+            catch(int x){
+                cout << endl << "ERROR: Products already exists!" << endl;
+            }
+            returnMainMenu();
+            ClearScreen();
+            mainMenu(company);
+            break;
+        case 2:
+            // AlterEmployeeMenu(company);
+            returnMainMenu();
+            ClearScreen();
+            mainMenu(company);
+            break;
+        case 3:
+            company.removeProduct();
             ClearScreen();
             mainMenu(company);
             break;

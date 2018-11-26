@@ -84,7 +84,7 @@ void Pharmacy::displayPharmacy(){
 Pharmacy::Pharmacy(string pharmacy){
     unsigned long last;
     unsigned long stop; //stop is pos for last ';' found
-    string employees, clients;
+    string employees, client;
 
     // name
     stop = pharmacy.find_first_of(';');
@@ -118,21 +118,21 @@ Pharmacy::Pharmacy(string pharmacy){
     //clients
     pharmacy = pharmacy.substr(last+2);
     last = pharmacy.find(';');
-    clients = pharmacy.substr(0,last);
+    client = pharmacy.substr(0,last);
 
-    while(stop!=string::npos && !employees.empty()){
-        st = clients.find_first_of(',');
-        this->clients.push_back(new Client(clients.substr(0,st),"", 0));
+    while(stop!=string::npos && !client.empty()){
+        st = client.find_first_of(',');
+        string temp=client.substr(0,st);
+        this->clients.push_back(new Client(temp,"", 0));
         if(st==string::npos)
             break;
-        clients = clients.substr(st+2);
+        client = client.substr(st+2);
         stop = st;
     }
 
 }
 
 void Pharmacy::writePharmacy(ofstream & file) const{
-
     file << this->getName() << "; ";
     file << this->getAddress() << "; ";
     file << this->getManager() << "; ";
@@ -157,5 +157,6 @@ void Pharmacy::writePharmacy(ofstream & file) const{
                 file << this->getClients()[i]->getName() << ", ";
         }
     }
+
 
 }

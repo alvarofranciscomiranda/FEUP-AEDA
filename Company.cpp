@@ -139,7 +139,7 @@ void Company::displayProducts() {
     returnMainMenu();
 }
 
-void Company::searchName() {
+void Company::searchPharmacyName() {
 
     string name;
 
@@ -313,6 +313,57 @@ int Company::pharmacyExists(string name) {
     return -1; // não encontrou
 }
 
+int Company::employeeExists(string name) {
+
+    sort(employees.begin(),employees.end(),orderByNameEmployee);
+
+    int left = 0, right = employees.size() - 1;
+    while (left <= right) {
+        int middle = (left + right) / 2;
+        if (employees.at(middle)->getName() < name)
+            left = middle + 1;
+        else if (name < employees.at(middle)->getName())
+            right = middle - 1;
+        else
+            return middle; // encontrou
+    }
+    return -1; // não encontrou
+}
+
+int Company::clientExists(string name) {
+
+    sort(clients.begin(),clients.end(),orderByNameClient);
+
+    int left = 0, right = clients.size() - 1;
+    while (left <= right) {
+        int middle = (left + right) / 2;
+        if (clients.at(middle)->getName() < name)
+            left = middle + 1;
+        else if (name < clients.at(middle)->getName())
+            right = middle - 1;
+        else
+            return middle; // encontrou
+    }
+    return -1; // não encontrou
+}
+
+int Company::productExists(string code) {
+
+    sort(products.begin(),products.end(),orderByCodeProduct);
+
+    int left = 0, right = products.size() - 1;
+    while (left <= right) {
+        int middle = (left + right) / 2;
+        if (products.at(middle)->getCode() < code)
+            left = middle + 1;
+        else if (code < products.at(middle)->getCode())
+            right = middle - 1;
+        else
+            return middle; // encontrou
+    }
+    return -1; // não encontrou
+}
+
 void Company::addPharmacy() {
     string address, name, manager;
     vector<Client*> clients;
@@ -352,6 +403,7 @@ void Company::addPharmacy() {
         getline(cin, taxNE);
         int taxN = stoi(taxNE,nullptr);
 
+
         cout << endl << "Employee's salary: ";
         cin >> salaryE;
         fail(salaryE);
@@ -387,6 +439,85 @@ void Company::addPharmacy() {
     cout << string(2, '\n') << "Pharmacy added successfully!" << string(2, '\n');
 }
 
+void Company::addEmployee() {
+    string address, name, pharmacy, post;
+    int taxNumber;
+    float salary;
+
+    cout << endl << "Insert name of the Employee: " << endl << "::: ";
+    cin.ignore(1000, '\n');
+    getline(cin, name);
+    if(employeeExists(name) != -1) { throw  -1;}
+
+    cout << endl << "Insert address (eg: Oeiras): " << endl << "::: ";
+    getline(cin, address);
+
+    cout << endl << "Insert tax Number " << endl << "::: ";
+    cin >> taxNumber;
+    fail(taxNumber);
+
+    cout << endl << "Insert salary " << endl << "::: ";
+    cin >> salary;
+    fail(salary);
+
+    cout << endl << "Insert pharmacy: " << endl << "::: ";
+    getline(cin, pharmacy);
+
+    cout << endl << "Insert post: " << endl << "::: ";
+    getline(cin, post);
+
+
+    employees.push_back(new Employee(name, address, taxNumber, salary, pharmacy, post));
+
+    cout << string(2, '\n') << "Employee added successfully!" << string(2, '\n');
+}
+
+void Company::addClient() {
+    string address, name;
+    int taxNumber;
+
+    cout << endl << "Insert name of the Client: " << endl << "::: ";
+    cin.ignore(1000, '\n');
+    getline(cin, name);
+    if(clientExists(name) != -1) { throw  -1;}
+
+    cout << endl << "Insert address (eg: Oeiras): " << endl << "::: ";
+    getline(cin, address);
+
+    cout << endl << "Insert tax Number " << endl << "::: ";
+    cin >> taxNumber;
+    fail(taxNumber);
+
+    clients.push_back(new Client(name, address, taxNumber));
+
+    cout << string(2, '\n') << "Client added successfully!" << string(2, '\n');
+}
+
+void Company::addProducts() {
+    string code, name, description;
+    float price;
+
+    cout << endl << "Insert code of the product: " << endl << "::: ";
+    cin.ignore(1000, '\n');
+    getline(cin, code);
+    if(productExists(code) != -1) { throw  -1;}
+
+    cout << endl << "Insert name: " << endl << "::: ";
+    getline(cin, name);
+
+    cout << endl << "Insert price " << endl << "::: ";
+    cin >> price;
+    fail(price);
+
+    cout << endl << "Insert description: " << endl << "::: ";
+    getline(cin, description);
+
+
+    products.push_back(new Product(code, name, price, description));
+
+    cout << string(2, '\n') << "Employee added successfully!" << string(2, '\n');
+}
+
 void Company::removePharmacy() {
     string name;
     bool removed = false;
@@ -407,6 +538,75 @@ void Company::removePharmacy() {
 
     if (!removed) {
         cout << endl << "ERROR: There is no pharmacy with the given name!" << string(4, '\n');
+    }
+}
+
+void Company::removeEmployee() {
+    string name;
+    bool removed = false;
+
+    cout << "Insert employee name: ";
+    cin.ignore(1000, '\n');
+    getline(cin, name);
+
+    for (int i = 0; i < employees.size(); ++i) {
+
+        if (employees.at(i)->getName() == name) {
+
+            employees.erase(employees.begin() + i);
+            cout << endl << name << " employee erased successfully!" << endl;
+            removed = true;
+        }
+    }
+
+    if (!removed) {
+        cout << endl << "ERROR: There is no employee with the given name!" << string(4, '\n');
+    }
+}
+
+void Company::removeClient() {
+    string name;
+    bool removed = false;
+
+    cout << "Insert client name: ";
+    cin.ignore(1000, '\n');
+    getline(cin, name);
+
+    for (int i = 0; i < clients.size(); ++i) {
+
+        if (clients.at(i)->getName() == name) {
+
+            clients.erase(clients.begin() + i);
+            cout << endl << name << " client erased successfully!" << endl;
+            removed = true;
+        }
+    }
+
+    if (!removed) {
+        cout << endl << "ERROR: There is no client with the given name!" << string(4, '\n');
+    }
+}
+
+void Company::removeProduct() {
+    string code;
+    bool removed = false;
+
+    cout << "Insert product code: ";
+    cin.ignore(1000, '\n');
+    getline(cin, code);
+
+    for (int i = 0; i < products.size(); ++i) {
+
+        if (products.at(i)->getName() == code) {
+
+            products.erase(products.begin() + i);
+            cout << endl << code << " product erased successfully!" << endl;
+            removed = true;
+        }
+    }
+
+    if (!removed) {
+        cout << endl << "ERROR: There is no product with the given code!" << string(4, '\n');
     }
 }
 
@@ -476,9 +676,12 @@ void Company::updatePharmacyFile() {
 
     sort(pharmacies.begin(),pharmacies.end(),orderByNamePharmacy);
 
-    for (auto &i: pharmacies) {
-        i->writePharmacy(file);
+    for (int i = 0; i < pharmacies.size(); i++) {
+        pharmacies[i]->writePharmacy(file);
+        if(i!=pharmacies.size()-1)
+        file << endl;
     }
+
 
 }
 
@@ -489,8 +692,10 @@ void Company::updateEmployeeFile() {
 
     sort(employees.begin(),employees.end(),orderByNameEmployee);
 
-    for (auto &i: employees) {
-        i->writeEmployee(file);
+    for (int i = 0; i<employees.size(); i++) {
+        employees[i]->writeEmployee(file);
+        if(i!=employees.size()-1)
+            file << endl;
     }
 
 }
@@ -502,8 +707,10 @@ void Company::updateClientFile() {
 
     sort(clients.begin(),clients.end(),orderByNameClient);
 
-    for (auto &i: clients) {
-        i->writeClient(file);
+    for (int i = 0; i<clients.size(); i++) {
+        clients[i]->writeClient(file);
+        if(i!=clients.size()-1)
+            file << endl;
     }
 
 }
@@ -513,10 +720,12 @@ void Company::updateProductFile() {
     ofstream file;
     file.open("/Users/mariajoaosenraviana/Desktop/untitled/Products.txt");
 
-   sort(products.begin(), products.end(), orderByNameProduct);
+   sort(products.begin(), products.end(), orderByCodeProduct);
 
-    for (auto &i: products) {
-        i->writeProduct(file);
+    for (int i = 0; i<products.size(); i++) {
+        products[i]->writeProduct(file);
+        if(i!=products.size()-1)
+            file << endl;
     }
 
 }
@@ -552,9 +761,9 @@ bool orderByNameClient(Client *p1, Client *p2) {
     else return false;
 }
 
-bool orderByNameProduct(Product *p1, Product *p2){
+bool orderByCodeProduct(Product *p1, Product *p2){
 
-    if(p1->getName() < p2->getName()) return true;
-    else if(p1->getName() > p2->getName()) return false;
+    if(p1->getCode() < p2->getCode()) return true;
+    else if(p1->getCode() > p2->getCode()) return false;
 }
 

@@ -78,10 +78,11 @@ Product::Product(string product){
 
 void Product::writeProduct(ofstream & file) const{
 /*
-    file << name << "; ";
+    file << this->getName() << "; ";
     file << code << "; ";
     file << price << "; ";
-    file << description; */
+    file << description;
+    */
 }
 
 

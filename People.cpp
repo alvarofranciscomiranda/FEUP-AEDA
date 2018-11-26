@@ -123,8 +123,8 @@ void Employee::writeEmployee(ofstream & file) const{
 
 }
 
-Client::Client(string name, string address, int taxNumber){
-    People(name, address, taxNumber);
+Client::Client(string name, string address, int taxNumber): People(name, address, taxNumber){
+
     id++;
     client_number=id;
 
@@ -165,26 +165,6 @@ Client::Client(string client){
     client = client.substr(stop +2);
     stop = client.find_first_of(';');
     this->taxNumber = stoi(client.substr(0, stop));
-
-    //FAZER ESTA CENA COMENTADA
-
-    //purchases
-    /*
-    client = client.substr(stop+2);
-    last = client.find(';');
-    purchases = client.substr(0,last);
-    unsigned long st;
-
-    while(stop!=string::npos && !purchases.empty()){
-        st = purchases.find_first_of(',');
-        this->purchases.push_back(new Sales(purchases.substr(0,st), 0, 0, 0, 0, ""));
-        if(st==string::npos)
-            break;
-        purchases = purchases.substr(st+2);
-        stop = st;
-    }*/
-
-
 }
 
 void Client::displayClient(){
@@ -192,16 +172,7 @@ void Client::displayClient(){
     cout << "Name: " << name << endl;
     cout << "Address: " << address << endl;
     cout << "Tax Number: " << taxNumber << endl;
-
-    /*cout << "Purchases: ";
-    for( int i = 0; i < purchases.size(); i++){
-        if(i == purchases.size()-1) {
-            cout << purchases[i].getProduct().getName();
-        } else {
-            cout << purchases[i].getProduct().getName() << ", ";
-        }
-    }*/
-    cout << endl << endl;
+    cout << endl;
 }
 
 void Client::writeClient(ofstream & file) const{
@@ -210,17 +181,6 @@ void Client::writeClient(ofstream & file) const{
     file << name << "; ";
     file << address << "; ";
     file << taxNumber << "; ";
-/*
-    if (!this->getPurchases().empty()) {
-        for (int i = 0; i < this->getPurchases().size(); i++) {
-            if(i == getPurchases().size() -1)
-                file << this->getPurchases()[i].getProduct().getName() << "; ";
-            else
-                file << this->getPurchases()[i].getProduct().getName() << ", ";
-        }
-    }
-*/
-
 }
 
 int Client::getClient_number() const {
