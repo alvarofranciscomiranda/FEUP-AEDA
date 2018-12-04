@@ -14,14 +14,20 @@ protected:
 	int taxNumber;
 
 public:
+	virtual ~People(){};
     People();
     People(string name, string address, int taxNumber);
+
     string getName() const;
     string getAddress() const;
     int getTaxNumber() const;
+
     void setName(string name);
     void setAddress(string address);
     void setTaxNumber(int taxNumber);
+
+	virtual void printSimplifiedInfo(ostream & os) const = 0;
+	virtual void displayPerson() const = 0;
 };
 
 class Employee : public People{
@@ -31,6 +37,7 @@ protected:
     string pharmacy, post;
 
 public:
+    ~Employee(){};
     Employee(string name, string address, int taxNumber, float salary, string pharmacy, string post);
 	Employee(string employee);
     float getSalary() const;
@@ -39,13 +46,14 @@ public:
     void setSalary(float salary);
     void setPharmacy(string pharmacy);
     void setPost(string post);
-	void displayEmployee();
-	void writeEmployee(ofstream & file) const;
+
+    void displayPerson() const;
+	void printSimplifiedInfo(ostream & os) const;
 };
 
 class Client : public People{
 protected:
-	vector<Sales> purchases;
+	vector<Sales *> purchases;
 public:
 	static int id;
 	int client_number;
@@ -53,11 +61,13 @@ public:
 	void setClient_number(int client_number);
 	Client(int id,string name, string address, int taxNumber);
 	Client(string name, string address, int taxNumber);
-    vector<Sales> getPurchases() const;
-    void setPurchases(vector<Sales> purchases);
+    vector<Sales *> getPurchases() const;
+    void setPurchases(vector<Sales *> purchases);
 	Client(string client);
-	void displayClient();
-	void writeClient(ofstream & file) const;
+	void addPurchases(Sales * purchases);
+
+	void displayPerson() const;
+	void printSimplifiedInfo(ostream & os) const;
 };
 
 

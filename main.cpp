@@ -13,6 +13,8 @@ int main() {
     comp.openEmployeesFile();
     comp.openClientsFile();
     comp.openProductsFile();
+    comp.openRecipesFile();
+    comp.openSalesFile();
 
     ClearScreen();
 

@@ -1,9 +1,9 @@
-1; Lourenco Guedes; Avenida do Brasil; 123456789
-2; Otilia Trancoso; Rua das Cavas; 987654321
-3; Delfim Barros; Lotemento Azul; 321654987
-4; Joao Martins; Rua das Pimentas; 789456123
-5; Vitor Lourenco; Travessa Dr. Barros; 564918237
-6; Jose Pimenta; Rua Dr Eduardo Silva; 325174983
-7; Rita Silva; Loteamento Vieira; 252345267
-8; Andre Morais; Aldeamento da Praia; 57381928
-9; Sofia Cardoso; Rua do Maio; 647381926
+1;Lourenco Guedes;Avenida do Brasil;123456789
+2;Otilia Trancoso;Rua das Cavas;987654321
+3;Delfim Barros;Lotemento Azul;321654987
+4;Joao Martins;Rua das Pimentas;789456123
+5;Vitor Lourenco;Travessa Dr. Barros;564918237
+6;Jose Pimenta;Rua Dr Eduardo Silva;325174983
+7;Rita Silva;Loteamento Vieira;252345267
+8;Andre Morais;Aldeamento da Praia;57381928
+9;Sofia Cardoso;Rua do Maio;647381926

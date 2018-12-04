@@ -1,0 +1,8 @@
+1;Lourenco Guedes;Doutor Marcelo
+medicine/Mebocaina/2/2.99/Tosse Prevention/1/0/0;other/BenUron/bnu/12.3/Headeches;medicine/Preservative/2/29.99/Headache Prevention/1/1/20;
+medicine/Mebocaina/2/2.99/Tosse Prevention/1/0/0;other/BenUron/bnu/12.3/Headeches;medicine/Preservative/2/29.99/Headache Prevention/1/1/20;
+2;Vitor Lourenco;Doutor Carvalho
+medicine/Mebocaina/2/2.99/Tosse Prevention/1/0/0;other/BenUron/bnu/12.3/Headeches;
+medicine/Mebocaina/2/2.99/Tosse Prevention/1/0/0;other/BenUron/bnu/12.3/Headeches;
+3;Sofia Cardoso;Doutor Caitano
+medicine/Mebocaina/2/2.99/Tosse Prevention/1/0/0;

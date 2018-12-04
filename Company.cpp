@@ -14,7 +14,6 @@ void Company::openPharmacyFile(){
     string pharmacy;
 
     //verify file is successfully opened
-
     if (pharmacyFile.is_open()) {
         while (!pharmacyFile.eof()) {
 
@@ -33,7 +32,6 @@ void Company::openEmployeesFile(){
     string employee;
 
     //verify file is successfully opened
-
     if (employeeFile.is_open()) {
         while (!employeeFile.eof()) {
 
@@ -52,7 +50,6 @@ void Company::openClientsFile(){
     string client;
 
     //verify file is successfully opened
-
     if (clientFile.is_open()) {
         while (!clientFile.eof()) {
 
@@ -71,18 +68,166 @@ void Company::openProductsFile(){
     string product;
 
     //verify file is successfully opened
-
     if (productFile.is_open()) {
-        while (!productFile.eof()) {
+      while (!productFile.eof()) {
 
-            getline(productFile, product);
-            products.push_back(new Product(product));
+          unsigned long stop; //stop is pos for last ';' found
+
+           getline(productFile, product);
+
+           stop = product.find_first_of('/');
+
+           if(product.substr(0,stop) == "other"){
+            	product = product.substr(stop+1);
+            	Other * pre = new Other(product);
+            	products.push_back(pre);
+           }
+           else if(product.substr(0,stop) == "medicine"){
+            	product = product.substr(stop+1);
+            	Medicine * pre = new Medicine(product);
+            	products.push_back(pre);
+            }
         }
     }
-
     productFile.close();
-
 }
+
+void Company::openRecipesFile(){
+	ifstream recipesFile("recipes.txt");
+	string recipes;
+	string prods;
+	string sods;
+
+    //verify file is successfully opened
+    if (recipesFile.is_open()) {
+      while (!recipesFile.eof()) {
+    	  vector<Product *> products;
+    	  vector<Product *> sold;
+
+          int stop; //stop is pos for first '/' found
+          int stop2; //stop is pos for first '/' found
+
+           getline(recipesFile, recipes);
+           Recipe * p = new Recipe(recipes);
+
+
+           //gets product
+           getline(recipesFile, prods);
+           while(prods != ""){
+               stop = prods.find_first_of('/');
+
+        	   if(prods.substr(0,stop) == "other"){
+        		  prods = prods.substr(stop + 1);
+        		  stop2 = prods.find_first_of(';');
+        	      Other * pre = new Other(prods.substr(0, stop2));
+        	      p->addProduct(pre);
+        	   }
+        	   else if(prods.substr(0,stop) == "medicine"){
+        		  prods = prods.substr(stop+1);
+        		  stop2 = prods.find_first_of(';');
+        	      Medicine * pre = new Medicine(prods.substr(0, stop2 ));
+        	      p->addProduct(pre);
+        	   }
+
+               stop2 = prods.find_first_of(';');
+        	   prods = prods.substr(stop2+1);
+           }
+
+           //gets sold
+           getline(recipesFile, sods);
+        while(sods != ""){
+             stop = sods.find_first_of('/');
+
+             if(sods.substr(0,stop) == "other"){
+            	 sods = sods.substr(stop + 1);
+            	 stop2 = sods.find_first_of(';');
+            	 Other * pre = new Other(sods.substr(0, stop2));
+            	 p->addSold(pre);
+             }
+             else if(sods.substr(0,stop) == "medicine"){
+            	 sods = sods.substr(stop+1);
+            	 stop2 = sods.find_first_of(';');
+            	 Medicine * pre = new Medicine(sods.substr(0, stop2 ));
+            	 p->addSold(pre);
+             }
+
+
+
+           stop2 = sods.find_first_of(';');
+           sods = sods.substr(stop2+1);
+        }
+
+        for(unsigned int i = 0; i < this->clients.size();i++){
+        	if(this->clients.at(i)->getName() == p->getUser() && p->getSold().size() != 0){
+               vector<int> quant;
+               for(unsigned int j = 0; j < p->getSold().size(); j++ ){
+                   quant.push_back(1);
+               }
+               Sales * sale = new Sales(p->getSold(), quant, Date("4/10/2018"));
+               this->clients.at(i)->addPurchases(sale);
+            }
+        }
+
+         this->recipes.push_back(p);
+        }
+    }
+    recipesFile.close();
+}
+
+void Company::openSalesFile(){
+	ifstream recipesFile("sales.txt");
+	    string recipes;
+	    string prods;
+	    string sods;
+
+	    //verify file is successfully opened
+	    if (recipesFile.is_open()) {
+	    	while (!recipesFile.eof()) {
+	    		vector<Product *> products;
+	        	vector<int> quant;
+
+	              int stop; //stop is pos for first '/' found
+	              int stop2; //stop is pos for first '/' found
+
+	               getline(recipesFile, recipes);
+	               Sales * s = new Sales(recipes);
+
+	               //gets product
+	               getline(recipesFile, prods);
+	               while(prods != ""){
+	                   stop = prods.find_first_of('/');
+
+	            	   if(prods.substr(0,stop) == "other"){
+	            		  prods = prods.substr(stop + 1);
+	            		  stop2 = prods.find_first_of(';');
+	            	      Other * pre = new Other(prods.substr(0, stop2));
+	            	      s->addProductOnly(pre);
+	            	   }
+	            	   else if(prods.substr(0,stop) == "medicine"){
+	            		  prods = prods.substr(stop+1);
+	            		  stop2 = prods.find_first_of(';');
+	            	      Medicine * pre = new Medicine(prods.substr(0, stop2 ));
+	            	      s->addProductOnly(pre);
+	            	   }
+
+	                   stop2 = prods.find_first_of(';');
+	            	   prods = prods.substr(stop2+1);
+	               }
+
+	            //gets quantity
+	            getline(recipesFile, sods);
+	            while(sods != ""){
+	                 stop = sods.find_first_of(';');
+	                 s->addQuantityOnly(stoi(sods.substr(0,stop)));
+	                 sods = sods.substr(stop + 1);
+	            }
+
+	             sales.push_back(s);
+	            }
+	        }
+	        recipesFile.close();
+}
+
 
 void Company::displayPharmacies() {
 
@@ -102,7 +247,7 @@ void Company::displayEmployees() {
 
     for (unsigned int i = 0; i < employees.size(); i++) {
 
-        employees.at(i)->displayEmployee();
+        employees.at(i)->displayPerson();
 
     }
     returnMainMenu();
@@ -114,7 +259,7 @@ void Company::displayClients() {
 
     for (unsigned int i = 0; i < clients.size(); i++) {
 
-        clients.at(i)->displayClient();
+        clients.at(i)->displayPerson();
 
     }
     returnMainMenu();
@@ -126,11 +271,37 @@ void Company::displayProducts() {
 
     for (unsigned int i = 0; i < products.size(); i++) {
 
-        products.at(i)->displayProduct();
+        products.at(i)->printProductInfo();
 
     }
     returnMainMenu();
 }
+
+void Company::displayRecipes() {
+
+    ClearScreen();
+
+    for (unsigned int i = 0; i < recipes.size(); i++) {
+
+        recipes.at(i)->printProductInfo();
+
+    }
+    returnMainMenu();
+}
+
+void Company::displaySales() {
+
+    ClearScreen();
+
+    for (unsigned int i = 0; i < sales.size(); i++) {
+
+        sales.at(i)->printSalesInfo();
+
+    }
+    returnMainMenu();
+}
+
+
 
 void Company::searchPharmacyName() {
 
@@ -237,7 +408,7 @@ void Company::searchEmployees() {
 
     ClearScreen();
 
-    for(int i = 0; i < pharmacies.size(); i++){
+    for(unsigned int i = 0; i < pharmacies.size(); i++){
         vector <Employee *> temp=pharmacies.at(i)->getEmployees();
         sort(temp.begin(),temp.end(), orderByNameEmployee);
         int left = 0, right = temp.size() - 1;
@@ -269,7 +440,7 @@ void Company::searchClients() {
 
     ClearScreen();
 
-    for(int i = 0; i < pharmacies.size(); i++){
+    for(unsigned int i = 0; i < pharmacies.size(); i++){
         vector <Client *> temp=pharmacies.at(i)->getClients();
         sort(temp.begin(),temp.end(), orderByNameClient);
         int left = 0, right = temp.size() - 1;
@@ -506,7 +677,7 @@ void Company::addProducts() {
     getline(cin, description);
 
 
-    products.push_back(new Product(code, name, price, description));
+    //products.push_back(new Product(code, name, price, description));
 
     cout << string(2, '\n') << "Employee added successfully!" << string(2, '\n');
 }
@@ -542,7 +713,7 @@ void Company::removeEmployee() {
     cin.ignore(1000, '\n');
     getline(cin, name);
 
-    for (int i = 0; i < employees.size(); ++i) {
+    for (unsigned int i = 0; i < employees.size(); ++i) {
 
         if (employees.at(i)->getName() == name) {
 
@@ -565,7 +736,7 @@ void Company::removeClient() {
     cin.ignore(1000, '\n');
     getline(cin, name);
 
-    for (int i = 0; i < clients.size(); ++i) {
+    for (unsigned int i = 0; i < clients.size(); ++i) {
 
         if (clients.at(i)->getName() == name) {
 
@@ -588,7 +759,7 @@ void Company::removeProduct() {
     cin.ignore(1000, '\n');
     getline(cin, code);
 
-    for (int i = 0; i < products.size(); ++i) {
+    for (unsigned int i = 0; i < products.size(); ++i) {
 
         if (products.at(i)->getName() == code) {
 
@@ -664,15 +835,14 @@ void Company::comparePharmacies(Pharmacy *p1, Pharmacy *p2) {
 
 void Company::updatePharmacyFile() {
 
-    ofstream file;
-    file.open("/Users/mariajoaosenraviana/Desktop/untitled/PharmacyFile.txt");
+	ofstream pharmacyFile("pharmacyFile.txt");
 
     sort(pharmacies.begin(),pharmacies.end(),orderByNamePharmacy);
 
-    for (int i = 0; i < pharmacies.size(); i++) {
-        pharmacies[i]->writePharmacy(file);
+    for (unsigned int i = 0; i < pharmacies.size(); i++) {
+        pharmacies[i]->writePharmacy(pharmacyFile);
         if(i!=pharmacies.size()-1)
-        file << endl;
+        pharmacyFile << endl;
     }
 
 
@@ -680,83 +850,136 @@ void Company::updatePharmacyFile() {
 
 void Company::updateEmployeeFile() {
 
-    ofstream file;
-    file.open("/Users/mariajoaosenraviana/Desktop/untitled/Employees.txt");
+    ofstream employeesFile("employees.txt");
 
     sort(employees.begin(),employees.end(),orderByNameEmployee);
 
-    for (int i = 0; i<employees.size(); i++) {
-        employees[i]->writeEmployee(file);
+    for (unsigned int i = 0; i<employees.size(); i++) {
+        employees[i]->printSimplifiedInfo(employeesFile);
         if(i!=employees.size()-1)
-            file << endl;
+        	employeesFile << endl;
     }
 
 }
 
 void Company::updateClientFile() {
 
-    ofstream file;
-    file.open("/Users/mariajoaosenraviana/Desktop/untitled/Clients.txt");
+    ofstream clientsFile("clients.txt");
 
     sort(clients.begin(),clients.end(),orderByNameClient);
 
-    for (int i = 0; i<clients.size(); i++) {
-        clients[i]->writeClient(file);
+    for (unsigned int i = 0; i<clients.size(); i++) {
+        clients[i]->printSimplifiedInfo(clientsFile);
         if(i!=clients.size()-1)
-            file << endl;
+            clientsFile << endl;
     }
 
 }
 
 void Company::updateProductFile() {
 
-    ofstream file;
-    file.open("/Users/mariajoaosenraviana/Desktop/untitled/Products.txt");
+   ofstream clientsFile("products.txt");
 
    sort(products.begin(), products.end(), orderByCodeProduct);
 
-    for (int i = 0; i<products.size(); i++) {
-        products[i]->writeProduct(file);
+    for (unsigned int i = 0; i<products.size(); i++) {
+        products[i]->printSimplifiedInfo(clientsFile);
         if(i!=products.size()-1)
-            file << endl;
+        	clientsFile << endl;
     }
 
+}
+
+void Company::updateRecipeFile() {
+
+   ofstream recipesFile("recipes.txt");
+
+   sort(recipes.begin(), recipes.end(), orderByRecipeNumber);
+
+    for (unsigned int i = 0; i<recipes.size(); i++) {
+        recipes[i]->printSimplifiedInfo(recipesFile);
+        if(i!=products.size()-1)
+        	recipesFile << endl;
+    }
+
+}
+
+void Company::updateSalesFile(){
+	ofstream salesFile("sales.txt");
+
+	sort(sales.begin(), sales.end(), orderByDate);
+
+	 for (unsigned int i = 0; i<sales.size(); i++) {
+		 sales[i]->printSimplifiedInfo(salesFile);
+	     if(i!=products.size()-1)
+	        salesFile << endl;
+	 }
 }
 
 bool orderByNamePharmacy(Pharmacy *p1, Pharmacy *p2){
 
     if(p1->getName() < p2->getName()) return true;
     else if(p1->getName() > p2->getName()) return false;
+    return false;
 }
 
 bool orderByNameManager(Pharmacy *p1, Pharmacy *p2){
 
      if(p1->getManager() < p2->getManager()) return true;
      else if(p1->getManager() > p2->getManager()) return false;
+     return false;
  }
 
 bool orderByNameAddress(Pharmacy *p1, Pharmacy *p2){
 
     if(p1->getAddress() < p2->getAddress()) return true;
     else if(p1->getAddress() > p2->getAddress()) return false;
+    return false;
 }
 
 bool orderByNameEmployee(Employee *p1, Employee *p2){
 
     if(p1->getName() < p2->getName()) return true;
     else if(p1->getName() > p2->getName()) return false;
+    return false;
 }
 
 bool orderByNameClient(Client *p1, Client *p2) {
 
     if (p1->getName() < p2->getName()) return true;
     else if (p1->getName() > p2->getName()) return false;
-    else return false;
+    return false;
 }
 
 bool orderByCodeProduct(Product *p1, Product *p2){
 
     if(p1->getCode() < p2->getCode()) return true;
     else if(p1->getCode() > p2->getCode()) return false;
+    return false;
+}
+
+bool orderByRecipeNumber(Recipe *p1, Recipe *p2){
+
+    if(p1->getNumber() < p2->getNumber()) return true;
+    else if(p1->getNumber() > p2->getNumber()) return false;
+
+    return false;
+}
+
+bool orderByDate(Sales *p1, Sales *p2){
+	if(p1->getDate().getYear() < p2->getDate().getYear())
+		return true;
+	else if(p1->getDate().getYear() > p2->getDate().getYear())
+		return false;
+	else if(p1->getDate().getMonth() < p2->getDate().getMonth())
+		return true;
+	else if(p1->getDate().getMonth() > p2->getDate().getMonth())
+		return false;
+	else if(p1->getDate().getDay() < p2->getDate().getDay())
+		return true;
+	else if(p1->getDate().getDay() > p2->getDate().getDay())
+		return false;
+
+	return false;
 }
 

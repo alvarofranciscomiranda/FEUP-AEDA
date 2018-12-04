@@ -2,61 +2,98 @@
 #include <iostream>
 using namespace std;
 
-Sales::Sales(){
-	quantity = 0;
-	iva= 0;
-	price= 0;
-	discount = 0;
-};
+Sales::Sales(){};
 
-Sales::Sales(Product product, int quantity, int iva, int price, int discount, Date date) : product(product), quantity(quantity), iva(iva), price(price), discount(discount), date(date){
+Sales::Sales( vector<Product*> prod, vector<int> quant, Date date) : products(prod), quantity(quant) ,date(date){
 }
 
-Product Sales::getProduct() const{
-    return product;
+Sales::Sales(string sale){
+	Date * d = new Date(sale);
+	this->date = *d;
 }
 
-int Sales::getQuantity() const{
+vector<Product*> Sales::getProducts() const{
+    return products;
+}
+
+vector<int> Sales::getQuantity() const{
     return quantity;
-}
-
-int Sales::getIva() const{
-    return iva;
-}
-
-int Sales::getPrice() const{
-    return price;
-}
-
-int Sales::getDiscount() const{
-    return discount;
 }
 
 Date Sales::getDate() const{
     return date;
 }
 
-void Sales::setProduct(Product product){
-    this->product = product;
+
+float Sales::getTotalValue() const{
+    float total = 0;
+    vector<Product*>::const_iterator it = products.begin();
+    unsigned int i = 0;
+    for(; it != products.end(); it++, i++){
+    	total += (*it)->getTotalPrice();
+    }
+    return total;
 }
 
-void Sales::setQuantity(int quantity){
-    this->quantity = quantity;
+void Sales::setProducts(vector<Product*> product){
+    this->products = product;
 }
 
-void Sales::setIva(int iva){
-    this->iva = iva;
-}
-
-void Sales::setPrice(int price){
-    this->price;
-}
-
-void Sales::setDiscount(int discount){
-    this->discount = discount;
+void Sales::setQuantity(vector<int> quant){
+    this->quantity = quant;
 }
 
 void Sales::setDate(Date date){
     this->date = date;
 }
+
+void Sales::addQuantity(string name, int quant){
+	vector<Product*>::iterator it;
+	unsigned int i = 0;
+	for(it = products.begin(); it != products.end(); it++, i++){
+		if((*it)->getName() == name){
+			this->quantity.at(i) = quantity.at(i)+ quant;
+		}
+	}
+}
+
+void Sales::addQuantityOnly(int quantity){
+	 this->quantity.push_back(quantity);
+}
+
+
+void Sales::addProduct(Product* product){
+	this->products.push_back(product);
+	this->quantity.push_back(1);
+}
+
+void Sales::addProductOnly(Product* product){
+	this->products.push_back(product);
+}
+
+void Sales::printSalesInfo() const{
+	cout << "Date: " ;
+    this->getDate().printDate();
+    for(unsigned int i = 0; i < this->products.size(); i++){
+    	cout << "Products sold: ";
+    	this->products.at(i)->printProductInfo();
+    	cout << "Quantity sold: ";
+    	cout << this->quantity.at(i);
+    	cout << endl << endl;
+    }
+    cout << endl;
+}
+
+void Sales::printSimplifiedInfo(ostream & os) const{
+
+	getDate().printDateInfo(os);
+	for(unsigned int i = 0; i < this->products.size(); i++){
+	    products.at(i)->printFileInfo(os);
+	}
+	os << endl;
+	for(unsigned int i = 0; i < this->quantity.size(); i++){
+		os << quantity.at(i) << ";";
+	}
+}
+
 

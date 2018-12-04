@@ -4,6 +4,7 @@ using namespace std;
 
 
 int Client::id=1;
+
 People::People(){
 	this->name = "";
 	this->address = "";
@@ -75,34 +76,32 @@ Employee::Employee(string employee){
     this->name = employee.substr(0,stop);
 
     // address
-    employee = employee.substr(stop+2);
+    employee = employee.substr(stop+1);
     stop = employee.find_first_of(';');
     this->address = employee.substr(0,stop);
 
     //taxNumber
-    employee = employee.substr(stop +2);
+    employee = employee.substr(stop +1);
     stop = employee.find_first_of(';');
     this->taxNumber = stoi(employee.substr(0, stop));
 
     //pharmacy
-    employee = employee.substr(stop +2);
+    employee = employee.substr(stop +1);
     stop = employee.find_first_of(';');
     this->pharmacy = employee.substr(0, stop);
 
     //salary
-    employee = employee.substr(stop +2);
+    employee = employee.substr(stop +1);
     stop = employee.find_first_of(';');
     this->salary = stof(employee.substr(0, stop));
 
     //post
-    employee = employee.substr(stop +2);
+    employee = employee.substr(stop +1);
     stop = employee.find_first_of(';');
     this->post = employee.substr(0, stop);
-
-
 }
 
-void Employee::displayEmployee(){
+void Employee::displayPerson() const{
     cout << "Name: " << name << endl;
     cout << "Address: " << address << endl;
     cout << "Tax Number: " << taxNumber << endl;
@@ -112,15 +111,8 @@ void Employee::displayEmployee(){
     cout << endl << endl;
 }
 
-void Employee::writeEmployee(ofstream & file) const{
-
-    file << this->getName() << "; ";
-    file << this->getAddress() << "; ";
-    file << this->getTaxNumber() << "; ";
-    file << this->getSalary() << "; ";
-    file << this->getPharmacy() << "; ";
-    file << this->getPost();
-
+void Employee::printSimplifiedInfo(ostream & os) const{
+	os << name << ";" << address << ";" << taxNumber << ";" << salary << ";" << pharmacy << "," << post << endl;
 }
 
 Client::Client(string name, string address, int taxNumber): People(name, address, taxNumber){
@@ -134,11 +126,11 @@ Client::Client(int id, string name, string address, int taxNumber):People(name, 
     client_number=id;
 }
 
-vector<Sales> Client::getPurchases() const{
+vector<Sales*> Client::getPurchases() const{
     return purchases;
 }
 
-void Client::setPurchases(vector<Sales> purchases){
+void Client::setPurchases(vector<Sales*> purchases){
     this->purchases = purchases;
 }
 
@@ -152,35 +144,37 @@ Client::Client(string client){
     this->client_number = stoi(client.substr(0,stop));
 
     // name
-    client = client.substr(stop+2);
+    client = client.substr(stop+1);
     stop = client.find_first_of(';');
     this->name = client.substr(0,stop);
 
     // address
-    client = client.substr(stop+2);
+    client = client.substr(stop+1);
     stop = client.find_first_of(';');
     this->address = client.substr(0,stop);
 
     //taxNumber
-    client = client.substr(stop +2);
+    client = client.substr(stop +1);
     stop = client.find_first_of(';');
     this->taxNumber = stoi(client.substr(0, stop));
 }
 
-void Client::displayClient(){
+void Client::displayPerson() const{
     cout << "Id: " << client_number<< endl;
     cout << "Name: " << name << endl;
     cout << "Address: " << address << endl;
     cout << "Tax Number: " << taxNumber << endl;
+    cout << "Purchases: ";
+    for(unsigned int i = 0; i < this->purchases.size(); i++){
+    	this->purchases.at(i)->printSalesInfo();
+    }
     cout << endl;
 }
 
-void Client::writeClient(ofstream & file) const{
 
-    file << client_number << "; ";
-    file << name << "; ";
-    file << address << "; ";
-    file << taxNumber << "; ";
+void Client::printSimplifiedInfo(ostream & os) const{
+	os << client_number << ";" << name << ";" << address << ";" << taxNumber << ";";
+	os << endl;
 }
 
 int Client::getClient_number() const {
@@ -189,4 +183,8 @@ int Client::getClient_number() const {
 
 void Client::setClient_number(int client_number) {
     Client::client_number = client_number;
+}
+
+void Client::addPurchases(Sales * purchases){
+	this->purchases.push_back(purchases);
 }

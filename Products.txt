@@ -1,3 +1,5 @@
-A1; Paracetamol; 6.95; Dores de Cabeça
-B4; Voltaren; 4.99; Esfregar na pele
-C395; Brufen; 7.89; Analgesico
+medicine/Presive/2/2.99/He Prevention/0/0/0
+medicine/BenUron/bnu/12.3/Headeches/1/0/10
+other/BenUron/bnu/12.3/Headeches
+other/Preservative/2/29.99/Headache Prevention
+medicine/Preservative/2/29.99/Headache Prevention/1/1/20

@@ -93,6 +93,8 @@ void displayMenu(Company &company){
     cout << "2. Display all Employees" << endl;
     cout << "3. Display all Clients" << endl;
     cout << "4. Display all Products" << endl;
+    cout << "5. Display all Recipes" << endl;
+    cout << "6. Display all Sales" << endl;
 
     cout << endl << "Enter a number option: ";
     cin >> option;
@@ -118,6 +120,12 @@ void displayMenu(Company &company){
             break;
         case 4:
             company.displayProducts();
+            break;
+        case 5:
+            company.displayRecipes();
+            break;
+        case 6:
+            company.displaySales();
             break;
     }
 
@@ -494,6 +502,9 @@ void updateFileMenu(Company &company){
     cout << "2. Update Employees File" << endl;
     cout << "3. Update Clients File" << endl;
     cout << "4. Update products File" << endl;
+    cout << "5. Update recipes File" << endl;
+    cout << "6. Update sales File" << endl;
+
 
     cout << endl << "Enter a number option: ";
     cin >> option;
@@ -519,6 +530,12 @@ void updateFileMenu(Company &company){
             break;
         case 4:
             company.updateProductFile();
+            break;
+        case 5:
+            company.updateRecipeFile();
+            break;
+        case 6:
+            company.updateSalesFile();
             break;
     }
 

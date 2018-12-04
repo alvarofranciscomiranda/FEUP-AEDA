@@ -3,32 +3,25 @@
 
 using namespace std;
 
-Date::Date(){}
+Date::Date(){ year = 0; month = 0; day = 0;}
 
-Date::Date(int minute, int hour, int day, int month, int year): minutes(minute), hours(hour), day(day), month(month), year(year){}
-
-Date::Date(const Date &t1):
-		minutes(t1.minutes),
-		hours(t1.hours),
-		day(t1.day),
-		month(t1.month),
-		year(t1.year)
-{}
+Date::Date(int day, int month, int year): day(day), month(month), year(year){}
 
 Date::Date(string date){
-	stringstream ss;
-	char slash;
-	char double_point;
-	ss << date;
-	ss >> this->year >> slash >> this->month >> slash >> this->day >> this->hours >> double_point >> this->minutes;
-}
+	unsigned long stop; //stop is pos for last ';' found
 
-int Date::getMinutes(){
-	return this->minutes;
-}
+	//day
+	stop = date.find_first_of('/');
+	this->day = stoi(date.substr(0,stop));
 
-int Date::getHours(){
-	return this->hours;
+	//month
+	date = date.substr(stop + 1);
+	stop = date.find_first_of('/');
+	this->month = stoi(date.substr(0,stop));
+
+	//year
+	date = date.substr(stop + 1);
+	this->year = stoi(date);
 }
 
 int Date::getDay() {
@@ -43,11 +36,12 @@ int Date::getYear() {
 	return year;
 }
 
-void Date::printDate(ostream & os){
-	os << year << "/" << month << "/" << day << " " << hours << ":" << minutes;
+void Date::printDateInfo(ostream & os){
+	os << day << "/" << month << "/" << year << endl;
 }
 
-ostream & operator<<(ostream & os, Date & d){
-	d.printDate(os);
-	return os ;
+void Date::printDate(){
+	cout << this->day << "/"<< this->month << "/" << this->year << endl;
 }
+
+

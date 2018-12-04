@@ -5,6 +5,7 @@
 #include <math.h>
 #include <String>
 #include "Pharmacy.h"
+#include "Product.h"
 #include "Recipe.h"
 #include "Sales.h"
 #include "People.h"
@@ -18,8 +19,8 @@ private:
     vector<Employee *> employees;
     vector<Client *> clients;
     vector<Product *> products;
-    //vector<Recipe *> recipes;
-    //vector<Sales *> sales;
+    vector<Recipe *> recipes;
+    vector<Sales *> sales;
 public:
 
     /**
@@ -55,6 +56,16 @@ public:
     void openProductsFile();
 
     /**
+    * @brief Opens Recipes File.
+    */
+    void openRecipesFile();
+
+    /**
+    * @brief Opens Recipes File.
+    */
+    void openSalesFile();
+
+    /**
     * @brief Displays the information about all pharmacies.
     */
     void displayPharmacies();
@@ -73,6 +84,17 @@ public:
     * @brief Displays the information about all products.
     */
     void displayProducts();
+
+    /**
+    * @brief Displays the information about all recipes.
+    */
+    void displayRecipes();
+
+    /**
+    * @brief Displays the information about all recipes.
+    */
+    void displaySales();
+
 
     /**
      * @brief Search pharmacy by name and displays its information.
@@ -193,7 +215,19 @@ public:
     * @brief Updates the file containing the information about the products according to the changes made in the program.
     */
     void updateProductFile();
+
+    /**
+    * @brief Updates the file containing the information about the recipes according to the changes made in the program.
+    */
+    void updateRecipeFile();
+
+    /**
+    * @brief Updates the file containing the information about the sales according to the changes made in the program.
+    */
+    void updateSalesFile();
 };
+
+
     /**
     * @brief Sorts pharmacies vector by name's alphabetic order.
     * @param s1
@@ -206,7 +240,7 @@ public:
     bool orderByNameManager(Pharmacy *p1, Pharmacy *p2);
     bool orderByNameClient(Client *p1, Client *p2);
     bool orderByCodeProduct(Product *p1, Product *p2);
-
-
+    bool orderByRecipeNumber(Recipe *p1, Recipe *p2);
+    bool orderByDate(Sales *p1, Sales *p2);
 
 #endif //UNTITLED_COMPANY_H

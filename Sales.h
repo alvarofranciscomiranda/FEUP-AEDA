@@ -3,29 +3,38 @@
 
 #include "Product.h"
 #include "Date.h"
+#include <utility>
+#include <vector>
 using namespace std;
 
 class Sales{
 
 protected:
-	Product product;
-    int quantity, iva, price, discount;
+	vector<Product *> products;
+	vector<int> quantity;
     Date date;
 
 public:
     Sales();
-    Sales(Product product, int quantity, int iva, int price, int discount, Date date);
-    Product getProduct() const;
-    int getQuantity() const;
-    int getIva() const;
-    int getPrice() const;
-    int getDiscount() const;
+    Sales(string product);
+    Sales(vector<Product*> products,  vector<int> quantity, Date date);
+
+    vector<Product*> getProducts() const;
+    vector<int> getQuantity() const;
     Date getDate() const;
-    void setProduct(Product product);
-    void setQuantity(int quantity );
-    void setIva(int iva);
-    void setPrice(int price);
-    void setDiscount(int discount);
+
+    void setProducts(vector<Product*> product);
+    void setQuantity(vector<int> product);
     void setDate(Date date);
+
+    float getTotalValue() const;
+
+    void addQuantity(string name, int quantity);
+    void addQuantityOnly(int quantity);
+    void addProduct(Product* product);
+    void addProductOnly(Product* product);
+
+    void printSalesInfo() const;
+	void printSimplifiedInfo(ostream & os) const;
 };
 #endif /* SALES_H_ */

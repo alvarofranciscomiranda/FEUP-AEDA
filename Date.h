@@ -8,21 +8,19 @@ using namespace std;
 
 class Date{
 protected:
-	int minutes, hours, day, month, year;
+	int day, month, year;
 
 public:
 	Date();
-	Date(const Date &date);
 	Date(string date);
-	Date(int minute, int hour, int day, int year , int month);
+	Date(int day, int year , int month);
 
-	int getMinutes();
-	int getHours();
 	int getDay();
 	int getMonth();
 	int getYear();
-	void printDate(ostream &os);
 
+	void printDateInfo(ostream &os);
+	void printDate();
 };
 
 #endif /* DATE_H_ */
