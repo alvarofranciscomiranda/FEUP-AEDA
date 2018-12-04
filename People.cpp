@@ -76,7 +76,7 @@ Employee::Employee(string employee){
     this->name = employee.substr(0,stop);
 
     // address
-    employee = employee.substr(stop+1);
+    employee = employee.substr(stop + 1);
     stop = employee.find_first_of(';');
     this->address = employee.substr(0,stop);
 
@@ -85,20 +85,19 @@ Employee::Employee(string employee){
     stop = employee.find_first_of(';');
     this->taxNumber = stoi(employee.substr(0, stop));
 
-    //pharmacy
-    employee = employee.substr(stop +1);
-    stop = employee.find_first_of(';');
-    this->pharmacy = employee.substr(0, stop);
-
     //salary
-    employee = employee.substr(stop +1);
+    employee = employee.substr(stop + 1);
     stop = employee.find_first_of(';');
     this->salary = stof(employee.substr(0, stop));
 
-    //post
-    employee = employee.substr(stop +1);
+    //pharmacy
+    employee = employee.substr(stop + 1);
     stop = employee.find_first_of(';');
-    this->post = employee.substr(0, stop);
+    this->pharmacy = employee.substr(0, stop);
+
+    //post
+    employee = employee.substr(stop + 1);
+    this->post = employee.substr(0);
 }
 
 void Employee::displayPerson() const{
@@ -112,7 +111,7 @@ void Employee::displayPerson() const{
 }
 
 void Employee::printSimplifiedInfo(ostream & os) const{
-	os << name << ";" << address << ";" << taxNumber << ";" << salary << ";" << pharmacy << "," << post << endl;
+	os << name << ";" << address << ";" << taxNumber << ";" << salary << ";" << pharmacy << ";" << post;
 }
 
 Client::Client(string name, string address, int taxNumber): People(name, address, taxNumber){
@@ -174,7 +173,6 @@ void Client::displayPerson() const{
 
 void Client::printSimplifiedInfo(ostream & os) const{
 	os << client_number << ";" << name << ";" << address << ";" << taxNumber << ";";
-	os << endl;
 }
 
 int Client::getClient_number() const {

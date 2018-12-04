@@ -2,6 +2,7 @@
 #define UNTITLED_PHARMACY_H
 
 #include "People.h"
+#include "Product.h"
 #include <vector>
 #include <string>
 #include <math.h>
@@ -11,7 +12,7 @@ class Pharmacy {
 protected:
     string name, address, manager;
     vector<Employee*> employees;
-    vector<Client*> clients;
+    vector<string> products;
 public:
     /**
      * @brief Constructor for class Pharmacy.
@@ -48,9 +49,10 @@ public:
     vector<Employee*> getEmployees() const;
 
     /**
-     * @return vector of Pharmacy clients
-     */
-    vector<Client*> getClients() const;
+    *
+    * @return vector of Pharmacy products
+    */
+    vector<string> getProducts() const;
 
     /**
      * @brief Changes name.
@@ -77,10 +79,10 @@ public:
     void setEmployees(vector<Employee*> &employees);
 
     /**
-     * @brief Changes clients.
-     * @param clients
+     * @brief Changes products.
+     * @param employees
      */
-    void setClients(vector<Client*> &clients);
+    void setProducts(vector<string> products);
 
     /**
     * @brief Adds employee to the vector.
@@ -89,10 +91,10 @@ public:
     void addEmployee(Employee *employee);
 
     /**
-    * @brief Adds Client to the vector.
-    * @param client
+    * @brief Adds product to the vector.
+    * @param product
     */
-    void addClient(Client *client);
+    void addProduct(string product);
 
     /**
      * @brief Displays all information about the pharmacy.

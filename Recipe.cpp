@@ -2,7 +2,14 @@
 #include <iostream>
 using namespace std;
 
+int Recipe::id=1;
+
 Recipe::Recipe(int number, string user, string medic) :number(number), user(user), medic(medic){
+	if(number < id){
+		recipe_number=id;
+	}
+	id++;
+
 }
 
 Recipe::Recipe(string recipe){
@@ -11,6 +18,11 @@ Recipe::Recipe(string recipe){
 	//number
 	stop = recipe.find_first_of(';');
 	this->number = stoi(recipe.substr(0,stop));
+
+	if(number < id){
+		recipe_number=id;
+	}
+	id++;
 
 	//user
 	recipe = recipe.substr(stop + 1);

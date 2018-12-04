@@ -147,7 +147,7 @@ void Medicine::printProductInfo() const{
 }
 
 void Medicine::printSimplifiedInfo(ostream & os) const{
-	os << "medicine" << "/"<<  name << '/' << code << '/' << price << '/' << description << "/" << prescription << '/' << needed << '/' << discount << endl;
+	os << "medicine" << "/"<<  name << '/' << code << '/' << price << '/' << description << "/" << prescription << '/' << needed << '/' << discount;
 }
 
 void Medicine::printFileInfo(ostream & os) const{
@@ -205,7 +205,7 @@ void Other::printProductInfo() const{
 }
 
 void Other::printSimplifiedInfo(ostream & os) const{
-	os  << "other/" << name << '/' << code << '/' << price << '/' << description << endl;
+	os  << "other/" << name << '/' << code << '/' << price << '/' << description;
 }
 
 void Other::printFileInfo(ostream & os) const{

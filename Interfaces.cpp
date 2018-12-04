@@ -141,7 +141,7 @@ void searchMenu(Company &company){
     cout << "2. Search by address" << endl;
     cout << "3. Search by manager" << endl;
     cout << "4. Search by employee" << endl;
-    cout << "5. Search by client" << endl;
+    //cout << "5. Search by client" << endl;
 
     cout << endl << "Enter a number option: ";
     cin >> option;
@@ -168,9 +168,9 @@ void searchMenu(Company &company){
         case 4:
             company.searchEmployees();
             break;
-        case 5:
-           company.searchClients();
-            break;
+      //  case 5:
+      //     company.searchClients();
+      //      break;
     }
 
 }
@@ -538,7 +538,6 @@ void updateFileMenu(Company &company){
             company.updateSalesFile();
             break;
     }
-
 }
 
 void compareMenu(Company &company){

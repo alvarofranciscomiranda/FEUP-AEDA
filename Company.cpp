@@ -8,10 +8,13 @@ using namespace std;
 
 Company::Company(){}
 
-void Company::openPharmacyFile(){
 
+void Company::openPharmacyFile(){
+	unsigned long stop;
     ifstream pharmacyFile("pharmacyFile.txt");
     string pharmacy;
+    string prods;
+    unsigned int i = 0;
 
     //verify file is successfully opened
     if (pharmacyFile.is_open()) {
@@ -19,6 +22,16 @@ void Company::openPharmacyFile(){
 
             getline(pharmacyFile, pharmacy);
             pharmacies.push_back(new Pharmacy(pharmacy));
+
+            getline(pharmacyFile, prods);
+
+            while(prods != ""){
+            	cout << i;
+            	stop = prods.find_first_of(';');
+            	this->pharmacies.at(i)->addProduct(prods.substr(0, stop));
+            	prods = prods.substr(stop + 1);
+            }
+            i++;
         }
     }
 
@@ -30,6 +43,7 @@ void Company::openEmployeesFile(){
 
 	ifstream employeeFile("employees.txt");
     string employee;
+	string prods;
 
     //verify file is successfully opened
     if (employeeFile.is_open()) {
@@ -39,7 +53,6 @@ void Company::openEmployeesFile(){
             employees.push_back(new Employee(employee));
         }
     }
-
     employeeFile.close();
 
 }
@@ -57,7 +70,6 @@ void Company::openClientsFile(){
             clients.push_back(new Client(client));
         }
     }
-
     clientFile.close();
 
 }
@@ -165,6 +177,7 @@ void Company::openRecipesFile(){
                }
                Sales * sale = new Sales(p->getSold(), quant, Date("4/10/2018"));
                this->clients.at(i)->addPurchases(sale);
+               this->sales.push_back(sale);
             }
         }
 
@@ -302,7 +315,6 @@ void Company::displaySales() {
 }
 
 
-
 void Company::searchPharmacyName() {
 
     string name;
@@ -334,6 +346,7 @@ void Company::searchPharmacyName() {
     returnMainMenu();
 }
 
+
 void Company::searchAddress() {
 
     string address;
@@ -364,6 +377,7 @@ void Company::searchAddress() {
 
     returnMainMenu();
 }
+
 
 void Company::searchManager() {
 
@@ -423,38 +437,6 @@ void Company::searchEmployees() {
             break;
         }
      }
-    }
-
-    returnMainMenu();
-}
-
-void Company::searchClients() {
-
-    string client;
-
-    ClearScreen();
-
-    cout << "Insert the employee of the pharmacy you wish to search for" << endl << ":::";
-    cin.ignore(1000, '\n');
-    getline(cin, client);
-
-    ClearScreen();
-
-    for(unsigned int i = 0; i < pharmacies.size(); i++){
-        vector <Client *> temp=pharmacies.at(i)->getClients();
-        sort(temp.begin(),temp.end(), orderByNameClient);
-        int left = 0, right = temp.size() - 1;
-        while (left <= right) {
-            int middle = (left + right) / 2;
-            if (temp.at(middle)->getName() < client)
-                left = middle + 1;
-            else if (client < temp.at(middle)->getName())
-                right = middle - 1;
-            else {
-                pharmacies.at(i)->displayPharmacy();
-                break;
-            }
-        }
     }
 
     returnMainMenu();
@@ -578,28 +560,6 @@ void Company::addPharmacy() {
 
         pharmacies.at(pharmacies.size() - 1)->addEmployee(new Employee(nameE, addressE, taxN, salaryE, nameE, postE));
     }
-
-    cout << endl << "How many clients would you like to add?: " << endl << "::: ";
-    cin >> client;
-    fail(client);
-    cin.ignore(1000, '\n');
-    counter = 0;
-    while (counter < client) {
-        cout << endl << "Client " << ++counter << ": ";
-
-        cout << endl << "Client's name: ";
-        getline(cin, nameC);
-
-        cout << endl << "Client's address: ";
-        getline(cin, addressC);
-
-        cout << endl << "Client's tax number: ";
-        getline(cin, taxNC);
-        int taxN2 = stoi(taxNE,nullptr);
-
-
-        pharmacies.at(pharmacies.size() - 1)->addClient(new Client(nameC, addressC, taxN2));
-    }
     cout << string(2, '\n') << "Pharmacy added successfully!" << string(2, '\n');
 }
 
@@ -690,7 +650,7 @@ void Company::removePharmacy() {
     cin.ignore(1000, '\n');
     getline(cin, name);
 
-    for (int i = 0; i < pharmacies.size(); ++i) {
+    for (unsigned int i = 0; i < pharmacies.size(); ++i) {
 
         if (pharmacies.at(i)->getName() == name) {
 
@@ -805,32 +765,6 @@ void Company::comparePharmacies(Pharmacy *p1, Pharmacy *p2) {
         else
             cout << right << setw(28) << " | " << endl << left;
     }
-
-    cout << string(69, '-') << endl;
-
-    cout << "|CLIENTS: | ";
-
-    sizeC1 = p1->getClients().size();
-    sizeC2 = p2->getClients().size();
-
-    if (sizeC1 > sizeE2)
-        sizeC = sizeC1;
-    else
-        sizeC = sizeC2;
-
-    for (unsigned int i = 0; i < sizeC; i++) {
-        if (i < sizeC1)
-            cout << "|           | " << setw(25) << p1->getClients().at(i)->getName() << " | ";
-        else
-            cout << "|           | " << setw(28) << " | " << left;
-        if (i < sizeC2)
-            cout << setw(25) << p2->getClients().at(i)->getName() << " | " << endl;
-        else
-            cout << right << setw(28) << " | " << endl << left;
-    }
-
-    cout << string(69, '-') << endl << endl;
-
 }
 
 void Company::updatePharmacyFile() {
@@ -898,7 +832,7 @@ void Company::updateRecipeFile() {
 
     for (unsigned int i = 0; i<recipes.size(); i++) {
         recipes[i]->printSimplifiedInfo(recipesFile);
-        if(i!=products.size()-1)
+        if(i!=recipes.size()-1)
         	recipesFile << endl;
     }
 
@@ -911,7 +845,7 @@ void Company::updateSalesFile(){
 
 	 for (unsigned int i = 0; i<sales.size(); i++) {
 		 sales[i]->printSimplifiedInfo(salesFile);
-	     if(i!=products.size()-1)
+	     if(i != sales.size()- 1)
 	        salesFile << endl;
 	 }
 }

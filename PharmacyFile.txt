@@ -1,3 +1,6 @@
-FarmÃ¡cia Cardeira; AV DUQUE DE Ã�VILA 32C/D, 1000-141, AVENIDAS NOVAS LISBOA, LISBOA; Tina Vida; Joana Martins, Alberto Sousa, Joaquim Almeida, Tiago Viana; Lourenco Guedes, Otilia Trancoso, Delfim Barros; 
-FarmÃ¡cia Nita; Estrada PoÃ§o Nv 1-C, Charneca de Caparica 2820-427 CHARNECA DA CAPARICA; Luis Campos; Yolanda Martins, Joaquim Almeida, oi; Joao Martins, Vitor Lourenco, Jose Pimenta; 
-FarmÃ¡cia de Tercena; AV SANTO ANTÃ“NIO DE TERCENA 50/52, 2730-163, BARCARENA OEIRAS, LISBOA; Ricardo Neiva; Maria Tim, Joaquim Almeida, Andre Marafona; Rita Silva, Andre Morais, Sofia Cardoso; 
+FarmÃ¡cia Cardeira; AV DUQUE DE Ã�VILA 32C/D, 1000-141, AVENIDAS NOVAS LISBOA, LISBOA; Tina Vida; Joana Martins, Alberto Sousa, Joaquim Almeida, Tiago Viana; 
+Voltaren;Preservative;Brufen;Calcitrin;
+FarmÃ¡cia Nita; Estrada PoÃ§o Nv 1-C, Charneca de Caparica 2820-427 CHARNECA DA CAPARICA; Luis Campos; Yolanda Martins, Joaquim Almeida, oi; 
+Voltaren;Preservative;Brufen;BenUron;
+FarmÃ¡cia de Tercena; AV SANTO ANTÃ“NIO DE TERCENA 50/52, 2730-163, BARCARENA OEIRAS, LISBOA; Ricardo Neiva; Maria Tim, Joaquim Almeida, Andre Marafona; 
+Voltaren;Preservative;BenUron;Calcitrin;

@@ -25,6 +25,8 @@ public:
     vector <Product*> getProducts() const;
     vector <Product*>getSold() const;
 
+    static int id;
+    int recipe_number;
     void setNumber(int number);
     void setUser(string user);
     void setMedic(string medic);

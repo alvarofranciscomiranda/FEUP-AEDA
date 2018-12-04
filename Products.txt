@@ -1,5 +1,5 @@
-medicine/Presive/2/2.99/He Prevention/0/0/0
+medicine/Voltaren/1/2.99/Anti-inflamation/0/0/0
+medicine/Brufen/114/19.99/Fever cure/1/1/20
+other/Calcitrin/12/33.3/Calcium fortalizer
+other/Preservative/65/29.99/Headache Prevention
 medicine/BenUron/bnu/12.3/Headeches/1/0/10
-other/BenUron/bnu/12.3/Headeches
-other/Preservative/2/29.99/Headache Prevention
-medicine/Preservative/2/29.99/Headache Prevention/1/1/20

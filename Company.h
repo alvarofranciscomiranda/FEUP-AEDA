@@ -95,7 +95,6 @@ public:
     */
     void displaySales();
 
-
     /**
      * @brief Search pharmacy by name and displays its information.
      */
@@ -148,6 +147,21 @@ public:
     * @return pos of product in Products' vector if product with code exists, -1 otherwise
     */
     int productExists(string code);
+
+    /**
+    * @brief Verifies if product with certain code exist.
+    * @param code
+    * @return pos of product in Products' vector if product with code exists, -1 otherwise
+    */
+
+    int RecipesExists(string code);
+
+    /**
+    * @brief Verifies if product with certain code exist.
+    * @param code
+    * @return pos of product in Products' vector if product with code exists, -1 otherwise
+    */
+    int SalesExists(string code);
 
     /**
     * @brief Adds pharmacy to Pharmacies' vector with user's input information.

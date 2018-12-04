@@ -24,8 +24,8 @@ vector<Employee*> Pharmacy::getEmployees()const{
     return employees;
 }
 
-vector<Client*> Pharmacy::getClients()const{
-    return clients;
+vector<string> Pharmacy::getProducts()const{
+    return products;
 }
 
 void Pharmacy::setName(string name){
@@ -44,17 +44,18 @@ void Pharmacy::setEmployees(vector<Employee*> &employees){
     this->employees = employees;
 }
 
-void Pharmacy::setClients(vector<Client*> &clients){
-    this->clients = clients;
+void Pharmacy::setProducts(vector<string> products){
+    this->products = products;
 }
 
 void Pharmacy::addEmployee(Employee *employee){
     this->employees.push_back(employee);
 }
 
-void Pharmacy::addClient(Client *client){
-    this->clients.push_back(client);
+void Pharmacy::addProduct(string product){
+	this->products.push_back(product);
 }
+
 
 void Pharmacy::displayPharmacy(){
     cout << "Name: " << name << endl;
@@ -69,14 +70,11 @@ void Pharmacy::displayPharmacy(){
         }
     }
     cout << endl;
-
-    cout << "Clients: ";
-    for(unsigned int i = 0; i < clients.size(); i++){
-        if(i == clients.size()-1) {
-            cout << clients[i]->getName();
-        } else {
-            cout << clients[i]->getName() << ", ";
-        }
+    if(this->products.size() > 0){
+    	cout << "Products the pharmacy has:" << endl;
+    	for(unsigned int i = 0; i < products.size(); i++){
+    		cout << products.at(i) << endl;
+    	}
     }
     cout << endl << endl;
 }
@@ -114,22 +112,6 @@ Pharmacy::Pharmacy(string pharmacy){
         employees = employees.substr(st+2);
         stop = st;
     }
-
-    //clients
-    pharmacy = pharmacy.substr(last+2);
-    last = pharmacy.find(';');
-    client = pharmacy.substr(0,last);
-
-    while(stop!=string::npos && !client.empty()){
-        st = client.find_first_of(',');
-        string temp=client.substr(0,st);
-        this->clients.push_back(new Client(temp,"", 0));
-        if(st==string::npos)
-            break;
-        client = client.substr(st+2);
-        stop = st;
-    }
-
 }
 
 void Pharmacy::writePharmacy(ofstream & file) const{
@@ -147,16 +129,11 @@ void Pharmacy::writePharmacy(ofstream & file) const{
                 file << this->getEmployees()[i]->getName() << ", ";
         }
     }
+    file << endl;
 
-    //write clients
-    if (!this->getClients().empty()) {
-        for (unsigned int i=0; i < this->getClients().size(); i++) {
-            if(i == this->getClients().size() -1)
-                file << this->getClients()[i]->getName() << "; ";
-            else
-                file << this->getClients()[i]->getName() << ", ";
+    if (!this->products.empty()) {
+        for (unsigned int i = 0; i < this->getProducts().size(); i++) {
+               file << this->getProducts()[i] << ";";
         }
     }
-
-
 }
