@@ -116,13 +116,15 @@ void Employee::printSimplifiedInfo(ostream & os) const{
 
 Client::Client(string name, string address, int taxNumber): People(name, address, taxNumber){
 
-    id++;
     client_number=id;
+    id++;
 
 }
 
 Client::Client(int id, string name, string address, int taxNumber):People(name, address, taxNumber){
     client_number=id;
+	id++;
+
 }
 
 vector<Sales*> Client::getPurchases() const{
@@ -134,6 +136,9 @@ void Client::setPurchases(vector<Sales*> purchases){
 }
 
 Client::Client(string client){
+	client_number=id;
+	id++;
+
     unsigned long last;
     unsigned long stop; //stop is pos for last ';' found
     string purchases;

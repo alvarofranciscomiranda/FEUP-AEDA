@@ -154,14 +154,14 @@ public:
     * @return pos of product in Products' vector if product with code exists, -1 otherwise
     */
 
-    int RecipesExists(string code);
+    int recipeExists(int code);
 
     /**
     * @brief Verifies if product with certain code exist.
     * @param code
     * @return pos of product in Products' vector if product with code exists, -1 otherwise
     */
-    int SalesExists(string code);
+    int salesExists(int code);
 
     /**
     * @brief Adds pharmacy to Pharmacies' vector with user's input information.
@@ -183,6 +183,16 @@ public:
    */
     void addProducts();
 
+   /**
+   * @brief Adds recipe to Recipes' vector with user's input information.
+   */
+   void addRecipe();
+
+   /**
+   * @brief Adds sale to Sales' vector with user's input information.
+   */
+   void addSale();
+
     /**
      * @brief Removes pharmacy to Pharmacies' vector with user's input information.
      */
@@ -202,6 +212,16 @@ public:
     * @brief Removes product to Products' vector with user's input information.
     */
     void removeProduct();
+
+    /**
+    * @brief Removes recipe to Recipes' vector with user's input information.
+    */
+    void removeRecipe();
+
+    /**
+    * @brief Removes sale to Sales' vector with user's input information.
+    */
+    void removeSale();
 
     /**
     * @brief Displays information about 2 pharmacies side by side.

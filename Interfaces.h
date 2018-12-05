@@ -72,6 +72,19 @@ void AddAlterRemoveMenuClient(Company &company);
 void AddAlterRemoveMenuProduct(Company &company);
 
 /**
+ * @brief Sub-menu from main menu that allows user to choose actions relating altering informarion about a recipe, adding or removing recipes.
+ * @param company
+ */
+void AddAlterRemoveMenuRecipe(Company &company);
+
+
+/**
+ * @brief Sub-menu from main menu that allows user to choose actions relating altering informarion about a sales, adding or removing sales.
+ * @param company
+ */
+void AddAlterRemoveMenuSales(Company &company);
+
+/**
  * @brief Sub-menu from Main menu that allows user to compare pharmacies.
  * @param company
  */
