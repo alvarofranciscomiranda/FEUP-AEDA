@@ -1007,7 +1007,7 @@ void Company::addSale(){
 	this->sales.push_back(sa);
 }
 
-void Company::removePharmacy() {
+void Company::removePharmacy(){
     string name;
     bool removed = false;
 
@@ -1106,12 +1106,11 @@ void Company::removeRecipe(){
 
 	cin.ignore(1000, '\n');
 	cout << "Insert recipe number: " << endl;
-	getline(cin, code);
-	number = stoi(code,nullptr);
+	cin >> number;
 
 	for (unsigned int i = 0; i < recipes.size(); ++i) {
 
-	   if (recipes.at(i)->recipe_number == number) {
+	   if (recipes.at(i)->getNumber() == number) {
 
 	        recipes.erase(recipes.begin() + i);
 	        cout << endl << code << " recipe erased successfully!" << endl;
@@ -1131,12 +1130,11 @@ void Company::removeSale(){
 
 	cin.ignore(1000, '\n');
 	cout << "Insert sales number: " << endl;
-	getline(cin, code);
-	number = stoi(code,nullptr);
+	cin >> number;
 
 	for (unsigned int i = 0; i < sales.size(); ++i) {
 
-		if (sales.at(i)->sales_id == number) {
+		if (sales.at(i)->sale_id == number) {
 
 			sales.erase(sales.begin() + i);
 		    cout << endl << code << " sales erased successfully!" << endl;
@@ -1148,6 +1146,31 @@ void Company::removeSale(){
 		cout << endl << "ERROR: There is no Sales with the given id!" << string(4, '\n');
 	}
 }
+
+void Company::removeAllPharmacys(){
+	this->pharmacies.clear();
+}
+
+void Company::removeAllEmployees(){
+	this->employees.clear();
+}
+
+void Company::removeAllClients(){
+	this->clients.clear();
+}
+
+void Company::removeAllProducts(){
+	this->products.clear();
+}
+
+void Company::removeAllRecipes(){
+	this->recipes.clear();
+}
+
+void Company::removeAllSales(){
+	this->sales.clear();
+}
+
 
 void Company::comparePharmacies(Pharmacy *p1, Pharmacy *p2) {
     unsigned long sizeE, sizeE1, sizeE2, sizeC, sizeC1, sizeC2;

@@ -7,7 +7,7 @@ int Sales::sales_id = 1;
 Sales::Sales(){};
 
 Sales::Sales( vector<Product*> prod, vector<int> quant, Date date) : products(prod), quantity(quant) ,date(date){
-	this->sales_id = sales_id;
+	this->sale_id = sales_id;
 	sales_id++;
 }
 
@@ -15,7 +15,7 @@ Sales::Sales(string sale){
 	Date * d = new Date(sale);
 	this->date = *d;
 
-	this->sales_id = sales_id;
+	this->sale_id = sales_id;
 	sales_id++;
 }
 

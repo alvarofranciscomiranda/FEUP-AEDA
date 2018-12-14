@@ -35,7 +35,7 @@ void mainMenu(Company &company) {
     cout << "1. Display" << endl;
     cout << "2. Search pharmacy" << endl;
     cout << "3. Compare pharmacies" << endl;
-    cout << "4. Add, alter or remove" << endl;
+    cout << "4. Add or remove" << endl;
     cout << "5. Update files." << endl;
 
     cout << endl << "Enter a number option: " << endl << "::: ";
@@ -141,13 +141,12 @@ void searchMenu(Company &company){
     cout << "2. Search by address" << endl;
     cout << "3. Search by manager" << endl;
     cout << "4. Search by employee" << endl;
-    //cout << "5. Search by client" << endl;
 
     cout << endl << "Enter a number option: ";
     cin >> option;
 
     //verifies if input is valid
-    while(cin.fail()||!ValidMenuInput(1, 6, option)) {
+    while(cin.fail()||!ValidMenuInput(1, 4, option)) {
         cin.clear();
         cin.ignore(1000, '\n');
         cout << "Please enter a valid option: ";
@@ -168,9 +167,6 @@ void searchMenu(Company &company){
         case 4:
             company.searchEmployees();
             break;
-      //  case 5:
-      //     company.searchClients();
-      //      break;
     }
 
 }
@@ -250,7 +246,8 @@ void AddAlterRemoveMenuPharmacy(Company &company){
     cout << setfill('-') << setw(47)<<"-"<<endl;
     cout << "1. Add pharmacy" << endl;
     cout << "2. Remove pharmacy" << endl;
-    cout << "3. Return to main menu" << endl;
+    cout << "3. Remove all pharmacys" << endl;
+    cout << "4. Return to main menu" << endl;
 
     cout << endl << "Enter a number option: " << endl << "::: ";
     cin >> option;
@@ -279,6 +276,11 @@ void AddAlterRemoveMenuPharmacy(Company &company){
             mainMenu(company);
             break;
         case 3:
+        	company.removeAllPharmacys();
+            ClearScreen();
+            mainMenu(company);
+            break;
+        case 4:
             ClearScreen();
             mainMenu(company);
             break;
@@ -294,13 +296,14 @@ void AddAlterRemoveMenuEmployee(Company &company){
     cout << setfill('-') << setw(47)<<"-"<<endl;
     cout << "1. Add employee" << endl;
     cout << "2. Remove employee" << endl;
-    cout << "3. Return to main menu" << endl;
+    cout << "3. Remove all employees" << endl;
+    cout << "4. Return to main menu" << endl;
 
     cout << endl << "Enter a number option: " << endl << "::: ";
     cin >> option;
 
     //verifies if input is valid
-    while(cin.fail()||!ValidMenuInput(1, 3, option)) {
+    while(cin.fail()||!ValidMenuInput(1, 4, option)) {
         cin.clear();
         cin.ignore(1000, '\n');
         cout << "Please enter a valid option: "<< endl << "::: ";
@@ -323,6 +326,11 @@ void AddAlterRemoveMenuEmployee(Company &company){
             mainMenu(company);
             break;
         case 3:
+            company.removeAllEmployees();
+            ClearScreen();
+            mainMenu(company);
+            break;
+        case 4:
             ClearScreen();
             mainMenu(company);
             break;
@@ -338,13 +346,14 @@ void AddAlterRemoveMenuClient(Company &company){
     cout << setfill('-') << setw(47)<<"-"<<endl;
     cout << "1. Add client" << endl;
     cout << "2. Remove client" << endl;
-    cout << "3. Return to main menu" << endl;
+    cout << "3. Remove all clients" << endl;
+    cout << "4. Return to main menu" << endl;
 
     cout << endl << "Enter a number option: " << endl << "::: ";
     cin >> option;
 
     //verifies if input is valid
-    while(cin.fail()||!ValidMenuInput(1, 3, option)) {
+    while(cin.fail()||!ValidMenuInput(1, 4, option)) {
         cin.clear();
         cin.ignore(1000, '\n');
         cout << "Please enter a valid option: "<< endl << "::: ";
@@ -367,6 +376,11 @@ void AddAlterRemoveMenuClient(Company &company){
             mainMenu(company);
             break;
         case 3:
+            company.removeAllClients();
+            ClearScreen();
+            mainMenu(company);
+            break;
+        case 4:
             ClearScreen();
             mainMenu(company);
             break;
@@ -382,13 +396,14 @@ void AddAlterRemoveMenuProduct(Company &company){
     cout << setfill('-') << setw(47)<<"-"<<endl;
     cout << "1. Add product" << endl;
     cout << "2. Remove product" << endl;
-    cout << "3. Return to main menu" << endl;
+    cout << "3. Remove all products" << endl;
+    cout << "4. Return to main menu" << endl;
 
     cout << endl << "Enter a number option: " << endl << "::: ";
     cin >> option;
 
     //verifies if input is valid
-    while(cin.fail()||!ValidMenuInput(1, 3, option)) {
+    while(cin.fail()||!ValidMenuInput(1, 4, option)) {
         cin.clear();
         cin.ignore(1000, '\n');
         cout << "Please enter a valid option: "<< endl << "::: ";
@@ -411,6 +426,11 @@ void AddAlterRemoveMenuProduct(Company &company){
             mainMenu(company);
             break;
         case 3:
+            company.removeAllProducts();
+            ClearScreen();
+            mainMenu(company);
+            break;
+        case 4:
             ClearScreen();
             mainMenu(company);
             break;
@@ -426,13 +446,14 @@ void AddAlterRemoveMenuRecipe(Company &company){
     cout << setfill('-') << setw(47)<<"-"<<endl;
     cout << "1. Add recipe" << endl;
     cout << "2. Remove recipe" << endl;
-    cout << "3. Return to main menu" << endl;
+    cout << "3. Remove all recipes" << endl;
+    cout << "4. Return to main menu" << endl;
 
     cout << endl << "Enter a number option: " << endl << "::: ";
     cin >> option;
 
     //verifies if input is valid
-    while(cin.fail()||!ValidMenuInput(1, 3, option)) {
+    while(cin.fail()||!ValidMenuInput(1, 4, option)) {
         cin.clear();
         cin.ignore(1000, '\n');
         cout << "Please enter a valid option: "<< endl << "::: ";
@@ -455,6 +476,11 @@ void AddAlterRemoveMenuRecipe(Company &company){
             mainMenu(company);
             break;
         case 3:
+            company.removeAllRecipes();
+            ClearScreen();
+            mainMenu(company);
+            break;
+        case 4:
             ClearScreen();
             mainMenu(company);
             break;
@@ -470,13 +496,14 @@ void AddAlterRemoveMenuSales(Company &company){
     cout << setfill('-') << setw(47)<<"-"<<endl;
     cout << "1. Add sale" << endl;
     cout << "2. Remove sale" << endl;
-    cout << "3. Return to main menu" << endl;
+    cout << "3. Remove all sales" << endl;
+    cout << "4. Return to main menu" << endl;
 
     cout << endl << "Enter a number option: " << endl << "::: ";
     cin >> option;
 
     //verifies if input is valid
-    while(cin.fail()||!ValidMenuInput(1, 3, option)) {
+    while(cin.fail()||!ValidMenuInput(1, 4, option)) {
         cin.clear();
         cin.ignore(1000, '\n');
         cout << "Please enter a valid option: "<< endl << "::: ";
@@ -499,6 +526,11 @@ void AddAlterRemoveMenuSales(Company &company){
             mainMenu(company);
             break;
         case 3:
+            company.removeAllSales();
+            ClearScreen();
+            mainMenu(company);
+            break;
+        case 4:
             ClearScreen();
             mainMenu(company);
             break;

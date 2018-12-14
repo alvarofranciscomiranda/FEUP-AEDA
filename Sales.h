@@ -21,6 +21,7 @@ public:
     Sales(vector<Product*> products,  vector<int> quantity, Date date);
 
     static int sales_id;
+    int sale_id;
     vector<Product*> getProducts() const;
     vector<int> getQuantity() const;
     Date getDate() const;

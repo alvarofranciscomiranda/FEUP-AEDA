@@ -224,6 +224,36 @@ public:
     void removeSale();
 
     /**
+     * @brief Removes All pharmacy to Pharmacies'.
+     */
+    void removeAllPharmacys();
+
+    /**
+    * @brief Removes All employee to Employees'.
+    */
+    void removeAllEmployees();
+
+    /**
+    * @brief Removes All client to Clients'.
+    */
+    void removeAllClients();
+
+    /**
+    * @brief Removes All product to Products'.
+    */
+    void removeAllProducts();
+
+    /**
+    * @brief Removes All recipe to Recipes'.
+    */
+    void removeAllRecipes();
+
+    /**
+    * @brief Removes All sale to Sales'.
+    */
+    void removeAllSales();
+
+    /**
     * @brief Displays information about 2 pharmacies side by side.
     * @param 1st Pharmacy
     * @param 2nd Pharmacy
