@@ -208,9 +208,9 @@ void Client::addPurchases(Sales * purchases){
 	this->purchases.push_back(purchases);
 }
 
-bool Client::operator<(const Client& c1) const {
-	if (this->getDistrict() != c1.getDistrict())
-		return this->getDistrict() < c1.getDistrict();
-	else
-		return this->getName() < c1.getName();
+bool Client::operator<(const Client c1) const {
+		if(district==c1.getDistrict())
+			return name < c1.getName();
+		else
+		return district< c1.getDistrict();
 	}

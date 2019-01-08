@@ -9,6 +9,7 @@
 #include "Recipe.h"
 #include "Sales.h"
 #include "People.h"
+#include "BST.h"
 #include <set>
 
 using namespace std;
@@ -21,13 +22,13 @@ private:
 	vector<Product *> products;
 	vector<Recipe *> recipes;
 	vector<Sales *> sales;
-	set<Client *> clients;
+	BST<Client> clients;
 public:
 
 	/**
 	 * Constructor of class Company.
 	 */
-	Company();
+	Company():clients( Client()) {};
 
 	/**
 	 * @return vector Pharmacies
@@ -36,7 +37,7 @@ public:
 		return pharmacies;
 	}
 
-	set<Client *> getClients() {
+	BST<Client > getClients() {
 		return clients;
 	}
 

@@ -6,7 +6,7 @@
 #include <vector>
 using namespace std;
 
-Company::Company(){}
+
 
 
 void Company::openPharmacyFile(){
@@ -67,7 +67,8 @@ void Company::openClientsFile(){
         while (!clientFile.eof()) {
 
             getline(clientFile, client);
-            clients.emplace(new Client(client));
+            Client c= Client(client);
+            clients.insert(c);
         }
     }
     clientFile.close();
@@ -169,16 +170,18 @@ void Company::openRecipesFile(){
            sods = sods.substr(stop2+1);
         }
 
-        for(std::set<Client*>::iterator it=clients.begin(); it!=clients.end(); ++it){
-        	if((*it)->getName() == p->getUser() && p->getSold().size() != 0){
+        BSTItrIn<Client > it(clients);
+          while(!it.isAtEnd()){
+        	if(it.retrieve().getName() == p->getUser() && p->getSold().size() != 0){
                vector<int> quant;
                for(unsigned int j = 0; j < p->getSold().size(); j++ ){
                    quant.push_back(1);
                }
                Sales * sale = new Sales(p->getSold(), quant, Date("4/10/2018"));
-              (*it)->addPurchases(sale);
+               it.retrieve().addPurchases(sale);
                this->sales.push_back(sale);
             }
+        	it.advance();
         }
 
          this->recipes.push_back(p);
@@ -270,10 +273,12 @@ void Company::displayClients() {
 
     ClearScreen();
 
-    for (std::set<Client*>::iterator it=clients.begin(); it!=clients.end(); ++it) {
+    BSTItrIn<Client > it(clients);
+      while(!it.isAtEnd()){
 
-        (*it)->displayPerson();
+       it.retrieve().displayPerson();
 
+       it.advance();
     }
     returnMainMenu();
 }
@@ -421,12 +426,13 @@ void Company::searchManager() {
        cin.ignore(1000, '\n');
        getline(cin, employee);
 
-       Client* c = new Client(employee,"","",0);
-          std::set<Client*>::iterator it=clients.find(c);
-          if(it!=clients.end())
-          	throw-1;
+       Client c =  Client(employee,"","",0);
+       Client c2;
+          c2=clients.find(c);
+//          if(c2.getName()==undefined)
+//          	throw-1;
 
-          (*it)->displayPerson();
+        c2.displayPerson();
 
        ClearScreen();
 
@@ -670,9 +676,10 @@ void Company::addClient() {
     cin.ignore(1000, '\n');
     getline(cin, name);
     Client* c = new Client(name,"","",0);
-    std::set<Client*>::iterator it=clients.find(c);
-    if(it!=clients.end())
-    	throw-1;
+//// BSTItrIn<Client *> it(clients);
+//    while(!it.isAtEnd()){
+////    if(it!=clients.end())
+////    	throw-1;
 
 
 
@@ -686,7 +693,7 @@ void Company::addClient() {
     cin >> taxNumber;
     fail(taxNumber);
 
-    clients.emplace(new Client(name, district, address, taxNumber));
+    clients.insert( Client(name, district, address, taxNumber));
 
     cout << string(2, '\n') << "Client added successfully!" << string(2, '\n');
 }
@@ -1074,16 +1081,16 @@ void Company::removeClient() {
     cin.ignore(1000, '\n');
     cout << "Insert client name: " << endl;
     getline(cin, name);
+    BSTItrIn<Client > it(clients);
+   while(!it.isAtEnd()){
 
-    for (std::set<Client*>::iterator it=clients.begin(); it!=clients.end(); ++it) {
+        if (it.retrieve().getName() == name) {
 
-        if ((*it)->getName() == name) {
-
-            clients.erase(it);
-            it--;
+            clients.remove(it.retrieve());
             cout << endl << name << " client erased successfully!" << endl;
             removed = true;
         }
+        it.advance();
     }
 
     if (!removed) {
@@ -1171,7 +1178,7 @@ void Company::removeAllEmployees(){
 }
 
 void Company::removeAllClients(){
-	this->clients.clear();
+	this->clients.makeEmpty();
 }
 
 void Company::removeAllProducts(){
@@ -1254,12 +1261,14 @@ void Company::updateClientFile() {
     ofstream clientsFile("clients.txt");
 int i=0;
 
-    for (std::set<Client*>::iterator it=clients.begin(); it!=clients.end(); ++it) {
+BSTItrIn<Client> it(clients);
+  while(!it.isAtEnd()){
 
-        (*it)->printSimplifiedInfo(clientsFile);
-        if(i!=clients.size()-1)
+        it.retrieve().printSimplifiedInfo(clientsFile);
+        if(!it.isAtEnd())
         clientsFile << endl;
         i++;
+        it.advance();
     }
 
 

@@ -65,9 +65,10 @@ public:
 	Client(string name, string district, string address, int taxNumber);
     vector<Sales *> getPurchases() const;
     void setPurchases(vector<Sales *> purchases);
+    Client(){};
 	Client(string client);
 	void addPurchases(Sales * purchases);
-	bool operator<(const Client& c1) const;
+	bool operator<(const Client c1) const;
 	bool operator ==(const Client * c1){
 		return name== c1->getName();
 	}
