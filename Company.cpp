@@ -67,7 +67,7 @@ void Company::openClientsFile(){
         while (!clientFile.eof()) {
 
             getline(clientFile, client);
-            clients.push_back(new Client(client));
+            clients.emplace(new Client(client));
         }
     }
     clientFile.close();
@@ -169,14 +169,14 @@ void Company::openRecipesFile(){
            sods = sods.substr(stop2+1);
         }
 
-        for(unsigned int i = 0; i < this->clients.size();i++){
-        	if(this->clients.at(i)->getName() == p->getUser() && p->getSold().size() != 0){
+        for(std::set<Client*>::iterator it=clients.begin(); it!=clients.end(); ++it){
+        	if((*it)->getName() == p->getUser() && p->getSold().size() != 0){
                vector<int> quant;
                for(unsigned int j = 0; j < p->getSold().size(); j++ ){
                    quant.push_back(1);
                }
                Sales * sale = new Sales(p->getSold(), quant, Date("4/10/2018"));
-               this->clients.at(i)->addPurchases(sale);
+              (*it)->addPurchases(sale);
                this->sales.push_back(sale);
             }
         }
@@ -270,9 +270,9 @@ void Company::displayClients() {
 
     ClearScreen();
 
-    for (unsigned int i = 0; i < clients.size(); i++) {
+    for (std::set<Client*>::iterator it=clients.begin(); it!=clients.end(); ++it) {
 
-        clients.at(i)->displayPerson();
+        (*it)->displayPerson();
 
     }
     returnMainMenu();
@@ -410,6 +410,29 @@ void Company::searchManager() {
     returnMainMenu();
 }
 
+
+   void Company::searchClients() {
+
+       string employee;
+
+       ClearScreen();
+
+       cout << "Insert the client of the pharmacy you wish to search for" << endl << ":::";
+       cin.ignore(1000, '\n');
+       getline(cin, employee);
+
+       Client* c = new Client(employee,"","",0);
+          std::set<Client*>::iterator it=clients.find(c);
+          if(it!=clients.end())
+          	throw-1;
+
+          (*it)->displayPerson();
+
+       ClearScreen();
+
+
+       returnMainMenu();
+   }
 void Company::searchEmployees() {
 
     string employee;
@@ -469,23 +492,6 @@ int Company::employeeExists(string name) {
         if (employees.at(middle)->getName() < name)
             left = middle + 1;
         else if (name < employees.at(middle)->getName())
-            right = middle - 1;
-        else
-            return middle; // encontrou
-    }
-    return -1; // não encontrou
-}
-
-int Company::clientExists(string name) {
-
-    sort(clients.begin(),clients.end(),orderByNameClient);
-
-    int left = 0, right = clients.size() - 1;
-    while (left <= right) {
-        int middle = (left + right) / 2;
-        if (clients.at(middle)->getName() < name)
-            left = middle + 1;
-        else if (name < clients.at(middle)->getName())
             right = middle - 1;
         else
             return middle; // encontrou
@@ -657,13 +663,21 @@ void Company::addEmployee() {
 }
 
 void Company::addClient() {
-    string address, name;
+    string address, name, district;
     int taxNumber;
 
     cout << endl << "Insert name of the Client: " << endl << "::: ";
     cin.ignore(1000, '\n');
     getline(cin, name);
-    if(clientExists(name) != -1) { throw  -1;}
+    Client* c = new Client(name,"","",0);
+    std::set<Client*>::iterator it=clients.find(c);
+    if(it!=clients.end())
+    	throw-1;
+
+
+
+    cout << endl << "Insert district (eg: Braga): " << endl << "::: ";
+    getline(cin, district);
 
     cout << endl << "Insert address (eg: Oeiras): " << endl << "::: ";
     getline(cin, address);
@@ -672,7 +686,7 @@ void Company::addClient() {
     cin >> taxNumber;
     fail(taxNumber);
 
-    clients.push_back(new Client(name, address, taxNumber));
+    clients.emplace(new Client(name, district, address, taxNumber));
 
     cout << string(2, '\n') << "Client added successfully!" << string(2, '\n');
 }
@@ -1061,11 +1075,12 @@ void Company::removeClient() {
     cout << "Insert client name: " << endl;
     getline(cin, name);
 
-    for (unsigned int i = 0; i < clients.size(); ++i) {
+    for (std::set<Client*>::iterator it=clients.begin(); it!=clients.end(); ++it) {
 
-        if (clients.at(i)->getName() == name) {
+        if ((*it)->getName() == name) {
 
-            clients.erase(clients.begin() + i);
+            clients.erase(it);
+            it--;
             cout << endl << name << " client erased successfully!" << endl;
             removed = true;
         }
@@ -1237,14 +1252,16 @@ void Company::updateEmployeeFile() {
 void Company::updateClientFile() {
 
     ofstream clientsFile("clients.txt");
+int i=0;
 
-    sort(clients.begin(),clients.end(),orderByNameClient);
+    for (std::set<Client*>::iterator it=clients.begin(); it!=clients.end(); ++it) {
 
-    for (unsigned int i = 0; i<clients.size(); i++) {
-        clients[i]->printSimplifiedInfo(clientsFile);
+        (*it)->printSimplifiedInfo(clientsFile);
         if(i!=clients.size()-1)
-            clientsFile << endl;
+        clientsFile << endl;
+        i++;
     }
+
 
 }
 

@@ -114,15 +114,16 @@ void Employee::printSimplifiedInfo(ostream & os) const{
 	os << name << ";" << address << ";" << taxNumber << ";" << salary << ";" << pharmacy << ";" << post;
 }
 
-Client::Client(string name, string address, int taxNumber): People(name, address, taxNumber){
-
+Client::Client(string name, string district, string address, int taxNumber): People(name, address, taxNumber){
     client_number=id;
+    this->district=district;
     id++;
 
 }
 
-Client::Client(int id, string name, string address, int taxNumber):People(name, address, taxNumber){
+Client::Client(int id, string name, string district, string address, int taxNumber):People(name, address, taxNumber){
     client_number=id;
+    this->district=district;
 	id++;
 
 }
@@ -152,6 +153,11 @@ Client::Client(string client){
     stop = client.find_first_of(';');
     this->name = client.substr(0,stop);
 
+    //disctrict
+    client = client.substr(stop+1);
+    stop = client.find_first_of(';');
+    this->district = client.substr(0,stop);
+
     // address
     client = client.substr(stop+1);
     stop = client.find_first_of(';');
@@ -166,6 +172,7 @@ Client::Client(string client){
 void Client::displayPerson() const{
     cout << "Id: " << client_number<< endl;
     cout << "Name: " << name << endl;
+    cout << "District: " << district << endl;
     cout << "Address: " << address << endl;
     cout << "Tax Number: " << taxNumber << endl;
     cout << "Purchases: ";
@@ -177,8 +184,17 @@ void Client::displayPerson() const{
 
 
 void Client::printSimplifiedInfo(ostream & os) const{
-	os << client_number << ";" << name << ";" << address << ";" << taxNumber << ";";
+	os << client_number << ";" << name << ";" << district << ";" << address << ";" << taxNumber << ";";
 }
+
+string Client::getDistrict() const{
+    return district;
+}
+
+void Client::setDistrict(string district){
+    this->district = district;
+}
+
 
 int Client::getClient_number() const {
     return client_number;
@@ -191,3 +207,10 @@ void Client::setClient_number(int client_number) {
 void Client::addPurchases(Sales * purchases){
 	this->purchases.push_back(purchases);
 }
+
+bool Client::operator<(const Client& c1) const {
+	if (this->getDistrict() != c1.getDistrict())
+		return this->getDistrict() < c1.getDistrict();
+	else
+		return this->getName() < c1.getName();
+	}

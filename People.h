@@ -6,7 +6,6 @@
 #include "Sales.h"
 using namespace std;
 
-
 class People {
 
 protected:
@@ -54,21 +53,27 @@ public:
 class Client : public People{
 protected:
 	vector<Sales *> purchases;
+	string district;
 public:
 	static int id;
 	int client_number;
+	string getDistrict() const;
+	void setDistrict(string district);
 	int getClient_number() const;
 	void setClient_number(int client_number);
-	Client(int id,string name, string address, int taxNumber);
-	Client(string name, string address, int taxNumber);
+	Client(int id,string name, string district, string address, int taxNumber);
+	Client(string name, string district, string address, int taxNumber);
     vector<Sales *> getPurchases() const;
     void setPurchases(vector<Sales *> purchases);
 	Client(string client);
 	void addPurchases(Sales * purchases);
+	bool operator<(const Client& c1) const;
+	bool operator ==(const Client * c1){
+		return name== c1->getName();
+	}
 
 	void displayPerson() const;
 	void printSimplifiedInfo(ostream & os) const;
 };
-
 
 #endif //UNTITLED_PEOPLE_H
