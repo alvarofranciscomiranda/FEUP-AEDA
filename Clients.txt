@@ -1,7 +1,6 @@
 4;Joao Martins;Aveiro;Rua das Pimentas;789456123;
 8;Andre Morais;Braga;Aldeamento da Praia;57381928;
 1;Lourenco Guedes;Braga;Avenida do Brasil;123456789;
-5;Vitor Lourenco;Faro;Travessa Dr. Barros;564918237;
 11;Ana;Lisboa;Algures;123456;
 7;Rita Silva;Lisboa;Loteamento Vieira;252345267;
 10;Ana;Porto;Portalegre;12345;
@@ -9,3 +8,4 @@
 9;Sofia Cardoso;Vila Real;Rua do Maio;647381926;
 6;Jose Pimenta;Viseu;Rua Dr Eduardo Silva;325174983;
 2;Otilia Trancoso;Viseu;Rua das Cavas;987654321;
+5;Vitor Lourenco;Faro;Travessa Dr. Barros;564918237;
