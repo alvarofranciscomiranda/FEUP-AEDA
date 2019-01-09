@@ -18,6 +18,10 @@ float Product::getPrice() const{
     return price;
 }
 
+float Product::getStock() const{
+    return stock;
+}
+
 string Product::getDescription() const{
     return description;
 }
@@ -34,6 +38,10 @@ void Product::setPrice(float price){
     this->price = price;
 }
 
+void Product::setStock(float stock){
+    this->stock = stock;
+}
+
 void Product::setDescription(string description){
     this->description = description;
 }
@@ -42,10 +50,11 @@ bool Product::operator  ==(const Product & c) const{
 	return (this->name == c.name && this->code == c.code && this->price == c.price);
 }
 
-Medicine::Medicine(string name,string code, float price, string description, bool prescription, bool needed, int discount)
+Medicine::Medicine(string name, float stock, string code, float price, string description, bool prescription, bool needed, int discount)
 :prescription(prescription), needed(needed), discount(discount)
 {
 	this->name = name;
+	this->stock = stock;
 	this->code = code;
 	this->price = price;
 	this->description = description;
@@ -57,6 +66,11 @@ Medicine::Medicine(string product){
 	//name
 	stop = product.find_first_of('/');
 	this->name = product.substr(0,stop);
+
+	//stock
+	product = product.substr(stop +1);
+	stop = product.find_first_of('/');
+	this->stock = stof(product.substr(0, stop));
 
 	//code
 	product = product.substr(stop+1);
@@ -137,6 +151,7 @@ float Medicine::getTotalPrice() const{
 void Medicine::printProductInfo() const{
 
     cout << "Name: " << name << endl;
+    cout << "Stock: " << stock << endl;
     cout << "Code: " << code << endl;
     cout << "Price: " << price << endl;
     cout << "Description: " << description << endl;
@@ -147,16 +162,17 @@ void Medicine::printProductInfo() const{
 }
 
 void Medicine::printSimplifiedInfo(ostream & os) const{
-	os << "medicine" << "/"<<  name << '/' << code << '/' << price << '/' << description << "/" << prescription << '/' << needed << '/' << discount;
+	os << "medicine" << "/"<<  name << '/' << stock << '/' << code << '/' << price << '/' << description << "/" << prescription << '/' << needed << '/' << discount;
 }
 
 void Medicine::printFileInfo(ostream & os) const{
-	os << "medicine" << "/"<<  name << '/' << code << '/' << price << '/' << description << "/" << prescription << '/' << needed << '/' << discount << ";";
+	os << "medicine" << "/"<<  name << '/' << stock << '/' << code << '/' << price << '/' << description << "/" << prescription << '/' << needed << '/' << discount << ";";
 }
 
 
-Other::Other(string name,string code, float price, string description){
+Other::Other(string name,float stock, string code, float price, string description){
 	this->name = name;
+	this->stock = stock;
 	this->code = code;
 	this->price = price;
 	this->description = description;
@@ -168,6 +184,11 @@ Other::Other(string product){
     //name
     stop = product.find_first_of('/');
     this->name = product.substr(0,stop);
+
+    //stock
+	product = product.substr(stop +1);
+	stop = product.find_first_of('/');
+	this->stock = stof(product.substr(0, stop));
 
     //code
     product = product.substr(stop+1);
@@ -205,13 +226,9 @@ void Other::printProductInfo() const{
 }
 
 void Other::printSimplifiedInfo(ostream & os) const{
-	os  << "other/" << name << '/' << code << '/' << price << '/' << description;
+	os  << "other/" << name << '/' << stock << '/' << code << '/' << price << '/' << description;
 }
 
 void Other::printFileInfo(ostream & os) const{
-	os  << "other/" << name << '/' << code << '/' << price << '/' << description << ";";
+	os  << "other/" << name << '/' << stock << '/' << code << '/' << price << '/' << description << ";";
 }
-
-
-
-

@@ -60,6 +60,7 @@ bool Employee::getActualEmployee() const{
     return actualEmployee;
 }
 
+
 void Employee::setSalary(float salary){
     this->salary = salary;
 }
@@ -107,14 +108,14 @@ Employee::Employee(string employee){
     //post
     employee = employee.substr(stop + 1);
     stop = employee.find_first_of(';');
-    this->post = employee.substr(0, stop);
+	this->post = employee.substr(0, stop);
 
-    //actual Employee
-    employee = employee.substr(stop + 1);
-    if(employee == "0")
-    		this->actualEmployee = false;
-    else
-    		this->actualEmployee = true;
+	//actual Employee
+	employee = employee.substr(stop + 1);
+	if(employee == "0")
+			this->actualEmployee = false;
+	else
+			this->actualEmployee = true;
 
 }
 
@@ -210,6 +211,8 @@ void Client::displayPerson() const{
 
 void Client::printSimplifiedInfo(ostream & os) const{
 	os << client_number << ";" << name << ";" << district << ";" << address << ";" << taxNumber << ";";
+
+
 }
 
 string Client::getDistrict() const{
