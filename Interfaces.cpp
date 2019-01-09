@@ -38,12 +38,13 @@ void mainMenu(Company &company) {
 	cout << "3. Compare pharmacies" << endl;
 	cout << "4. Add or remove" << endl;
 	cout << "5. Update files." << endl;
+	cout << "6. Hire back or fire employees." << endl;
 
 	cout << endl << "Enter a number option: " << endl << "::: ";
 	cin >> option;
 
 	//verifies if input is valid
-	while (cin.fail() || !ValidMenuInput(1, 5, option)) {
+	while (cin.fail() || !ValidMenuInput(1, 6, option)) {
 		cin.clear();
 		cin.ignore(1000, '\n');
 		cout << "Please enter a valid option: " << endl << "::: ";
@@ -76,7 +77,11 @@ void mainMenu(Company &company) {
 		ClearScreen();
 		mainMenu(company);
 		break;
-
+	case 6:
+		hireFireMenu(company);
+		ClearScreen();
+		mainMenu(company);
+		break;
 	}
 }
 
@@ -588,6 +593,37 @@ void updateFileMenu(Company &company) {
 		break;
 	case 6:
 		company.updateSalesFile();
+		break;
+	}
+}
+
+void hireFireMenu(Company &company) {
+	int option;
+
+	cout << string(100, '\n');
+	cout << " HIRE OR FIRE??" << setw(37) << setfill(' ') << " " << endl;
+	cout << setfill('-') << setw(47) << "-" << endl;
+	cout << "1. Hire an employee" << endl;
+	cout << "2. Fire an employee" << endl;
+
+	cout << endl << "Enter a number option: ";
+	cin >> option;
+
+	//verifies if input is valid
+	while (cin.fail() || !ValidMenuInput(1, 2, option)) {
+		cin.clear();
+		cin.ignore(1000, '\n');
+		cout << "Please enter a valid option: ";
+		cin >> option;
+	}
+
+	switch (option) {
+
+	case 1:
+		company.hireBack();
+		break;
+	case 2:
+		company.fireEmployee();
 		break;
 	}
 }

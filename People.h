@@ -6,6 +6,7 @@
 #include "Sales.h"
 using namespace std;
 
+
 class People {
 
 protected:
@@ -34,17 +35,21 @@ class Employee : public People{
 protected:
     float salary;
     string pharmacy, post;
+    bool actualEmployee;
 
 public:
     ~Employee(){};
-    Employee(string name, string address, int taxNumber, float salary, string pharmacy, string post);
+    Employee(){};
+    Employee(string name, string address, int taxNumber, float salary, string pharmacy, string post, bool actualEmployee);
 	Employee(string employee);
     float getSalary() const;
     string getPharmacy() const;
     string getPost() const;
+    bool getActualEmployee() const;
     void setSalary(float salary);
     void setPharmacy(string pharmacy);
     void setPost(string post);
+    void setActualEmployee(bool actualEmployee);
 
     void displayPerson() const;
 	void printSimplifiedInfo(ostream & os) const;

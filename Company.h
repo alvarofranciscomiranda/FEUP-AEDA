@@ -11,8 +11,27 @@
 #include "People.h"
 #include "BST.h"
 #include <set>
+#include <unordered_set>
 
 using namespace std;
+
+struct EmployeeEq {
+	bool operator() (const Employee & e1, const Employee &e2)const {
+		if (e1.getTaxNumber() == e2.getTaxNumber() && e1.getTaxNumber() == e2.getTaxNumber())
+			return true;
+		else
+			return false;
+	}
+};
+
+struct EmployeeHash {
+	int operator() (const Employee &e1) const{
+		return e1.getTaxNumber();
+	}
+};
+
+typedef unordered_set<Employee, EmployeeHash, EmployeeEq> tabHU;
+typedef unordered_set<Employee, EmployeeHash, EmployeeEq >::iterator iteratorH;
 
 class Company {
 private:
@@ -23,8 +42,10 @@ private:
 	vector<Recipe *> recipes;
 	vector<Sales *> sales;
 	BST<Client> clients;
+    tabHU formerEmployees;
 public:
-
+    void fireEmployee();
+    void hireBack();
 	/**
 	 * Constructor of class Company.
 	 */
@@ -37,6 +58,9 @@ public:
 		return pharmacies;
 	}
 
+	/**
+	* @return clients
+	*/
 	BST<Client > getClients() {
 		return clients;
 	}
@@ -296,6 +320,11 @@ public:
 	 * @brief Updates the file containing the information about the sales according to the changes made in the program.
 	 */
 	void updateSalesFile();
+
+	 /**
+	    	*	@return returns former employees
+	    	*/
+	    	tabHU getFormer() const { return formerEmployees; };
 };
 
 /**

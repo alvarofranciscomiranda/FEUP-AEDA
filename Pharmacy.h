@@ -6,13 +6,16 @@
 #include <vector>
 #include <string>
 #include <math.h>
+
 using namespace std;
+
 
 class Pharmacy {
 protected:
     string name, address, manager;
     vector<Employee*> employees;
     vector<string> products;
+
 public:
     /**
      * @brief Constructor for class Pharmacy.
@@ -107,7 +110,6 @@ public:
      * @param file
      */
     void writePharmacy(ofstream & file) const;
-
 };
 
 #endif //UNTITLED_PHARMACY_H

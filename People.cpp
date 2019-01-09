@@ -38,7 +38,7 @@ void People::setTaxNumber(int taxNumber){
     this->taxNumber = taxNumber;
 }
 
-Employee::Employee(string name, string address, int taxNumber, float salary, string pharmacy, string post):People(name, address, taxNumber){
+Employee::Employee(string name, string address, int taxNumber, float salary, string pharmacy, string post, bool actualEmployee):People(name, address, taxNumber){
     this->salary = salary;
     this->pharmacy = pharmacy;
     this->post = post;
@@ -56,6 +56,10 @@ string Employee::getPost() const{
     return post;
 }
 
+bool Employee::getActualEmployee() const{
+    return actualEmployee;
+}
+
 void Employee::setSalary(float salary){
     this->salary = salary;
 }
@@ -67,6 +71,11 @@ void Employee::setPharmacy(string pharmacy){
 void Employee::setPost(string post){
     this->post = post;
 }
+
+void Employee::setActualEmployee(bool actualEmployee){
+    this->actualEmployee = actualEmployee;
+}
+
 
 Employee::Employee(string employee){
     unsigned long stop; //stop is pos for last ';' found
@@ -97,7 +106,16 @@ Employee::Employee(string employee){
 
     //post
     employee = employee.substr(stop + 1);
-    this->post = employee.substr(0);
+    stop = employee.find_first_of(';');
+    this->post = employee.substr(0, stop);
+
+    //actual Employee
+    employee = employee.substr(stop + 1);
+    if(employee == "0")
+    		this->actualEmployee = false;
+    else
+    		this->actualEmployee = true;
+
 }
 
 void Employee::displayPerson() const{
@@ -112,6 +130,13 @@ void Employee::displayPerson() const{
 
 void Employee::printSimplifiedInfo(ostream & os) const{
 	os << name << ";" << address << ";" << taxNumber << ";" << salary << ";" << pharmacy << ";" << post;
+
+	if(actualEmployee){
+		os << ";" << 1;
+	} else
+	{
+		os << ";" << 0;
+	}
 }
 
 Client::Client(string name, string district, string address, int taxNumber): People(name, address, taxNumber){

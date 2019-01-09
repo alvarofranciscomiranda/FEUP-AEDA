@@ -6,8 +6,69 @@
 #include <vector>
 using namespace std;
 
+void Company::fireEmployee(){
+	string name;
+	Employee e = Employee();
+
+	cout << "Which employee do you want to fire?" << endl;
+	getline(cin, name);
+
+	for(int i = 0; i < employees.size(); i++){
+		if(employees[i]->getName() == name){
+			e = (*employees[i]);
+			employees.erase(employees.begin()+i);
+			break;
+		}
+	}
+
+	iteratorH it = formerEmployees.begin();
+
+		while (it != formerEmployees.end()) {
+			if (it->getName() == name) {
+				it = formerEmployees.erase(it);
+				e.setActualEmployee(false);
+				formerEmployees.insert(e);
+				break;
+			}
+
+			it++;
+	}
+}
+
+void Company::hireBack(){
+	string name;
+	Employee e = Employee();
+
+	//dar display de todos
+
+	iteratorH it = formerEmployees.begin();
+
+			while (it != formerEmployees.end()) {
+				if(it->getActualEmployee() == false)
+				it->displayPerson();
+				it++;
+			}
 
 
+	cout << "Which employee do you want to hire?" << endl;
+	cin.ignore(1000, '\n');
+	getline(cin, name);
+
+		 it = formerEmployees.begin();
+
+				while (it != formerEmployees.end()) {
+					if (it->getName() == name) {
+						e = *it;
+						it = formerEmployees.erase(it);
+						e.setActualEmployee(true);
+						formerEmployees.insert(e);
+						employees.push_back(&e);
+						break;
+					}
+
+					it++;
+			}
+}
 
 void Company::openPharmacyFile(){
 	unsigned long stop;
@@ -50,7 +111,10 @@ void Company::openEmployeesFile(){
         while (!employeeFile.eof()) {
 
             getline(employeeFile, employee);
-            employees.push_back(new Employee(employee));
+            Employee * e = new Employee(employee);
+            if(e->getActualEmployee())
+            employees.push_back(e);
+			formerEmployees.insert(*e);
         }
     }
     employeeFile.close();
@@ -603,7 +667,7 @@ void Company::addPharmacy() {
         cin.ignore(1000, '\n');
         getline(cin, postE);
 
-        pharmacies.at(pharmacies.size() - 1)->addEmployee(new Employee(nameE, addressE, taxN, salaryE, nameE, postE));
+        pharmacies.at(pharmacies.size() - 1)->addEmployee(new Employee(nameE, addressE, taxN, salaryE, nameE, postE, true));
     }
 
     cout << endl << "How many products would you like to add? " << endl << "::: ";
@@ -663,8 +727,8 @@ void Company::addEmployee() {
     getline(cin, post);
 
 
-    employees.push_back(new Employee(name, address, taxNumber, salary, pharmacy, post));
-    this->pharmacies.at(this->pharmacyExists(pharmacy))->addEmployee(new Employee(name, address, taxNumber, salary, pharmacy, post));
+    employees.push_back(new Employee(name, address, taxNumber, salary, pharmacy, post, true));
+    this->pharmacies.at(this->pharmacyExists(pharmacy))->addEmployee(new Employee(name, address, taxNumber, salary, pharmacy, post, true));
     cout << string(2, '\n') << "Employee added successfully!" << string(2, '\n');
 }
 
@@ -676,12 +740,6 @@ void Company::addClient() {
     cin.ignore(1000, '\n');
     getline(cin, name);
     Client* c = new Client(name,"","",0);
-//// BSTItrIn<Client *> it(clients);
-//    while(!it.isAtEnd()){
-////    if(it!=clients.end())
-////    	throw-1;
-
-
 
     cout << endl << "Insert district (eg: Braga): " << endl << "::: ";
     getline(cin, district);
@@ -1246,14 +1304,13 @@ void Company::updateEmployeeFile() {
 
     ofstream employeesFile("employees.txt");
 
-    sort(employees.begin(),employees.end(),orderByNameEmployee);
+    iteratorH it = formerEmployees.begin();
 
-    for (unsigned int i = 0; i<employees.size(); i++) {
-        employees[i]->printSimplifiedInfo(employeesFile);
-        if(i!=employees.size()-1)
-        	employeesFile << endl;
-    }
-
+    			while (it != formerEmployees.end()) {
+    				it->printSimplifiedInfo(employeesFile);
+    				employeesFile << endl;
+    				it++;
+    			}
 }
 
 void Company::updateClientFile() {

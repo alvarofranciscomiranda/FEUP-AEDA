@@ -91,6 +91,12 @@ void AddAlterRemoveMenuSales(Company &company);
 void compareMenu(Company &company);
 
 /**
+ * @brief Sub-menu from Main menu that allows user to fire and hire employees using hashtables.
+ * @param company
+ */
+void hireFireMenu(Company &company);
+
+/**
  * @brief Sub-menu from Main menu that allows user to save all the changed files.
  * @param company
  */
