@@ -10,7 +10,7 @@ class Product {
 
 protected:
     string name, description, code;
-    float price;
+    float price, stock;
 
 public:
     virtual ~Product();
@@ -19,11 +19,13 @@ public:
     string getCode() const;
     float getPrice() const;
     string getDescription() const;
+    float getStock() const;
 
     void setName(string name);
     void setCode(string code);
     void setPrice(float price);
     void setDescription(string address);
+    void setStock(float stock);
 
 	virtual string getTypeProduct() const = 0;
 	virtual float getTotalPrice() const = 0;
@@ -44,7 +46,7 @@ protected:
 public:
     ~Medicine();
     Medicine(string product);
-    Medicine(string name,string code, float price, string description, bool prescription, bool needed, int discount);
+    Medicine(string name,float stock,string code, float price, string description, bool prescription, bool needed, int discount);
     bool getPrescription() const;
     bool getNeeded() const;
     int getDiscount() const;
@@ -70,7 +72,7 @@ protected:
 public:
     ~Other();
     Other(string product);
-    Other(string name,string code, float price, string description);
+    Other(string name, float stock,string code, float price, string description);
 
     string getTypeProduct() const;
     float getTotalPrice() const;

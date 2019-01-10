@@ -10,8 +10,16 @@ void Company::fireEmployee(){
 	string name;
 	Employee e = Employee();
 
+	for(int i = 0; i < employees.size(); i++){
+			employees[i]->displayPerson();
+		}
+
 	cout << "Which employee do you want to fire?" << endl;
+	cin.ignore(1000, '\n');
 	getline(cin, name);
+
+
+
 
 	for(int i = 0; i < employees.size(); i++){
 		if(employees[i]->getName() == name){
@@ -33,6 +41,8 @@ void Company::fireEmployee(){
 
 			it++;
 	}
+
+		cout << "Employee fired successfully!" << endl;
 }
 
 void Company::hireBack(){
@@ -62,12 +72,15 @@ void Company::hireBack(){
 						it = formerEmployees.erase(it);
 						e.setActualEmployee(true);
 						formerEmployees.insert(e);
-						employees.push_back(&e);
+						Employee * employ = new Employee(e.getName(),e.getAddress(),e.getTaxNumber(),e.getSalary(),e.getPharmacy(),e.getPost(),e.getActualEmployee());
+						employees.push_back(employ);
 						break;
 					}
 
 					it++;
 			}
+
+				cout << "Employee hired back successfully!" << endl;
 }
 
 void Company::openPharmacyFile(){
@@ -135,6 +148,7 @@ void Company::openClientsFile(){
             clients.insert(c);
         }
     }
+
     clientFile.close();
 
 }
@@ -296,10 +310,13 @@ void Company::openSalesFile(){
 
 	            //gets quantity
 	            getline(recipesFile, sods);
+	            unsigned int helper = 0;
 	            while(sods != ""){
 	                 stop = sods.find_first_of(';');
 	                 s->addQuantityOnly(stoi(sods.substr(0,stop)));
+	                 s->getProducts().at(helper)->setStock(stoi(sods.substr(0,stop)));
 	                 sods = sods.substr(stop + 1);
+	                 helper++;
 	            }
 
 	             sales.push_back(s);
@@ -758,7 +775,7 @@ void Company::addClient() {
 
 void Company::addProducts() {
     string code, name, description, type, prescription, needed;
-    float price;
+    float price, stock;
     int discount;
     bool n1 = false, n2 = false;
 
@@ -777,6 +794,10 @@ void Company::addProducts() {
     cout << endl << "Insert name: " << endl << "::: ";
     getline(cin, name);
 
+    cout << endl << "Insert stock " << endl << "::: ";
+    	cin >> stock;
+    	fail(stock);
+
     cout << endl << "Insert price " << endl << "::: ";
     cin >> price;
     fail(price);
@@ -786,7 +807,7 @@ void Company::addProducts() {
     getline(cin, description);
 
     if(type == "other"){
-        products.push_back(new Other(name, code, price, description));
+        products.push_back(new Other(name, stock, code, price, description));
     }
 
     else if(type == "medicine"){
@@ -806,7 +827,7 @@ void Company::addProducts() {
         		getline(cin, needed);
         	}
 
-        cout << endl << "Insert price(0-100) " << endl << "::: ";
+        cout << endl << "Insert discount(0-100) " << endl << "::: ";
         cin >> discount;
         fail(discount);
 
@@ -815,12 +836,11 @@ void Company::addProducts() {
         if(needed == "y")
             n2 = true;
 
-        products.push_back(new Medicine(name, code, price, description, n1, n2, discount));
+        products.push_back(new Medicine(name, stock, code, price, description, n1, n2, discount));
     }
 
     cout << string(2, '\n') << "Product added successfully!" << string(2, '\n');
 }
-
 void Company::addRecipe(){
 	string user, medic;
 	vector<Product*> product2;
@@ -828,151 +848,234 @@ void Company::addRecipe(){
 	int number = Recipe::id;
 	int counter = 0, prods, sods;
 
-	cin.ignore(1000, '\n');
-	cout << endl << "Insert name of the user: " << endl << "::: ";
-	getline(cin, user);
+	vector<string> codes;
+	vector<int> stocks;
+	vector<string> mandatories;
+	vector<float> discounts;
+
+	bool helper = true;
+	BSTItrIn<Client> it(this->clients);
+
+	while(helper){
+		cin.ignore(1000, '\n');
+		cout << endl << "Insert a valid name of the an user: " << endl << "::: ";
+		user = "";
+		getline(cin, user);
+		cout << user;
+
+        while(!it.isAtEnd()){
+        	if(it.retrieve().getName() == user){
+        		cout << "ola" << endl;
+        		helper = false;
+        		break;
+        	}
+            it.advance();
+        }
+	}
 
 	cout << endl << "Insert name of the medic: " << endl << "::: ";
 	getline(cin, medic);
 
-	cout << endl << "How many products would you like to add? " << endl << "::: ";
+	cout << endl << "How many products reciped would you like to add? " << endl << "::: ";
 	cin >> prods;
 	fail(prods);
 	cin.ignore(1000, '\n');
-	counter = 0;
 
+	counter = 0;
 	while (counter < prods) {
 		counter++;
 		string code, name, description, type, prescription, needed;
-		float price;
+		float price, stock;
 		int discount;
 		bool n1 = false, n2 = false;
 
-		while(type != "medicine" && type != "other"){
-		   type == "";
-		   cin.ignore(1000, '\n');
-		   cout << endl << "Insert type of the product: " << endl << "::: ";
-		   getline(cin, type);
+		cout << "Introducing new product reciped:" << endl;
+		do{
+			cout << endl << "Insert code of the product: " << endl << "::: ";
+			//cin.ignore(1000, '\n');
+			getline(cin, code);
+
+		}while(productExists(code) == -1);
+		codes.push_back(code);
+
+		/*while(type != "medicine" && type != "other"){
+			type == "";
+			cin.ignore(1000, '\n');
+			cout << endl << "Insert type of the product: " << endl << "::: ";
+			getline(cin, type);
 		}
-
-		cout << endl << "Insert code of the product: " << endl << "::: ";
-		//cin.ignore(1000, '\n');
-		getline(cin, code);
-		if(productExists(code) != -1) { throw  -1;}
-
 		cout << endl << "Insert name: " << endl << "::: ";
 		getline(cin, name);
-
 		cout << endl << "Insert price " << endl << "::: ";
 		cin >> price;
 		fail(price);
-
 		cin.ignore(1000, '\n');
 		cout << endl << "Insert description: " << endl << "::: ";
 		getline(cin, description);
+		*/
+
+	    vector<Product*>::const_iterator it = products.begin();
+	    for(; it != products.end(); it++){
+	    	if((*it)->getCode() == code){
+				type = (*it)->getTypeProduct();
+
+	    		name = (*it)->getName();
+
+	    		price = (*it)->getPrice();
+
+	    		description = (*it)->getDescription();
+
+	    		while(true){
+	    			cout << "Quantity must be lower or equal than stock = " << (*it)->getStock() << endl;
+	    			cout << endl << "Insert Quantities " << endl << "::: ";
+					cin >> stock;
+					fail(stock);
+					if(stock <= (*it)->getStock()){
+						stocks.push_back(stock);
+						break;
+					}
+	    		}
+	    	}
+	    }
 
 		if(type == "other"){
-		    product2.push_back(new Other(name, code, price, description));
+		    product2.push_back(new Other(name,stock, code, price, description));
 		}
 
 		else if(type == "medicine"){
 
-		    while(prescription != "y" && prescription != "n"){
+		   /* while(prescription != "y" && prescription != "n"){
 		    	prescription = "";
 		    	//cin.ignore(1000, '\n');
 		        cout << endl << "Insert if the medicine can be prescripted(y/n): " << endl << "::: ";
 		        getline(cin, prescription);
 		        cout << prescription << endl;
 		    }
+		    */
+
+			prescription = "y";
+
 		    if(prescription != "n")
 		        while(needed != "y" && needed != "n"){
 		        	needed = "";
 		        	//cin.ignore(1000, '\n');
-		        	cout << endl << "Insert if the recipe is obrigatory(y/n): " << endl << "::: ";
+		        	cout << endl << "Insert if the recipe is mandatory(y/n): " << endl << "::: ";
 		        	getline(cin, needed);
 		        }
+		    mandatories.push_back(needed);
 
-		    cout << endl << "Insert price(0-100) " << endl << "::: ";
+		    cout << endl << "Insert discount(0-100) " << endl << "::: ";
 		    cin >> discount;
 		    fail(discount);
+		    discounts.push_back(discount);
 
 		    if(prescription == "y")
 		    	n1 = true;
 		    if(needed == "y")
 		        n2 = true;
 
-		    product2.push_back(new Medicine(name, code, price, description, n1, n2, discount));
+		    product2.push_back(new Medicine(name, stock, code, price, description, n1, n2, discount));
 		}
 	}
 
-	cout << endl << "How many products would you like to add? " << endl << "::: ";
-	cin >> sods;
-	fail(sods);
-	cin.ignore(1000, '\n');
 	counter = 0;
-
-	while (counter < sods) {
-		counter++;
+	while (counter < codes.size()) {
 		string code, name, description, type, prescription, needed;
-		float price;
+		float price, stock;
 		int discount;
 		bool n1 = false, n2 = false;
 
-		while(type != "medicine" && type != "other"){
+		cout << "Introducing new product sold:" << endl;
+		code = codes.at(counter);
+		vector<Product*>::const_iterator it = products.begin();
+		for(; it != products.end(); it++){
+			if((*it)->getCode() == code){
+
+				type = (*it)->getTypeProduct();
+
+				name = (*it)->getName();
+				cout << "Product: " << name << endl;
+
+				price = (*it)->getPrice();
+
+				description = (*it)->getDescription();
+
+				while(true){
+					cout << "Quantity must be lower or equal than stock = " << (*it)->getStock() << endl;
+					cout << endl << "Insert Quantities " << endl << "::: ";
+					cin >> stock;
+					fail(stock);
+					if(stock <= (*it)->getStock()){
+						stocks.push_back(stock);
+						break;
+					}
+				}
+			}
+		}
+
+/*		while(type != "medicine" && type != "other"){
 			type == "";
 			cin.ignore(1000, '\n');
 			cout << endl << "Insert type of the product: " << endl << "::: ";
 			getline(cin, type);
 		}
-
-		cout << endl << "Insert code of the product: " << endl << "::: ";
-		//cin.ignore(1000, '\n');
-		getline(cin, code);
-		if(productExists(code) != -1) { throw  -1;}
-
+	    do{
+	    	cout << endl << "Insert code of the product: " << endl << "::: ";
+				//cin.ignore(1000, '\n');
+				getline(cin, code);
+	    }while( productExists(code) != -1);
 		cout << endl << "Insert name: " << endl << "::: ";
 		getline(cin, name);
-
+		cout << endl << "Insert stock " << endl << "::: ";
+		cin >> stock;
+		fail(stock);
 		cout << endl << "Insert price " << endl << "::: ";
 		cin >> price;
 		fail(price);
-
 		cin.ignore(1000, '\n');
 		cout << endl << "Insert description: " << endl << "::: ";
 		getline(cin, description);
+*/
 
 		if(type == "other"){
-			sold2.push_back(new Other(name, code, price, description));
+			sold2.push_back(new Other(name, stock, code, price, description));
 		}
 
 		else if(type == "medicine"){
 
-			while(prescription != "y" && prescription != "n"){
-			    prescription = "";
+			/*while(prescription != "y" && prescription != "n"){
+			   prescription = "";
 			    //cin.ignore(1000, '\n');
 			    cout << endl << "Insert if the medicine can be prescripted(y/n): " << endl << "::: ";
 			    getline(cin, prescription);
 			    cout << prescription << endl;
 			}
-			if(prescription != "n")
+			*/
+
+			prescription = "y";
+			needed = mandatories.at(counter);
+			discount = discounts.at(counter);
+
+			/*if(prescription != "n")
 			    while(needed != "y" && needed != "n"){
 			    	needed = "";
 			        //cin.ignore(1000, '\n');
-			        cout << endl << "Insert if the recipe is obrigatory(y/n): " << endl << "::: ";
+			        cout << endl << "Insert if the recipe is mandatory(y/n): " << endl << "::: ";
 			        getline(cin, needed);
 			    }
-
-			cout << endl << "Insert price(0-100) " << endl << "::: ";
+			cout << endl << "Insert discount(0-100) " << endl << "::: ";
 			cin >> discount;
 			fail(discount);
+			*/
 
 			if(prescription == "y")
 			    n1 = true;
 			if(needed == "y")
 			    n2 = true;
 
-			sold2.push_back(new Medicine(name, code, price, description, n1, n2, discount));
+			sold2.push_back(new Medicine(name, stock, code, price, description, n1, n2, discount));
 		}
+		counter++;
 	}
 	Recipe * re =  new Recipe(number, user, medic);
 	re->setProducts(product2);
@@ -1010,46 +1113,58 @@ void Company::addSale(){
 	while (counter < prods) {
 		counter++;
 		string code, name, description, type, prescription, needed;
-		float price;
+		float price, stock;
 		int discount;
 		bool n1 = false, n2 = false;
 
-		while(type != "medicine" && type != "other"){
-			type == "";
-			cin.ignore(1000, '\n');
-			cout << endl << "Insert type of the product: " << endl << "::: ";
-			getline(cin, type);
+		cout << "Introducing new product sold:" << endl;
+		do{
+			cout << endl << "Insert code of the product: " << endl << "::: ";
+			//cin.ignore(1000, '\n');
+			getline(cin, code);
+
+		}while(productExists(code) == -1);
+
+		vector<Product*>::const_iterator it = products.begin();
+		for(; it != products.end(); it++){
+			if((*it)->getCode() == code){
+				type = (*it)->getTypeProduct();
+
+				name = (*it)->getName();
+
+				price = (*it)->getPrice();
+
+				description = (*it)->getDescription();
+
+				while(true){
+					cout << "Quantity must be lower or equal than stock = " << (*it)->getStock() << endl;
+					cout << endl << "Insert Quantities " << endl << "::: ";
+					cin >> stock;
+					fail(stock);
+					if(stock <= (*it)->getStock()){
+						quants1.push_back(stock);
+						(*it)->setStock((*it)->getStock()-stock);
+						break;
+					}
+				}
+			}
 		}
-
-		cout << endl << "Insert code of the product: " << endl << "::: ";
-		//cin.ignore(1000, '\n');
-		getline(cin, code);
-		if(productExists(code) != -1) { throw  -1;}
-
-		cout << endl << "Insert name: " << endl << "::: ";
-		getline(cin, name);
-
-		cout << endl << "Insert price " << endl << "::: ";
-		cin >> price;
-		fail(price);
-
-		cin.ignore(1000, '\n');
-		cout << endl << "Insert description: " << endl << "::: ";
-		getline(cin, description);
-
 		if(type == "other"){
-			product2.push_back(new Other(name, code, price, description));
+			product2.push_back(new Other(name, stock, code, price, description));
 		}
 
 		else if(type == "medicine"){
 
-			while(prescription != "y" && prescription != "n"){
-			    prescription = "";
-			    //cin.ignore(1000, '\n');
-			    cout << endl << "Insert if the medicine can be prescripted(y/n): " << endl << "::: ";
-			    getline(cin, prescription);
-			    cout << prescription << endl;
-			}
+			prescription = "y";
+
+			if(prescription != "n")
+				while(needed != "y" && needed != "n"){
+					needed = "";
+					//cin.ignore(1000, '\n');
+					cout << endl << "Insert if the recipe is mandatory(y/n): " << endl << "::: ";
+					getline(cin, needed);
+				}
+
 			if(prescription != "n")
 			    while(needed != "y" && needed != "n"){
 			        needed = "";
@@ -1058,7 +1173,7 @@ void Company::addSale(){
 			        getline(cin, needed);
 			    }
 
-			cout << endl << "Insert price(0-100) " << endl << "::: ";
+			cout << endl << "Insert discount(0-100) " << endl << "::: ";
 			cin >> discount;
 			fail(discount);
 
@@ -1067,24 +1182,14 @@ void Company::addSale(){
 			if(needed == "y")
 			    n2 = true;
 
-			product2.push_back(new Medicine(name, code, price, description, n1, n2, discount));
+			product2.push_back(new Medicine(name, stock, code, price, description, n1, n2, discount));
 		}
-	}
-
-	while (counter > 0) {
-		counter--;
-
-		cin.ignore(1000, '\n');
-		cout << endl << "Quantitie of the i introduzed product? " << endl << "::: ";
-		cin >> sods;
-		fail(sods);
-
-		quants1.push_back(sods);
 	}
 
 	Sales * sa =  new Sales(product2, quants1, Date(day2, month2, year2));
 	this->sales.push_back(sa);
 }
+
 
 void Company::removePharmacy(){
     string name;

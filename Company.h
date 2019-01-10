@@ -37,14 +37,21 @@ class Company {
 private:
 	vector<Pharmacy *> pharmacies;
 	vector<Employee *> employees;
-//	vector<Client *> clients;
 	vector<Product *> products;
 	vector<Recipe *> recipes;
 	vector<Sales *> sales;
 	BST<Client> clients;
     tabHU formerEmployees;
 public:
+
+    /**
+    	 * @brief Uses hash so it can fire employees
+    	 */
     void fireEmployee();
+
+    /**
+    * @brief Uses hash so it can hire back former employees
+    */
     void hireBack();
 	/**
 	 * Constructor of class Company.
