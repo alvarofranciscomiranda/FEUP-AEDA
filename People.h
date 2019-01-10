@@ -46,6 +46,7 @@ public:
     string getPharmacy() const;
     string getPost() const;
     bool getActualEmployee() const;
+
     void setSalary(float salary);
     void setPharmacy(string pharmacy);
     void setPost(string post);

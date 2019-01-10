@@ -18,12 +18,14 @@ public:
     string getName() const;
     string getCode() const;
     float getPrice() const;
+    float getStock() const;
     string getDescription() const;
     float getStock() const;
 
     void setName(string name);
     void setCode(string code);
     void setPrice(float price);
+    void setStock(float stock);
     void setDescription(string address);
     void setStock(float stock);
 
@@ -46,7 +48,7 @@ protected:
 public:
     ~Medicine();
     Medicine(string product);
-    Medicine(string name,float stock,string code, float price, string description, bool prescription, bool needed, int discount);
+    Medicine(string name, float stock, string code, float price, string description, bool prescription, bool needed, int discount);
     bool getPrescription() const;
     bool getNeeded() const;
     int getDiscount() const;
@@ -72,7 +74,7 @@ protected:
 public:
     ~Other();
     Other(string product);
-    Other(string name, float stock,string code, float price, string description);
+    Other(string name, float stock, string code, float price, string description);
 
     string getTypeProduct() const;
     float getTotalPrice() const;

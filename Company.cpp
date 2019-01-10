@@ -53,11 +53,11 @@ void Company::hireBack(){
 
 	iteratorH it = formerEmployees.begin();
 
-			while (it != formerEmployees.end()) {
-				if(it->getActualEmployee() == false)
-				it->displayPerson();
-				it++;
-			}
+	while (it != formerEmployees.end()) {
+		if(it->getActualEmployee() == false)
+		it->displayPerson();
+		it++;
+	}
 
 
 	cout << "Which employee do you want to hire?" << endl;
@@ -82,6 +82,9 @@ void Company::hireBack(){
 
 				cout << "Employee hired back successfully!" << endl;
 }
+
+
+
 
 void Company::openPharmacyFile(){
 	unsigned long stop;
@@ -125,8 +128,8 @@ void Company::openEmployeesFile(){
 
             getline(employeeFile, employee);
             Employee * e = new Employee(employee);
-            if(e->getActualEmployee())
-            employees.push_back(e);
+			if(e->getActualEmployee())
+			employees.push_back(e);
 			formerEmployees.insert(*e);
         }
     }
@@ -536,17 +539,17 @@ void Company::searchEmployees() {
         vector <Employee *> temp=pharmacies.at(i)->getEmployees();
         sort(temp.begin(),temp.end(), orderByNameEmployee);
         int left = 0, right = temp.size() - 1;
-     while (left <= right) {
-        int middle = (left + right) / 2;
-        if (temp.at(middle)->getName() < employee)
-            left = middle + 1;
-        else if (employee < temp.at(middle)->getName())
-            right = middle - 1;
-        else {
-            pharmacies.at(i)->displayPharmacy();
-            break;
-        }
-     }
+		 while (left <= right) {
+			int middle = (left + right) / 2;
+			if (temp.at(middle)->getName() < employee)
+				left = middle + 1;
+			else if (employee < temp.at(middle)->getName())
+				right = middle - 1;
+			else {
+				pharmacies.at(i)->displayPharmacy();
+				break;
+			}
+		 }
     }
 
     returnMainMenu();
@@ -745,7 +748,7 @@ void Company::addEmployee() {
 
 
     employees.push_back(new Employee(name, address, taxNumber, salary, pharmacy, post, true));
-    this->pharmacies.at(this->pharmacyExists(pharmacy))->addEmployee(new Employee(name, address, taxNumber, salary, pharmacy, post, true));
+        this->pharmacies.at(this->pharmacyExists(pharmacy))->addEmployee(new Employee(name, address, taxNumber, salary, pharmacy, post, true));
     cout << string(2, '\n') << "Employee added successfully!" << string(2, '\n');
 }
 
@@ -1023,12 +1026,16 @@ void Company::addRecipe(){
 	    	cout << endl << "Insert code of the product: " << endl << "::: ";
 				//cin.ignore(1000, '\n');
 				getline(cin, code);
+
 	    }while( productExists(code) != -1);
+
 		cout << endl << "Insert name: " << endl << "::: ";
 		getline(cin, name);
+
 		cout << endl << "Insert stock " << endl << "::: ";
 		cin >> stock;
 		fail(stock);
+
 		cout << endl << "Insert price " << endl << "::: ";
 		cin >> price;
 		fail(price);
@@ -1063,6 +1070,7 @@ void Company::addRecipe(){
 			        cout << endl << "Insert if the recipe is mandatory(y/n): " << endl << "::: ";
 			        getline(cin, needed);
 			    }
+
 			cout << endl << "Insert discount(0-100) " << endl << "::: ";
 			cin >> discount;
 			fail(discount);
@@ -1082,6 +1090,7 @@ void Company::addRecipe(){
 	re->setSold(sold2);
 	this->recipes.push_back(re);
 }
+
 
 void Company::addSale(){
 	int day2, month2, year2;
@@ -1411,11 +1420,12 @@ void Company::updateEmployeeFile() {
 
     iteratorH it = formerEmployees.begin();
 
-    			while (it != formerEmployees.end()) {
-    				it->printSimplifiedInfo(employeesFile);
-    				employeesFile << endl;
-    				it++;
-    			}
+    while (it != formerEmployees.end()) {
+		it->printSimplifiedInfo(employeesFile);
+		employeesFile << endl;
+		it++;
+	}
+
 }
 
 void Company::updateClientFile() {
@@ -1542,4 +1552,3 @@ bool orderByDate(Sales *p1, Sales *p2){
 
 	return false;
 }
-

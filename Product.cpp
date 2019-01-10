@@ -38,6 +38,10 @@ void Product::setPrice(float price){
     this->price = price;
 }
 
+void Product::setStock(float stock){
+    this->stock = stock;
+}
+
 void Product::setDescription(string description){
     this->description = description;
 }
@@ -166,7 +170,11 @@ void Medicine::printFileInfo(ostream & os) const{
 }
 
 
+<<<<<<< HEAD
 Other::Other(string name,float stock,string code, float price, string description){
+=======
+Other::Other(string name,float stock, string code, float price, string description){
+>>>>>>> e7379116d484c477150fcaa48f37a7ec58945c02
 	this->name = name;
 	this->stock = stock;
 	this->code = code;
@@ -182,9 +190,15 @@ Other::Other(string product){
     this->name = product.substr(0,stop);
 
     //stock
+<<<<<<< HEAD
    	product = product.substr(stop +1);
    	stop = product.find_first_of('/');
    	this->stock = stof(product.substr(0, stop));
+=======
+	product = product.substr(stop +1);
+	stop = product.find_first_of('/');
+	this->stock = stof(product.substr(0, stop));
+>>>>>>> e7379116d484c477150fcaa48f37a7ec58945c02
 
     //code
     product = product.substr(stop+1);
@@ -228,7 +242,3 @@ void Other::printSimplifiedInfo(ostream & os) const{
 void Other::printFileInfo(ostream & os) const{
 	os  << "other/" << name << '/' << stock << '/' << code << '/' << price << '/' << description << ";";
 }
-
-
-
-

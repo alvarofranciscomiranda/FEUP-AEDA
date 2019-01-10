@@ -10,8 +10,9 @@
 #include "Sales.h"
 #include "People.h"
 #include "BST.h"
-#include <set>
+#include <queue>
 #include <unordered_set>
+#include <set>
 
 using namespace std;
 
@@ -53,6 +54,7 @@ public:
     * @brief Uses hash so it can hire back former employees
     */
     void hireBack();
+
 	/**
 	 * Constructor of class Company.
 	 */
@@ -328,10 +330,11 @@ public:
 	 */
 	void updateSalesFile();
 
+
 	 /**
-	    	*	@return returns former employees
-	    	*/
-	    	tabHU getFormer() const { return formerEmployees; };
+	*	@return returns former employees
+	*/
+	tabHU getFormer() const { return formerEmployees; };
 };
 
 /**
