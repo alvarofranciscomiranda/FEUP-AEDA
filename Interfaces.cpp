@@ -407,13 +407,14 @@ void AddAlterRemoveMenuProduct(Company &company) {
 	cout << "1. Add product" << endl;
 	cout << "2. Remove product" << endl;
 	cout << "3. Remove all products" << endl;
-	cout << "4. Return to main menu" << endl;
+	cout << "4. Stocks" << endl;
+	cout << "5. Return to main menu" << endl;
 
 	cout << endl << "Enter a number option: " << endl << "::: ";
 	cin >> option;
 
 	//verifies if input is valid
-	while (cin.fail() || !ValidMenuInput(1, 4, option)) {
+	while (cin.fail() || !ValidMenuInput(1, 5, option)) {
 		cin.clear();
 		cin.ignore(1000, '\n');
 		cout << "Please enter a valid option: " << endl << "::: ";
@@ -442,11 +443,70 @@ void AddAlterRemoveMenuProduct(Company &company) {
 		mainMenu(company);
 		break;
 	case 4:
+		stocksMenu(company);
+		ClearScreen();
+		mainMenu(company);
+		break;
+	case 5:
 		ClearScreen();
 		mainMenu(company);
 		break;
 	}
 }
+
+void stocksMenu(Company &company){
+	int option;
+
+	cout << string(100, '\n');
+	cout << " Stocks" << setw(37) << setfill(' ') << " " << endl;
+	cout << setfill('-') << setw(47) << "-" << endl;
+	cout << "1. Display Products that have lower than x in stock" << endl;
+	cout << "2. Add stock to a chosen Produc" << endl;
+	cout << "3. Add stock to the Product with the least stock" << endl;
+	cout << "4. Return Main Menu" << endl;
+
+	cout << endl << "Enter a number option: " << endl << "::: ";
+	cin >> option;
+
+	//verifies if input is valid
+	while (cin.fail() || !ValidMenuInput(1, 4, option)) {
+		cin.clear();
+		cin.ignore(1000, '\n');
+		cout << "Please enter a valid option: " << endl << "::: ";
+		cin >> option;
+	}
+
+	switch (option) {
+	case 1:
+		try {
+			company.displayStockInferior();
+		} catch (int x) {
+			cout << endl << "ERROR: None with lower stock than that!" << endl;
+		}
+		returnMainMenu();
+		ClearScreen();
+		mainMenu(company);
+		break;
+	case 2:
+		company.buyPackageByCode();
+		ClearScreen();
+		mainMenu(company);
+		break;
+	case 3:
+		company.buyPackageByMostNeed();
+		ClearScreen();
+		mainMenu(company);
+		break;
+	case 4:
+		ClearScreen();
+		mainMenu(company);
+		break;
+	}
+
+
+
+}
+
 
 void AddAlterRemoveMenuRecipe(Company &company) {
 

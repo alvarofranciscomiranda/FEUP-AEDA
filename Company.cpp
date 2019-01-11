@@ -11,17 +11,14 @@ void Company::fireEmployee(){
 	Employee e = Employee();
 
 	for(int i = 0; i < employees.size(); i++){
-			employees[i]->displayPerson();
-		}
+		employees[i]->displayPerson();
+	}
 
 	cout << "Which employee do you want to fire?" << endl;
 	cin.ignore(1000, '\n');
 	getline(cin, name);
 
-
-
-
-	for(int i = 0; i < employees.size(); i++){
+	for(unsigned int i = 0; i < employees.size(); i++){
 		if(employees[i]->getName() == name){
 			e = (*employees[i]);
 			employees.erase(employees.begin()+i);
@@ -41,7 +38,6 @@ void Company::fireEmployee(){
 
 			it++;
 	}
-
 		cout << "Employee fired successfully!" << endl;
 }
 
@@ -66,25 +62,112 @@ void Company::hireBack(){
 
 		 it = formerEmployees.begin();
 
-				while (it != formerEmployees.end()) {
-					if (it->getName() == name) {
-						e = *it;
-						it = formerEmployees.erase(it);
-						e.setActualEmployee(true);
-						formerEmployees.insert(e);
-						Employee * employ = new Employee(e.getName(),e.getAddress(),e.getTaxNumber(),e.getSalary(),e.getPharmacy(),e.getPost(),e.getActualEmployee());
-						employees.push_back(employ);
-						break;
-					}
-
-					it++;
+		while (it != formerEmployees.end()) {
+			if (it->getName() == name) {
+				e = *it;
+				it = formerEmployees.erase(it);
+				e.setActualEmployee(true);
+				formerEmployees.insert(e);
+				Employee * employ = new Employee(e.getName(),e.getAddress(),e.getTaxNumber(),e.getSalary(),e.getPharmacy(),e.getPost(),e.getActualEmployee());
+				employees.push_back(employ);
+				break;
 			}
 
-				cout << "Employee hired back successfully!" << endl;
+			it++;
+	}
+		cout << "Employee hired back successfully!" << endl;
 }
 
+//Priority Queue stuff
+void Company::addProductsQueue(){
+    vector<Product*>::const_iterator it = products.begin();
+
+	while (!productsStocks.empty()) {
+		productsStocks.pop();
+	}
+
+	for(; it != products.end(); it++)
+	{
+		productsStocks.push((*it));
+	}
+}
+
+void Company::displayStockInferior(){
+
+	int maxStock;
+	cout << "What's the upper limit of stock?" << endl;
+	cin >> maxStock;
+
+	pq_products temp = productsStocks;
 
 
+	cout << endl;
+	while (!(temp.empty())){
+		Product* productTemp = temp.top();
+
+		if(productTemp->getStock() >= maxStock){
+			break;
+		}
+
+		cout << "Code: " << productTemp->getCode() << endl;
+		cout << "Name: " << productTemp->getName() << endl;
+		cout << "Stock:" << productTemp->getStock() << endl;
+		cout << "Price:" << productTemp->getPrice() << endl;
+		cout << "Description:" << productTemp->getDescription() << endl;
+
+		temp.pop();
+	}
+}
+
+void Company::buyPackageByCode() {
+	string code;
+	do{
+		cout << endl << "Insert code of the Product you want to order: " << endl << "::: ";
+		//cin.ignore(1000, '\n');
+		getline(cin, code);
+
+	}while(productExists(code) == -1);
+
+	float quantity;
+	cout << "How much items you want to buy?" << endl;
+	cin >> quantity;
+
+	float oldStock;
+	vector<Product*> temp;
+
+	while(!(productsStocks.empty())){
+
+		Product* productTemp = productsStocks.top();
+
+		if(productTemp->getCode() == code){
+			oldStock = productTemp->getStock();
+			productTemp->setStock(oldStock + quantity);
+
+		}
+		productsStocks.pop();
+		temp.push_back(productTemp);
+	}
+
+	vector<Product*>::const_iterator it = temp.begin();
+	for(; it != products.end(); it++){
+		productsStocks.push((*it));
+	}
+}
+
+void Company::buyPackageByMostNeed(){
+
+	float quantity;
+	cout << "How much items you want to buy?" << endl;
+	cin >> quantity;
+
+	float oldStock;
+
+	Product* productTemp = productsStocks.top();
+	oldStock = productTemp->getStock();
+	productTemp->setStock(oldStock + quantity);
+	productsStocks.pop();
+	productsStocks.push(productTemp);
+}
 
 void Company::openPharmacyFile(){
 	unsigned long stop;
@@ -103,7 +186,6 @@ void Company::openPharmacyFile(){
             getline(pharmacyFile, prods);
 
             while(prods != ""){
-            	cout << i;
             	stop = prods.find_first_of(';');
             	this->pharmacies.at(i)->addProduct(prods.substr(0, stop));
             	prods = prods.substr(stop + 1);
@@ -151,7 +233,6 @@ void Company::openClientsFile(){
             clients.insert(c);
         }
     }
-
     clientFile.close();
 
 }
@@ -798,8 +879,8 @@ void Company::addProducts() {
     getline(cin, name);
 
     cout << endl << "Insert stock " << endl << "::: ";
-    	cin >> stock;
-    	fail(stock);
+	cin >> stock;
+	fail(stock);
 
     cout << endl << "Insert price " << endl << "::: ";
     cin >> price;
@@ -844,6 +925,7 @@ void Company::addProducts() {
 
     cout << string(2, '\n') << "Product added successfully!" << string(2, '\n');
 }
+
 void Company::addRecipe(){
 	string user, medic;
 	vector<Product*> product2;
@@ -907,11 +989,14 @@ void Company::addRecipe(){
 			cout << endl << "Insert type of the product: " << endl << "::: ";
 			getline(cin, type);
 		}
+
 		cout << endl << "Insert name: " << endl << "::: ";
 		getline(cin, name);
+
 		cout << endl << "Insert price " << endl << "::: ";
 		cin >> price;
 		fail(price);
+
 		cin.ignore(1000, '\n');
 		cout << endl << "Insert description: " << endl << "::: ";
 		getline(cin, description);
@@ -1017,11 +1102,13 @@ void Company::addRecipe(){
 		}
 
 /*		while(type != "medicine" && type != "other"){
+
 			type == "";
 			cin.ignore(1000, '\n');
 			cout << endl << "Insert type of the product: " << endl << "::: ";
 			getline(cin, type);
 		}
+
 	    do{
 	    	cout << endl << "Insert code of the product: " << endl << "::: ";
 				//cin.ignore(1000, '\n');
@@ -1039,6 +1126,7 @@ void Company::addRecipe(){
 		cout << endl << "Insert price " << endl << "::: ";
 		cin >> price;
 		fail(price);
+
 		cin.ignore(1000, '\n');
 		cout << endl << "Insert description: " << endl << "::: ";
 		getline(cin, description);
@@ -1198,7 +1286,6 @@ void Company::addSale(){
 	Sales * sa =  new Sales(product2, quants1, Date(day2, month2, year2));
 	this->sales.push_back(sa);
 }
-
 
 void Company::removePharmacy(){
     string name;
@@ -1425,16 +1512,15 @@ void Company::updateEmployeeFile() {
 		employeesFile << endl;
 		it++;
 	}
-
 }
 
 void Company::updateClientFile() {
 
     ofstream clientsFile("clients.txt");
-int i=0;
+	int i=0;
 
-BSTItrIn<Client> it(clients);
-  while(!it.isAtEnd()){
+	BSTItrIn<Client> it(clients);
+	while(!it.isAtEnd()){
 
         it.retrieve().printSimplifiedInfo(clientsFile);
         if(!it.isAtEnd())
@@ -1552,3 +1638,4 @@ bool orderByDate(Sales *p1, Sales *p2){
 
 	return false;
 }
+

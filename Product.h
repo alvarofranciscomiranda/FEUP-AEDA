@@ -20,14 +20,12 @@ public:
     float getPrice() const;
     float getStock() const;
     string getDescription() const;
-    float getStock() const;
 
     void setName(string name);
     void setCode(string code);
     void setPrice(float price);
     void setStock(float stock);
     void setDescription(string address);
-    void setStock(float stock);
 
 	virtual string getTypeProduct() const = 0;
 	virtual float getTotalPrice() const = 0;

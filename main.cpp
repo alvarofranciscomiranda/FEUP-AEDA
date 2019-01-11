@@ -15,6 +15,7 @@ int main() {
     comp.openProductsFile();
     comp.openRecipesFile();
     comp.openSalesFile();
+    comp.addProductsQueue();
 
     ClearScreen();
 

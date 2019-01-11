@@ -31,8 +31,22 @@ struct EmployeeHash {
 	}
 };
 
+/**
+* @brief      Comparison criteria in the prioritie queue
+*/
+class Comparator {
+public:
+	struct CompStr{
+		bool operator() (const Product* p1, const Product* p2) {
+			return (p1->getStock() > p2->getStock());
+		}
+	};
+};
+
 typedef unordered_set<Employee, EmployeeHash, EmployeeEq> tabHU;
 typedef unordered_set<Employee, EmployeeHash, EmployeeEq >::iterator iteratorH;
+
+typedef priority_queue<Product*, vector<Product*>, Comparator::CompStr> pq_products;
 
 class Company {
 private:
@@ -44,15 +58,17 @@ private:
 	BST<Client> clients;
     tabHU formerEmployees;
 public:
+    pq_products productsStocks;
+
 
     /**
-    	 * @brief Uses hash so it can fire employees
-    	 */
+	 * @brief Uses hash so it can fire employees
+	 */
     void fireEmployee();
 
     /**
-    * @brief Uses hash so it can hire back former employees
-    */
+	* @brief Uses hash so it can hire back former employees
+	*/
     void hireBack();
 
 	/**
@@ -335,6 +351,27 @@ public:
 	*	@return returns former employees
 	*/
 	tabHU getFormer() const { return formerEmployees; };
+
+	/**
+	 * @brief adds all products about in priority order
+	 */
+	void addProductsQueue();
+
+	/**
+	 * @brief displays all Products with stock lower than maxStock
+	 */
+	void displayStockInferior();
+
+	/**
+	 * @brief adds quantity to the stock of the Product that has code
+	 */
+	void buyPackageByCode();
+
+	/**
+	 * @brief adds quantity to the stock of the Product that has the lower stack
+	 */
+	void buyPackageByMostNeed();
+
 };
 
 /**

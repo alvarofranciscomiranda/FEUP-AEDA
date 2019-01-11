@@ -170,11 +170,7 @@ void Medicine::printFileInfo(ostream & os) const{
 }
 
 
-<<<<<<< HEAD
-Other::Other(string name,float stock,string code, float price, string description){
-=======
 Other::Other(string name,float stock, string code, float price, string description){
->>>>>>> e7379116d484c477150fcaa48f37a7ec58945c02
 	this->name = name;
 	this->stock = stock;
 	this->code = code;
@@ -190,15 +186,9 @@ Other::Other(string product){
     this->name = product.substr(0,stop);
 
     //stock
-<<<<<<< HEAD
-   	product = product.substr(stop +1);
-   	stop = product.find_first_of('/');
-   	this->stock = stof(product.substr(0, stop));
-=======
 	product = product.substr(stop +1);
 	stop = product.find_first_of('/');
 	this->stock = stof(product.substr(0, stop));
->>>>>>> e7379116d484c477150fcaa48f37a7ec58945c02
 
     //code
     product = product.substr(stop+1);
@@ -229,6 +219,7 @@ float Other::getTotalPrice() const{
 
 void Other::printProductInfo() const{
     cout << "Name: " << name << endl;
+    cout << "Stock: " << stock << endl;
     cout << "Code: " << code << endl;
     cout << "Price: " << price << endl;
     cout << "Description: " << description << endl;

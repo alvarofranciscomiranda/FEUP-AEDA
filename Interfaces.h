@@ -97,6 +97,13 @@ void compareMenu(Company &company);
 void hireFireMenu(Company &company);
 
 /**
+ * @brief Sub-menu from Products menu that allows user to interact with stocks using priority queue.
+ * @param company
+ */
+void stocksMenu(Company &company);
+
+
+/**
  * @brief Sub-menu from Main menu that allows user to save all the changed files.
  * @param company
  */
