@@ -1,7 +1,7 @@
-Alberto Sousa;Aveiro;234567891;650;Farmácia Cardeira,Chefe;Farmácia Cardeira;1
-Andre Marafona;Setubal;912345678;765;Farmácia de Tercena,Vendedor;Farmácia de Tercena;1
-Joana Martins;Lisboa;123456789;790;Farmácia Cardeira,Vendedor;Farmácia Cardeira;1
-Yolanda Martins;Porto;567891234;567;Farmácia Nita;Vendedor;1
-Tiago Viana;Bragança;456789123;999;Farmácia Cardeira;Farmaceutico;1
-Joaquim Almeida;Faro;89123456;123;Farmácia de Tercena;Vendedor;0
-Maria Tim;Braga;789123456;376;Farmácia de Tercena;Chefe;0
+Alberto Sousa;Aveiro;234567891;650;FarmÃ¡cia Cardeira,Chefe;FarmÃ¡cia Cardeira;1
+Andre Marafona;Setubal;912345678;765;FarmÃ¡cia de Tercena,Vendedor;FarmÃ¡cia de Tercena;1
+Joana Martins;Lisboa;123456789;790;FarmÃ¡cia Cardeira,Vendedor;FarmÃ¡cia Cardeira;1
+Yolanda Martins;Porto;567891234;567;FarmÃ¡cia Nita;Vendedor;1
+Tiago Viana;BraganÃ§a;456789123;999;FarmÃ¡cia Cardeira;Farmaceutico;1
+Joaquim Almeida;Faro;89123456;123;FarmÃ¡cia de Tercena;Vendedor;0
+Maria Tim;Braga;789123456;376;FarmÃ¡cia de Tercena;Chefe;0

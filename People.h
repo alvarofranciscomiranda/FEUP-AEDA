@@ -82,78 +82,78 @@ protected:
 
 public:
     /**
-        	* Desonstructor of class Employee.
-        	*/
-        ~Employee(){};
-
-        /**
-        	* Constructor of class Employee.
-        	*/
-        Employee(){};
-
-        /**
-        	* Constructor of class Employee.
-        	*/
-        Employee(string name, string address, int taxNumber, float salary, string pharmacy, string post, bool actualEmployee);
-
-        /**
-        	* Constructor of class Employee.
-        	*/
-    	Employee(string employee);
-
-    	/**
-    	* @return salary
+    	* Desonstructor of class Employee.
     	*/
-        float getSalary() const;
+    ~Employee(){};
 
-        /**
-        * @return pharmacy
-        	*/
-        string getPharmacy() const;
+    /**
+    	* Constructor of class Employee.
+    	*/
+    Employee(){};
 
-        /**
-        * @return post
-        	*/
-        string getPost() const;
+    /**
+    	* Constructor of class Employee.
+    	*/
+    Employee(string name, string address, int taxNumber, float salary, string pharmacy, string post, bool actualEmployee);
 
-        /**
-        	* @return actual employee
-        	*/
-        bool getActualEmployee() const;
+    /**
+    	* Constructor of class Employee.
+    	*/
+	Employee(string employee);
 
-        /**
-        * @brief Changes salary.
-        * @param salary
-        */
-        void setSalary(float salary);
+	/**
+	* @return salary
+	*/
+    float getSalary() const;
 
-        /**
-        * @brief Changes pharmacy.
-        * @param pharmacy
-        */
-        void setPharmacy(string pharmacy);
+    /**
+    * @return pharmacy
+    	*/
+    string getPharmacy() const;
 
-        /**
-        * @brief Changes post.
-        * @param post
-        */
-        void setPost(string post);
+    /**
+    * @return post
+    	*/
+    string getPost() const;
 
-        /**
-        * @brief Changes actual employee.
-        * @param actualEmployee
-        */
-        void setActualEmployee(bool actualEmployee);
+    /**
+    	* @return actual employee
+    	*/
+    bool getActualEmployee() const;
 
-        /**
-        * Displays person
-        */
-        void displayPerson() const;
+    /**
+    * @brief Changes salary.
+    * @param salary
+    */
+    void setSalary(float salary);
 
-        /**
-        	 * displays Info about something
-        	 */
-    	void printSimplifiedInfo(ostream & os) const;
+    /**
+    * @brief Changes pharmacy.
+    * @param pharmacy
+    */
+    void setPharmacy(string pharmacy);
+
+    /**
+    * @brief Changes post.
+    * @param post
+    */
+    void setPost(string post);
+
+    /**
+    * @brief Changes actual employee.
+    * @param actualEmployee
+    */
+    void setActualEmployee(bool actualEmployee);
+
+    /**
+    * Displays person
+    */
+    void displayPerson() const;
+
+    /**
+    	 * displays Info about something
+    	 */
+	void printSimplifiedInfo(ostream & os) const;
 };
 
 class Client : public People{

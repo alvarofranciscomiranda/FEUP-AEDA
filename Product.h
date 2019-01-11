@@ -14,34 +14,91 @@ protected:
 
 public:
     /**
-     	* Desconstructor of class Product.
-     	 */
-     virtual ~Product();
+    	* Desconstructor of class Product.
+    	 */
+    virtual ~Product();
 
-     /**
-      * @return name
-     	*/
-     string getName() const;
+    /**
+     * @return name
+    	*/
+    string getName() const;
 
-     /**
-     * @return code
-     	*/
-     string getCode() const;
+    /**
+    * @return code
+    	*/
+    string getCode() const;
 
-     /**
-     * @return price
-   	*/
-     float getPrice() const;
+    /**
+    * @return price
+  	*/
+    float getPrice() const;
 
-     /**
-     * @return stock
-     	*/
-     float getStock() const;
+    /**
+    * @return stock
+    	*/
+    float getStock() const;
 
-     /**
-     * @return description
+    /**
+    * @return description
+   */
+    string getDescription() const;
+
+    /**
+     * @brief Changes name.
+     * @param name
+     */
+    void setName(string name);
+
+    /**
+   * @brief Changes code.
+   * @param code
+   */
+    void setCode(string code);
+
+    /**
+     * @brief Changes price.
+     * @param price
+     */
+    void setPrice(float price);
+
+    /**
+    * @brief Changes stock.
+    * @param stock
     */
-     string getDescription() const;
+    void setStock(float stock);
+
+    /**
+     * @brief Changes description.
+     * @param address
+     */
+    void setDescription(string address);
+
+    /**
+    * @return product type
+    */
+	virtual string getTypeProduct() const = 0;
+
+	/**
+	 * @return total price
+	 */
+	virtual float getTotalPrice() const = 0;
+
+	/**
+	 * displays product info
+	*/
+	virtual void printProductInfo() const = 0;
+
+	/**
+	* displays Info about something
+	*/
+	virtual void printSimplifiedInfo(ostream & os) const = 0;
+
+	/**
+	 * displays file info
+	 */
+	virtual void printFileInfo(ostream & os) const = 0;
+
+    bool operator ==(const Product & c) const;
 
      /**
       * @brief Changes name.
@@ -193,44 +250,44 @@ protected:
 
 public:
 	/**
-		* Desonstructor of class Employee.
-		*/
-	    ~Other();
+	* Desonstructor of class Employee.
+	*/
+    ~Other();
 
-	    /**
-	    * Constructor of class Employee.
-	    	*/
-	    Other(string product);
+    /**
+    * Constructor of class Employee.
+    	*/
+    Other(string product);
 
-	    /**
-	    * Constructor of class Employee.
-	    	*/
-	    Other(string name, float stock, string code, float price, string description);
+    /**
+    * Constructor of class Employee.
+    	*/
+    Other(string name, float stock, string code, float price, string description);
 
-	    /**
-	    * @return product type
-	   	*/
-	    string getTypeProduct() const;
+    /**
+    * @return product type
+   	*/
+    string getTypeProduct() const;
 
-	    /**
-	    * @return total price
-	    */
-	    float getTotalPrice() const;
+    /**
+    * @return total price
+    */
+    float getTotalPrice() const;
 
-	    /**
-	    * displays product info
-	    	*/
-	    void printProductInfo() const;
+    /**
+    * displays product info
+    	*/
+    void printProductInfo() const;
 
-	    /**
-	    	* displays Info about something
-	    	*/
-		void printSimplifiedInfo(ostream & os) const;
+    /**
+    	* displays Info about something
+    	*/
+	void printSimplifiedInfo(ostream & os) const;
 
-		/**
-		* displays file info
-		*/
-		void printFileInfo(ostream & os) const;
+	/**
+	* displays file info
+	*/
+	void printFileInfo(ostream & os) const;
 };
 
 
