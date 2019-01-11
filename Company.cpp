@@ -135,23 +135,28 @@ void Company::buyPackageByCode() {
 	float oldStock;
 	vector<Product*> temp;
 
-	while(!(productsStocks.empty())){
+	for(unsigned int i = 0; i < this->products.size(); i++){
 
-		Product* productTemp = productsStocks.top();
-
-		if(productTemp->getCode() == code){
-			oldStock = productTemp->getStock();
-			productTemp->setStock(oldStock + quantity);
-
+		if(this->products.at(i)->getCode() == code){
+			oldStock = products.at(i)->getStock();
+			products.at(i)->setStock(oldStock + quantity);
 		}
-		productsStocks.pop();
-		temp.push_back(productTemp);
 	}
+	addProductsQueue();
+}
 
-	vector<Product*>::const_iterator it = temp.begin();
-	for(; it != products.end(); it++){
-		productsStocks.push((*it));
+void Company::buyPackageByCodeGiven(string code, float quantity){
+	float oldStock;
+	vector<Product*> temp;
+
+	for(unsigned int i = 0; i < this->products.size(); i++){
+
+		if(this->products.at(i)->getCode() == code){
+			oldStock = products.at(i)->getStock();
+			products.at(i)->setStock(oldStock + quantity);
+		}
 	}
+	addProductsQueue();
 }
 
 void Company::buyPackageByMostNeed(){
@@ -452,11 +457,20 @@ void Company::displayProducts() {
 
     ClearScreen();
 
-    for (unsigned int i = 0; i < products.size(); i++) {
+	pq_products temp = productsStocks;
 
-        products.at(i)->printProductInfo();
+	cout << endl;
+	while (!(temp.empty())){
+		Product* productTemp = temp.top();
 
-    }
+		cout << "Code: " << productTemp->getCode() << endl;
+		cout << "Name: " << productTemp->getName() << endl;
+		cout << "Stock:" << productTemp->getStock() << endl;
+		cout << "Price:" << productTemp->getPrice() << endl;
+		cout << "Description:" << productTemp->getDescription() << endl;
+
+		temp.pop();
+	}
     returnMainMenu();
 }
 
@@ -921,6 +935,7 @@ void Company::addProducts() {
             n2 = true;
 
         products.push_back(new Medicine(name, stock, code, price, description, n1, n2, discount));
+        addProductsQueue();
     }
 
     cout << string(2, '\n') << "Product added successfully!" << string(2, '\n');
@@ -1134,6 +1149,7 @@ void Company::addRecipe(){
 
 		if(type == "other"){
 			sold2.push_back(new Other(name, stock, code, price, description));
+			buyPackageByCodeGiven(code, -stock);
 		}
 
 		else if(type == "medicine"){
@@ -1170,6 +1186,7 @@ void Company::addRecipe(){
 			    n2 = true;
 
 			sold2.push_back(new Medicine(name, stock, code, price, description, n1, n2, discount));
+			buyPackageByCodeGiven(code, -stock);
 		}
 		counter++;
 	}
@@ -1248,6 +1265,7 @@ void Company::addSale(){
 		}
 		if(type == "other"){
 			product2.push_back(new Other(name, stock, code, price, description));
+			buyPackageByCodeGiven(code, -stock);
 		}
 
 		else if(type == "medicine"){
@@ -1280,6 +1298,7 @@ void Company::addSale(){
 			    n2 = true;
 
 			product2.push_back(new Medicine(name, stock, code, price, description, n1, n2, discount));
+			buyPackageByCodeGiven(code, -stock);
 		}
 	}
 

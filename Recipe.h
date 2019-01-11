@@ -16,28 +16,93 @@ protected:
 
 
 public:
-    Recipe(int number , string user, string medic);
-    Recipe(string recipe);
-
-    int getNumber() const;
-    string getUser() const;
-    string getMedic() const;
-    vector <Product*> getProducts() const;
-    vector <Product*>getSold() const;
-
     static int id;
-    int recipe_number;
-    void setNumber(int number);
-    void setUser(string user);
-    void setMedic(string medic);
-    void setProducts(vector <Product*> products);
-    void setSold(vector <Product *> sold);
+        int recipe_number;
 
-    void addProduct(Product * product);
-    void addSold(Product * sold);
+        /**
+        * Constructor of class Employee.
+        	*/
+        Recipe(int number , string user, string medic);
 
-    void printProductInfo() const;
-	void printSimplifiedInfo(ostream & os) const;
+        /**
+        * Constructor of class Employee.
+        	*/
+        Recipe(string recipe);
+
+        /**
+        * @return number
+        */
+        int getNumber() const;
+
+        /**
+        * @return user
+        	*/
+        string getUser() const;
+
+        /**
+        * @return medic
+        */
+        string getMedic() const;
+
+        /**
+        * @return products
+       	*/
+        vector <Product*> getProducts() const;
+
+        /**
+        * @return sold
+        	*/
+        vector <Product*>getSold() const;
+
+        /**
+        	 * @brief Changes number.
+        	 * @param number
+        	 */
+        void setNumber(int number);
+
+        /**
+        	 * @brief Changes user.
+        	 * @param user
+        	 */
+        void setUser(string user);
+
+        /**
+        	 * @brief Changes medic.
+        	 * @param medic
+        	 */
+        void setMedic(string medic);
+
+        /**
+        	 * @brief Changes products.
+        	 * @param products
+        	 */
+        void setProducts(vector <Product*> products);
+
+        /**
+        	 * @brief Changes sold.
+        	 * @param sold
+        	 */
+        void setSold(vector <Product *> sold);
+
+        /**
+        	* adds products
+        	*/
+        void addProduct(Product * product);
+
+        /**
+        	* adds sold recipes
+        	*/
+        void addSold(Product * sold);
+
+        /**
+        	* displays product info
+        	*/
+        void printProductInfo() const;
+
+        /**
+        	* displays Info about something
+        	*/
+    	void printSimplifiedInfo(ostream & os) const;
 
 
 };

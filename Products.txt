@@ -1,4 +1,4 @@
-medicine/Voltaren/12/1/2.99/Anti-inflamation/0/0/0
+medicine/Voltaren/3/1/2.99/Anti-inflamation/0/0/0
 medicine/Brufen/11/114/19.99/Fever cure/1/1/20
 other/Calcitrin/7/12/33.3/Calcium fortalizer
 other/Preservative/5/65/29.99/Headache Prevention

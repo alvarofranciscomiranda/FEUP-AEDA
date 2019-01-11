@@ -1,9 +1,12 @@
-Alberto Sousa;Aveiro;234567891;650;Farmácia Cardeira,Chefe;Farmácia Cardeira;Chefe;0
-Andre Marafona;Setubal;912345678;765;Farmácia de Tercena,Vendedor;Farmácia de Tercena;Vendedor;1
-Joana Martins;Lisboa;123456789;790;Farmácia Cardeira,Vendedor;Farmácia Cardeira;Vendedor;1
-Joaquim Almeida;Viana do Castelo;345678912;1530; Farmácia Cardeira;Engenheiro;0
-Joaquim Almeida;Vila Real;678912345;870;Farmácia Nita;Vendedor;Farmácia Nita,Vendedor;1
-Joaquim Almeida;Faro;89123456;123;Farmácia de Tercena;Vendedor;0
-Maria Tim;Braga;789123456;376;Farmácia de Tercena;Chefe;1
-Tiago Viana;Bragança;456789123;999;Farmácia Cardeira;Farmaceutico;0
-Yolanda Martins;Porto;567891234;567;Farmácia Nita;Vendedor;1
+4;Joao Martins;Aveiro;Rua das Pimentas;789456123;
+8;Andre Morais;Braga;Aldeamento da Praia;57381928;
+13;Bete;Braga;ola;1234567;
+1;Lourenco Guedes;Braga;Avenida do Brasil;123456789;
+5;Vitor Lourenco;Faro;Travessa Dr. Barros;564918237;
+11;Ana;Lisboa;Algures;123456;
+7;Rita Silva;Lisboa;Loteamento Vieira;252345267;
+10;Ana;Porto;Portalegre;12345;
+3;Delfim Barros;Viana do Castelo;Lotemento Azul;321654987;
+9;Sofia Cardoso;Vila Real;Rua do Maio;647381926;
+6;Jose Pimenta;Viseu;Rua Dr Eduardo Silva;325174983;
+2;Otilia Trancoso;Viseu;Rua das Cavas;987654321;

@@ -368,6 +368,11 @@ public:
 	void buyPackageByCode();
 
 	/**
+	 * @brief adds quantity to the stock of the Product that has code given
+	 */
+	void buyPackageByCodeGiven(string code, float quantity);
+
+	/**
 	 * @brief adds quantity to the stock of the Product that has the lower stack
 	 */
 	void buyPackageByMostNeed();
